@@ -117,7 +117,7 @@
 			buildRules = (
 			);
 			dependencies = (
-				11B3774D2C0881EF002DC0EE /* PBXTargetDependency */,
+				115D10BB2C0883EB0096AA89 /* PBXTargetDependency */,
 			);
 			name = iosApp;
 			productName = iosApp;
@@ -205,9 +205,9 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		11B3774D2C0881EF002DC0EE /* PBXTargetDependency */ = {
+		115D10BB2C0883EB0096AA89 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			productRef = 11B3774C2C0881EF002DC0EE /* KTViewModelBuilder */;
+			productRef = 115D10BA2C0883EB0096AA89 /* KTViewModelBuilder */;
 		};
 /* End PBXTargetDependency section */
 
@@ -412,7 +412,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		11B3774C2C0881EF002DC0EE /* KTViewModelBuilder */ = {
+		115D10BA2C0883EB0096AA89 /* KTViewModelBuilder */ = {
 			isa = XCSwiftPackageProductDependency;
 			productName = KTViewModelBuilder;
 		};
