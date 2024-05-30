@@ -8,9 +8,10 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.get
 
 @Single
-internal class AccountService(
-    val logger: Logger = log("AccountService"),
+public class AccountService(
+    public val logger: Logger = log("AccountService"),
 ) : IAccountService, KoinComponent {
+    @Throws(Exception::class)
     override suspend fun getAccountInfo(): AccountData {
         logger.d("Load")
         return AccountData(

@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557BA273AAA24004C7B11 /* Assets.xcassets */; };
 		058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */; };
+		115D10BD2C08A3E70096AA89 /* MyFirstScreenWithSwiftDataStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115D10BC2C08A3E70096AA89 /* MyFirstScreenWithSwiftDataStore.swift */; };
+		115D10BF2C08A4150096AA89 /* MyFirstScreenWithMacro.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115D10BE2C08A4150096AA89 /* MyFirstScreenWithMacro.swift */; };
 		1163F4FC2BE90DC900F423CE /* AppContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1163F4FB2BE90DC900F423CE /* AppContext.swift */; };
 		119AF2662C0743AB00EFF623 /* SharedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119AF2652C0743AB00EFF623 /* SharedViewModel.swift */; };
 		11C595752BFC93E30033FE0F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C595742BFC93E30033FE0F /* ContentView.swift */; };
@@ -32,6 +34,8 @@
 /* Begin PBXFileReference section */
 		058557BA273AAA24004C7B11 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
+		115D10BC2C08A3E70096AA89 /* MyFirstScreenWithSwiftDataStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFirstScreenWithSwiftDataStore.swift; sourceTree = "<group>"; };
+		115D10BE2C08A4150096AA89 /* MyFirstScreenWithMacro.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFirstScreenWithMacro.swift; sourceTree = "<group>"; };
 		1163F4FB2BE90DC900F423CE /* AppContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppContext.swift; sourceTree = "<group>"; };
 		119AF2652C0743AB00EFF623 /* SharedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedViewModel.swift; sourceTree = "<group>"; };
 		11B3774B2C0881EA002DC0EE /* KTViewModelBuilder */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = KTViewModelBuilder; path = ../KTViewModelBuilder; sourceTree = "<group>"; };
@@ -86,6 +90,8 @@
 				7555FF8C242A565B00829871 /* Info.plist */,
 				058557BA273AAA24004C7B11 /* Assets.xcassets */,
 				119AF2652C0743AB00EFF623 /* SharedViewModel.swift */,
+				115D10BC2C08A3E70096AA89 /* MyFirstScreenWithSwiftDataStore.swift */,
+				115D10BE2C08A4150096AA89 /* MyFirstScreenWithMacro.swift */,
 				7555FF82242A565900829871 /* MyFirstScreen.swift */,
 				2152FB032600AC8F00CF470E /* iOSApp.swift */,
 				1163F4FB2BE90DC900F423CE /* AppContext.swift */,
@@ -195,9 +201,11 @@
 			buildActionMask = 2147483647;
 			files = (
 				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
+				115D10BF2C08A4150096AA89 /* MyFirstScreenWithMacro.swift in Sources */,
 				11C595752BFC93E30033FE0F /* ContentView.swift in Sources */,
 				1163F4FC2BE90DC900F423CE /* AppContext.swift in Sources */,
 				7555FF83242A565900829871 /* MyFirstScreen.swift in Sources */,
+				115D10BD2C08A3E70096AA89 /* MyFirstScreenWithSwiftDataStore.swift in Sources */,
 				119AF2662C0743AB00EFF623 /* SharedViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

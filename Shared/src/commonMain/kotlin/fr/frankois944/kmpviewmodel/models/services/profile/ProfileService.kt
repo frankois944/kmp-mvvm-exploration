@@ -7,9 +7,10 @@ import org.koin.core.annotation.Single
 import org.koin.core.component.KoinComponent
 
 @Single
-internal class ProfileService(
-    val logger: Logger = log("ProfileService"),
+public class ProfileService(
+    public val logger: Logger = log("ProfileService"),
 ) : IProfileService, KoinComponent {
+    @Throws(Exception::class)
     override suspend fun getProfile(): ProfileData {
         logger.d("Load")
         return ProfileData(username = "Franck")

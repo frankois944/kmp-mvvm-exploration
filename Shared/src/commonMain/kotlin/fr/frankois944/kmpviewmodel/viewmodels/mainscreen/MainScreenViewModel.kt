@@ -47,7 +47,7 @@ public class MainScreenViewModel(public val param1: String? = null) : ViewModel(
             .merge()
             .stateIn(viewModelScope, SharingStarted.Eagerly, MainScreenUIState.Idle)
 
-    private fun loadContent(): Flow<MainScreenUIState> =
+    public fun loadContent(): Flow<MainScreenUIState> =
         flow {
             try {
                 emit(MainScreenUIState.Loading)

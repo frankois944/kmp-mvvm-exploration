@@ -11,27 +11,6 @@ import Shared
 import KTViewModelBuilder
 import Combine
 
-@sharedViewModel(ofType: MainScreenViewModel.self,
-                 publishing:
-                    (\.mainScreenUIState, MainScreenUIState.self),
-                 (\.userId, String?.self)
-)
-class MyMainScreenViewModel: ObservableObject {}
-
-struct MyFirstScreenWithMacro: View {
-    
-    @StateObject var viewModel = MyMainScreenViewModel(.init(param1: nil))
-    
-    var body: some View {
-        VStack {
-            MyFirstView(mainScreenUIState: viewModel.mainScreenUIState,
-                        userId: viewModel.userId,
-                        updateUserId: viewModel.instance.updateUserId,
-                        retry: viewModel.instance.reload)
-        }
-    }
-}
-
 struct MyFirstScreenWithoutMacro: View {
     @StateObject var viewModel: SharedViewModel<MainScreenViewModel> = .init(.init(param1: nil))
     @State var mainScreenUIState: MainScreenUIState = .Loading()
@@ -80,7 +59,11 @@ struct MyFirstView: View {
                 Button("RANDOM", action: updateUserId)
                 Text("Vos transactions")
                 List(success.account.transaction, id: \.self) { transaction in
-                    NavigationLink(destination: MyFirstScreenWithoutMacro(viewModel: .init(.init(param1: "4242")))) {
+                    /*NavigationLink(destination: MyFirstScreenWithoutMacro(viewModel: .init(.init(param1: "4242")))) {
+                        Text(transaction)
+                            .fontWeight(.semibold)
+                    }*/
+                    NavigationLink(destination: MyFirstScreenWithSwiftDataStore(viewModel: .init(param1: "4242"))) {
                         Text(transaction)
                             .fontWeight(.semibold)
                     }

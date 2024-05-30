@@ -35,7 +35,7 @@ struct iOSApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationView {
-                MyFirstScreenWithMacro()
+                MyFirstScreenWithSwiftDataStore()
             }
             .onReceive(NotificationCenter.default.publisher(for: notification),
                        perform: {
