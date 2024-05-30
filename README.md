@@ -1,2 +1,2 @@
 # kmp-mvvm-exploration
-Trying to reproduce the SwiftUI Mvvm with KMP ViewModel
+Trying to reproduce the SwiftUI Mvvm with KMP ViewModel and other small stuff...
