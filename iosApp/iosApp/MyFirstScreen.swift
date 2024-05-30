@@ -12,7 +12,7 @@ import KTViewModelBuilder
 import Combine
 
 @sharedViewModel(ofType: MainScreenViewModel.self,
-                 publishing: 
+                 publishing:
                     (\.mainScreenUIState, MainScreenUIState.self),
                  (\.userId, String?.self)
 )
@@ -38,12 +38,10 @@ struct MyFirstScreenWithoutMacro: View {
     @State var userId: String?
     
     var body: some View {
-        VStack {
-            MyFirstView(mainScreenUIState: mainScreenUIState,
-                        userId: userId,
-                        updateUserId: viewModel.instance.updateUserId,
-                        retry: viewModel.instance.reload)
-        }
+        MyFirstView(mainScreenUIState: mainScreenUIState,
+                    userId: userId,
+                    updateUserId: viewModel.instance.updateUserId,
+                    retry: viewModel.instance.reload)
         .collect(flow: viewModel.instance.mainScreenUIState, into: $mainScreenUIState) {
             print("COLLECTING mainScreenUIState : \(String(describing: $0))")
             return $0

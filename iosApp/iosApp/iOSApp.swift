@@ -7,7 +7,6 @@
 //
 
 import SwiftUI
-import Shared
 @_exported import Shared
 
 extension Error {
