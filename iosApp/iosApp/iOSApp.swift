@@ -26,9 +26,9 @@ struct iOSApp: App {
     init() {
         
 #if DEBUG
-        KoinInitKt.startApp(appConfig: .init(isDebug: true, isProduction: false))
+        AppInitKt.startApp(appConfig: .init(isDebug: true, isProduction: false))
 #else
-        KoinInitKt.startApp(appConfig: .init(isDebug: false, isProduction: false))
+        AppInitKt.startApp(appConfig: .init(isDebug: false, isProduction: false))
 #endif
     }
     

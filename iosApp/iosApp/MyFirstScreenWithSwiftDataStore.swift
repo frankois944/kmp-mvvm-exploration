@@ -28,7 +28,7 @@ class FirstScreenDataStore: ObservableObject {
             .sink { [weak self] in
                 self?.userId = $0
         })
-        self.reload()
+        self.loadData()
     }
     
     func updateUserId() {
@@ -36,7 +36,7 @@ class FirstScreenDataStore: ObservableObject {
         Shared.AppContext.companion.instance.userId = "\(Int.random(in: 1..<Int.max))"
     }
     
-    func reload() {
+    func loadData() {
         Task { @MainActor in
             do {
                 logger.d(messageString: "START LOADING SCREEN")
@@ -67,7 +67,7 @@ struct MyFirstScreenWithSwiftDataStore: View {
             MyFirstView(mainScreenUIState: viewModel.mainScreenUIState,
                         userId: viewModel.userId,
                         updateUserId: viewModel.updateUserId,
-                        retry: viewModel.reload)
+                        retry: viewModel.loadData)
         }
     }
 }

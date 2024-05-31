@@ -40,7 +40,7 @@ public class MainScreenViewModel(public val param1: String? = null) : ViewModel(
     }
 
     // <editor-fold desc="MainScreenUIState">
-
+    
     private val _mainScreenUIState = MutableSharedFlow<MainScreenUIState>()
     public val mainScreenUIState: StateFlow<MainScreenUIState> =
         listOf(_mainScreenUIState, loadContent())

@@ -1,29 +1,25 @@
 [versions]
 kermit = "2.0.3"
 minSdk = "24"
-okio = "3.9.0"
+okio = "3.9.0" # https://square.github.io/okio/changelog/
 targetSdk = "34"
 compileSdk = "34"
 googleplay = "4.4.1"
-agp = "8.2.2"
+agp = "8.3.2"
 kotlin = "2.0.0"
-ksp = "2.0.0-1.0.21" # https://github.com/google/ksp /releases
+ksp = "2.0.0-1.0.21" # https://github.com/google/ksp/releases
 kotlin-coroutines = "1.8.1"
 koin = "3.6.0-alpha3"
 koin-annotation = "1.3.1"
 android-compose-bom = "2024.05.00"
 android-activity-compose = "1.9.0"
-androidx-lifecycle = "2.8.0" # viewmodel in commonMain
-## if nav version < 2.8.0 set in the entry point of android app
-## CompositionLocalProvider(
-##   androidx.lifecycle.compose.LocalLifecycleOwner provides androidx.compose.ui.platform.LocalLifecycleOwner.current,
-## ) {
-android-navigation-compose = "2.8.0-beta01"
-skie = "0.8.0"
+androidx-lifecycle = "2.8.1" # viewmodel in commonMain
+android-navigation-compose = "2.8.0-beta02"
+skie = "0.8.1" # https://github.com/touchlab/SKIE/releases
 kotlin-serialization = "1.6.3"
 kotlin-dateTime = "0.6.0"
 compose-junit-test = "1.6.7"
-kover = "0.8.0"
+kover = "0.8.0" # https://github.com/Kotlin/kotlinx-kover/releases
 datastorePreferencesCore = "1.1.1"
 collection = "1.4.0"
 
