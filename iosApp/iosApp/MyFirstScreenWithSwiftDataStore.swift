@@ -9,7 +9,7 @@
 import SwiftUI
 import Combine
 
-class FirstScreenDataStore: ObservableObject {
+class FirstScreenViewModel: ObservableObject {
     
     private let param1: String?
     private let logger = log(tag: "FirstScreenDataStore")
@@ -23,7 +23,7 @@ class FirstScreenDataStore: ObservableObject {
     init(param1: String?) {
         logger.d(messageString: "INIT")
         self.param1 = param1
-        self.disposebag.insert(Shared.AppContext.companion.instance.userIdFlow.toPublisher()
+        self.disposebag.insert(AppContext.shared.$userId
             .receive(on: DispatchQueue.main)
             .sink { [weak self] in
                 self?.userId = $0
@@ -33,7 +33,7 @@ class FirstScreenDataStore: ObservableObject {
     
     func updateUserId() {
         logger.d(messageString: "updateUserId")
-        Shared.AppContext.companion.instance.userId = "\(Int.random(in: 1..<Int.max))"
+        AppContext.shared.userId = "\(Int.random(in: 1..<Int.max))"
     }
     
     func loadData() {
@@ -60,7 +60,7 @@ class FirstScreenDataStore: ObservableObject {
 
 
 struct MyFirstScreenWithSwiftDataStore: View {
-    @StateObject var viewModel = FirstScreenDataStore(param1: nil)
+    @StateObject var viewModel = FirstScreenViewModel(param1: nil)
     
     var body: some View {
         VStack {

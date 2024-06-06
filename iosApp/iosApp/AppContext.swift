@@ -14,18 +14,32 @@ class AppContext : ObservableObject {
     
     // MARK: Properties
     
+    static let shared = AppContext()
+    
     // MARK: Private
     
-    private var common = Shared.AppContext.companion.instance
+    private let common = Shared.AppContext.companion.instance
     private let logger = log(tag: "AppContext")
     private var disposebag = Set<AnyCancellable>()
     
     // MARK: Public
+    @Published var username: String? {
+        didSet {
+            common.username = username
+        }
+    }
     
-    @Published private(set) var username: String?
-    @Published private(set) var sessionToken: String?
-    @Published private(set) var userId: String?
-    @Published private(set) var isDebug: Bool = false
+    @Published var sessionToken: String? {
+        didSet {
+            common.sessionToken = sessionToken
+        }
+    }
+    @Published var userId: String?  {
+        didSet {
+            common.userId = userId
+        }
+    }
+    @Published private var isDebug: Bool = false
     @Published private(set) var isProduction: Bool = false
     
     // MARK: - Methods

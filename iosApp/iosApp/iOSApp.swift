@@ -30,6 +30,9 @@ struct iOSApp: App {
 #else
         AppInitKt.startApp(appConfig: .init(isDebug: false, isProduction: false))
 #endif
+        
+        
+        
     }
     
     var body: some Scene {
@@ -37,11 +40,11 @@ struct iOSApp: App {
             NavigationView {
                 MyFirstScreenWithSwiftDataStore()
             }
+            .environmentObject(AppContext.shared)
             .onReceive(NotificationCenter.default.publisher(for: notification),
                        perform: {
                 log(tag: "iOSApp").i(messageString: "Notification received : \($0)")
             })
-            .environmentObject(AppContext())
         }
     }
 }
