@@ -2,7 +2,6 @@ import SwiftCompilerPlugin
 import SwiftSyntax
 import SwiftSyntaxBuilder
 import SwiftSyntaxMacros
-import SwiftUI
 
 public struct SharedViewModelMacro: MemberMacro {
     
@@ -16,9 +15,9 @@ public struct SharedViewModelMacro: MemberMacro {
         }
         
         guard functionDecl.inheritanceClause?.inheritedTypes.first(where: { item in
-            item.as(InheritedTypeSyntax.self)?.type.as(IdentifierTypeSyntax.self)?.name.as(TokenSyntax.self)?.text != nil
+            item.type.as(IdentifierTypeSyntax.self)?.name.text == "ObservableObject"
         }) != nil else {
-            fatalError("The Macro SharedViewModel can't only be used on a class with the protocol ObservableObject")
+            fatalError("The Macro SharedViewModel can't only be used on a class using the protocol ObservableObject")
         }
         
         guard let attributes = functionDecl.attributes.first?.as(AttributeSyntax.self),
@@ -29,13 +28,12 @@ public struct SharedViewModelMacro: MemberMacro {
         guard let viewModelType = arguments.first(where: { expr in
             expr.label?.text == "ofType"
         }) else {
-            fatalError("The Macro SharedViewModel don't have type")
+            fatalError("The Macro SharedViewModel don't have type (ofType)")
         }
         
         guard let className = viewModelType.expression.as(MemberAccessExprSyntax.self)?
             .base?.as(DeclReferenceExprSyntax.self)?
-            .baseName.as(TokenSyntax.self)?
-            .text else {
+            .baseName.text else {
             fatalError("The Macro SharedViewModel don't have type")
         }
         
@@ -45,11 +43,20 @@ public struct SharedViewModelMacro: MemberMacro {
             if index == 0 {
                 continue
             }
-            let name = value.expression.as(TupleExprSyntax.self)?.elements.first?.as(LabeledExprSyntax.self)?.expression.as(KeyPathExprSyntax.self)?.components.first?.as(KeyPathComponentSyntax.self)?.component.as(KeyPathPropertyComponentSyntax.self)?.declName.baseName.text
-            var type = value.expression.as(TupleExprSyntax.self)?.elements.dropFirst().first?.as(LabeledExprSyntax.self)?.expression.as(MemberAccessExprSyntax.self)?.base?.as(DeclReferenceExprSyntax.self)?.baseName.text
+            let name = value.expression.as(TupleExprSyntax.self)?.elements.first?.expression
+                .as(KeyPathExprSyntax.self)?.components.first?.component
+                .as(KeyPathPropertyComponentSyntax.self)?.declName.baseName.text
+            var type = value.expression
+                .as(TupleExprSyntax.self)?.elements.dropFirst().first?.expression
+                .as(MemberAccessExprSyntax.self)?.base?
+                .as(DeclReferenceExprSyntax.self)?.baseName.text
             var isOptional = false
             if type == nil {
-                type = value.expression.as(TupleExprSyntax.self)?.elements.dropFirst().first?.as(LabeledExprSyntax.self)?.expression.as(MemberAccessExprSyntax.self)?.base?.as(OptionalChainingExprSyntax.self)?.expression.as(DeclReferenceExprSyntax.self)?.baseName.text
+                type = value.expression
+                    .as(TupleExprSyntax.self)?.elements.dropFirst().first?.expression
+                    .as(MemberAccessExprSyntax.self)?.base?
+                    .as(OptionalChainingExprSyntax.self)?.expression
+                    .as(DeclReferenceExprSyntax.self)?.baseName.text
                 isOptional = true
             }
             guard let name = name, let type = type else {
@@ -68,39 +75,46 @@ public struct SharedViewModelMacro: MemberMacro {
         }
         
         let initFunc = try InitializerDeclSyntax(SyntaxNodeString(stringLiteral: "init(_ viewModel: \(className))")) {
-            StmtSyntax(stringLiteral: """
-
+            ExprSyntax(stringLiteral: """
             self.viewModelStore.put(key: "\(className)Key", viewModel: viewModel)
-            
             """)
-            
             for item in bindingList {
-                StmtSyntax(stringLiteral: """
-                
+                ExprSyntax(stringLiteral: """
                 self.\(item.binding.name) = viewModel.\(item.binding.name).value
+                """)
+                ExprSyntax(stringLiteral: """
                 print("INIT \(item.binding.name) : " + String(describing: viewModel.\(item.binding.name).value))
+                """)
+                ExprSyntax(stringLiteral: """
                 jobs.insert(Task { @MainActor [weak self] in
                     for await value in viewModel.\(item.binding.name) {
                         if value != self?.\(item.binding.name) {
+                            #if DEBUG
                             print("SINK \(item.binding.name) : " + String(describing: value))
+                            #endif
                             self?.\(item.binding.name) = value
                         }
                     }
                 })
-                """
-                )
+                """)
             }
         }
         
-        let instanceAttr = DeclSyntax(stringLiteral: "var instance: \(className) { self.viewModelStore.get(key: \"\(className)Key\") as! \(className) }")
+        let instanceAttr = DeclSyntax(stringLiteral: """
+            var instance: \(className) { self.viewModelStore.get(key: \"\(className)Key\") as! \(className) }
+            """)
         let deinitFunc = DeinitializerDeclSyntax() {
-            StmtSyntax(stringLiteral:"""
-    jobs.forEach {
-        $0.cancel()
-    }
-    jobs.removeAll()
-    self.viewModelStore.clear()
-""")
+            ExprSyntax(stringLiteral:"""
+            jobs.forEach {
+                $0.cancel()
+            }
+            """)
+            ExprSyntax(stringLiteral: """
+            jobs.removeAll()
+            """)
+            ExprSyntax(stringLiteral: """
+            self.viewModelStore.clear()
+            """)
         }
         
         var result = [

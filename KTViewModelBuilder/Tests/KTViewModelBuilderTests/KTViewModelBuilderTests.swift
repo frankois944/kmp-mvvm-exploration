@@ -35,34 +35,39 @@ final class KTViewModelBuilderTests: XCTestCase {
                 @Published private (set) var userId: String?
 
                 init(_ viewModel: MainScreenViewModel) {
-                self.viewModelStore.put(key: "MainScreenViewModelKey", viewModel: viewModel)
-                self.mainScreenUIState = viewModel.mainScreenUIState.value
-                print("INIT mainScreenUIState : " + String(describing: viewModel.mainScreenUIState.value))
-                jobs.insert(Task { @MainActor [weak self] in
-                    for await value in viewModel.mainScreenUIState {
-                        if value != self?.mainScreenUIState {
-                            print("SINK mainScreenUIState : " + String(describing: value))
-                            self?.mainScreenUIState = value
+                    self.viewModelStore.put(key: "MainScreenViewModelKey", viewModel: viewModel)
+                    self.mainScreenUIState = viewModel.mainScreenUIState.value
+                    print("INIT mainScreenUIState : " + String(describing: viewModel.mainScreenUIState.value))
+                    jobs.insert(Task { @MainActor [weak self] in
+                        for await value in viewModel.mainScreenUIState {
+                            if value != self?.mainScreenUIState {
+                                #if DEBUG
+                                print("SINK mainScreenUIState : " + String(describing: value))
+                                #endif
+                                self?.mainScreenUIState = value
+                            }
                         }
-                    }
-                })
-                self.userId = viewModel.userId.value
-                print("INIT userId : " + String(describing: viewModel.userId.value))
-                jobs.insert(Task { @MainActor [weak self] in
-                    for await value in viewModel.userId {
-                        if value != self?.userId {
-                            print("SINK userId : " + String(describing: value))
-                            self?.userId = value
+                        })
+                    self.userId = viewModel.userId.value
+                    print("INIT userId : " + String(describing: viewModel.userId.value))
+                    jobs.insert(Task { @MainActor [weak self] in
+                        for await value in viewModel.userId {
+                            if value != self?.userId {
+                                #if DEBUG
+                                print("SINK userId : " + String(describing: value))
+                                #endif
+                                self?.userId = value
+                            }
                         }
-                    }
-                })
+                        })
                 }
 
                 var instance: MainScreenViewModel {
                     self.viewModelStore.get(key: "MainScreenViewModelKey") as! MainScreenViewModel
                 }
 
-                deinit {    jobs.forEach {
+                deinit {
+                    jobs.forEach {
                         $0.cancel()
                     }
                     jobs.removeAll()
