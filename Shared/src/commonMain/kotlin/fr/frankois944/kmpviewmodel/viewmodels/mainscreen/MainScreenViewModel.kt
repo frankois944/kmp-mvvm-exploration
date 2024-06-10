@@ -40,14 +40,14 @@ public class MainScreenViewModel(public val param1: String? = null) : ViewModel(
     }
 
     // <editor-fold desc="MainScreenUIState">
-    
+
     private val _mainScreenUIState = MutableSharedFlow<MainScreenUIState>()
     public val mainScreenUIState: StateFlow<MainScreenUIState> =
         listOf(_mainScreenUIState, loadContent())
             .merge()
-            .stateIn(viewModelScope, SharingStarted.Eagerly, MainScreenUIState.Idle)
+            .stateIn(viewModelScope, SharingStarted.Eagerly, MainScreenUIState.Loading)
 
-    public fun loadContent(): Flow<MainScreenUIState> =
+    private fun loadContent(): Flow<MainScreenUIState> =
         flow {
             try {
                 emit(MainScreenUIState.Loading)
@@ -73,7 +73,7 @@ public class MainScreenViewModel(public val param1: String? = null) : ViewModel(
 
 // </editor-fold>
 
-// <editor-fold desc="UserId">
+    // <editor-fold desc="UserId">
     public val userId: StateFlow<String?> =
         appContext.userIdFlow
             .stateIn(viewModelScope, SharingStarted.Eagerly, null)
@@ -85,7 +85,7 @@ public class MainScreenViewModel(public val param1: String? = null) : ViewModel(
     }
 // </editor-fold>
 
-// <editor-fold desc="CleanUP">
+    // <editor-fold desc="CleanUP">
     override fun onCleared() {
         super.onCleared()
         logger.d("onCleared")

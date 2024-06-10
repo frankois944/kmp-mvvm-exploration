@@ -120,10 +120,6 @@ fun MyFirstView(
                 }
             }
         }
-
-        MainScreenUIState.Idle -> {
-            Text(text = "IDLE")
-        }
     }
 }
 

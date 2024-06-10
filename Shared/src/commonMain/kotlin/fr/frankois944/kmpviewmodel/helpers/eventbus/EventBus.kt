@@ -22,7 +22,7 @@ internal expect fun EventBus.publishNotification(
     content: Any?,
 )
 
-internal inline fun <reified T : AppEvents> EventBus.subscribe(): Flow<Pair<T, Any?>> = subscribeEvent()
+// internal inline fun <reified T : AppEvents> EventBus.subscribe(): Flow<Pair<T, Any?>> = subscribeEvent()
 
 /**
  * Created by francois.dabonot@frankois944.fr on 01/06/2023.

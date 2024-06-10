@@ -47,23 +47,21 @@ struct MyFirstView: View {
                             .fontWeight(.semibold)
                     }
                 }
-            case .idle:
-                EmptyView()
             }
         }
     }
 }
 
 
-#Preview {
+#Preview("LOADING") {
     MyFirstView(mainScreenUIState: .Loading(), userId: "", updateUserId: {}, retry: {})
 }
 
-#Preview {
+#Preview("ERROR") {
     MyFirstView(mainScreenUIState: .Error(message: "An error"), userId: "", updateUserId: {}, retry: {})
 }
 
-#Preview {
+#Preview("FAILED") {
     MyFirstView(mainScreenUIState: .Success(profile: .init(username: "Joker"),
                                             account: .init(transaction: ["Tr1", "Tr2"])),
                 userId: "",
