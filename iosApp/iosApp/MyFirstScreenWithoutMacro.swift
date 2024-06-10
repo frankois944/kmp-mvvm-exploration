@@ -7,7 +7,6 @@
 //
 
 import Foundation
-import Combine
 import SwiftUI
 
 struct MyFirstScreenWithoutMacro: View {

@@ -60,7 +60,7 @@ public struct SharedViewModelMacro: MemberMacro {
         
     
         let viewModelStore = DeclSyntax(stringLiteral: "private let viewModelStore = ViewModelStore()")
-        let disposeBag = DeclSyntax(stringLiteral: "private var jobs = Set<AnyCancellable>()")
+        let disposeBag = DeclSyntax(stringLiteral: "private var jobs = Set<Task<(), Never>>()")
         
         var bindings = [DeclSyntax]()
         bindingList.forEach { item in
@@ -79,15 +79,14 @@ public struct SharedViewModelMacro: MemberMacro {
                 
                 self.\(item.binding.name) = viewModel.\(item.binding.name).value
                 print("INIT \(item.binding.name) : " + String(describing: viewModel.\(item.binding.name).value))
-                jobs.insert(viewModel.\(item.binding.name).toPublisher()
-                    .receive(on: DispatchQueue.main)
-                    .sink { [weak self] in
-                        if $0 != self?.\(item.binding.name) {
-                            print("SINK \(item.binding.name) : " + String(describing: $0))
-                            self?.\(item.binding.name) = $0
+                jobs.insert(Task { @MainActor [weak self] in
+                    for await value in viewModel.\(item.binding.name) {
+                        if value != self?.\(item.binding.name) {
+                            print("SINK \(item.binding.name) : " + String(describing: value))
+                            self?.\(item.binding.name) = value
                         }
-                    })
-                
+                    }
+                })
                 """
                 )
             }

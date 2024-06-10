@@ -28,34 +28,34 @@ final class KTViewModelBuilderTests: XCTestCase {
 
                 private let viewModelStore = ViewModelStore()
 
-                private var jobs = Set<AnyCancellable>()
+                private var jobs = Set<Task<(), Never>>()
 
-                @Published var mainScreenUIState: MainScreenUIState
+                @Published private (set) var mainScreenUIState: MainScreenUIState
 
-                @Published var userId: String?
+                @Published private (set) var userId: String?
 
                 init(_ viewModel: MainScreenViewModel) {
                 self.viewModelStore.put(key: "MainScreenViewModelKey", viewModel: viewModel)
                 self.mainScreenUIState = viewModel.mainScreenUIState.value
                 print("INIT mainScreenUIState : " + String(describing: viewModel.mainScreenUIState.value))
-                jobs.insert(viewModel.mainScreenUIState.toPublisher()
-                    .receive(on: DispatchQueue.main)
-                    .sink { [weak self] in
-                        if $0 != self?.mainScreenUIState {
-                            print("SINK mainScreenUIState : " + String(describing: $0))
-                            self?.mainScreenUIState = $0
+                jobs.insert(Task { @MainActor [weak self] in
+                    for await value in viewModel.mainScreenUIState {
+                        if value != self?.mainScreenUIState {
+                            print("SINK mainScreenUIState : " + String(describing: value))
+                            self?.mainScreenUIState = value
                         }
-                    })
+                    }
+                })
                 self.userId = viewModel.userId.value
                 print("INIT userId : " + String(describing: viewModel.userId.value))
-                jobs.insert(viewModel.userId.toPublisher()
-                    .receive(on: DispatchQueue.main)
-                    .sink { [weak self] in
-                        if $0 != self?.userId {
-                            print("SINK userId : " + String(describing: $0))
-                            self?.userId = $0
+                jobs.insert(Task { @MainActor [weak self] in
+                    for await value in viewModel.userId {
+                        if value != self?.userId {
+                            print("SINK userId : " + String(describing: value))
+                            self?.userId = value
                         }
-                    })
+                    }
+                })
                 }
 
                 var instance: MainScreenViewModel {
