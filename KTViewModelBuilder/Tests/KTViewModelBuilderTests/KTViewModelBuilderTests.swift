@@ -28,8 +28,6 @@ final class KTViewModelBuilderTests: XCTestCase {
 
                 private let viewModelStore = ViewModelStore()
 
-                private var jobs = Set<Task<(), Never>>()
-
                 @Published private (set) var mainScreenUIState: MainScreenUIState
 
                 @Published private (set) var userId: String?
@@ -38,39 +36,40 @@ final class KTViewModelBuilderTests: XCTestCase {
                     self.viewModelStore.put(key: "MainScreenViewModelKey", viewModel: viewModel)
                     self.mainScreenUIState = viewModel.mainScreenUIState.value
                     print("INIT mainScreenUIState : " + String(describing: viewModel.mainScreenUIState.value))
-                    jobs.insert(Task { @MainActor [weak self] in
-                        for await value in viewModel.mainScreenUIState {
-                            if value != self?.mainScreenUIState {
-                                #if DEBUG
-                                print("SINK mainScreenUIState : " + String(describing: value))
-                                #endif
-                                self?.mainScreenUIState = value
-                            }
-                        }
-                        })
                     self.userId = viewModel.userId.value
                     print("INIT userId : " + String(describing: viewModel.userId.value))
-                    jobs.insert(Task { @MainActor [weak self] in
-                        for await value in viewModel.userId {
-                            if value != self?.userId {
-                                #if DEBUG
-                                print("SINK userId : " + String(describing: value))
-                                #endif
-                                self?.userId = value
-                            }
-                        }
-                        })
                 }
 
                 var instance: MainScreenViewModel {
                     self.viewModelStore.get(key: "MainScreenViewModelKey") as! MainScreenViewModel
                 }
 
-                deinit {
-                    jobs.forEach {
-                        $0.cancel()
+                func start() async {
+                    await withTaskGroup(of: (Void).self) {
+                        $0.addTask { @MainActor [weak self] in
+                            for await value in self!.instance.mainScreenUIState where self != nil {
+                                if value != self?.mainScreenUIState {
+                                    #if DEBUG
+                                    print("UPDATING mainScreenUIState : " + String(describing: value))
+                                    #endif
+                                    self?.mainScreenUIState = value
+                                }
+                            }
+                        }
+                        $0.addTask { @MainActor [weak self] in
+                            for await value in self!.instance.userId where self != nil {
+                                if value != self?.userId {
+                                    #if DEBUG
+                                    print("UPDATING userId : " + String(describing: value))
+                                    #endif
+                                    self?.userId = value
+                                }
+                            }
+                        }
                     }
-                    jobs.removeAll()
+                }
+
+                deinit {
                     self.viewModelStore.clear()
                 }}
             """,

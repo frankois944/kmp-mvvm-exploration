@@ -65,7 +65,7 @@ public struct SharedViewModelMacro: MemberMacro {
             bindingList.append(((name, type), isOptional))
         }
         
-    
+        
         let viewModelStore = DeclSyntax(stringLiteral: "private let viewModelStore = ViewModelStore()")
         
         var bindings = [DeclSyntax]()
@@ -81,9 +81,11 @@ public struct SharedViewModelMacro: MemberMacro {
                 ExprSyntax(stringLiteral: """
                 self.\(item.binding.name) = viewModel.\(item.binding.name).value
                 """)
+#if DEBUG
                 ExprSyntax(stringLiteral: """
                 print("INIT \(item.binding.name) : " + String(describing: viewModel.\(item.binding.name).value))
                 """)
+#endif
             }
         }
         
@@ -92,25 +94,27 @@ public struct SharedViewModelMacro: MemberMacro {
             """)
         
         let startViewModel = try FunctionDeclSyntax("func start() async") {
-            ExprSyntax(stringLiteral: """
-            await withTaskGroup(of: (Void).self) { group in
-            """)
-            for item in bindingList {
-                ExprSyntax(stringLiteral: """
-                group.addTask { @MainActor [weak self] in
-                    if self != nil {
-                        for await value in self!.instance.\(item.binding.name) {
-                            if value != self?.\(item.binding.name) {
-                                self?.\(item.binding.name) = value
+            FunctionCallExprSyntax(
+                callee: ExprSyntax(stringLiteral: "await withTaskGroup"),
+                trailingClosure: ClosureExprSyntax(
+                    statements: CodeBlockItemListSyntax(itemsBuilder: {
+                        for item in bindingList {
+                            ExprSyntax(stringLiteral: """
+                        $0.addTask { @MainActor [weak self] in
+                            for await value in self!.instance.\(item.binding.name) where self != nil{
+                                if value != self?.\(item.binding.name) {
+                                    #if DEBUG
+                                    print("UPDATING \(item.binding.name) : " + String(describing: value))
+                                    #endif
+                                    self?.\(item.binding.name) = value
+                                }
                             }
                         }
+                    """)
+                        }
+                    }))) {
+                        LabeledExprSyntax(label: "of", expression: ExprSyntax(stringLiteral: "(Void).self"))
                     }
-                }
-                """)
-            }
-            ExprSyntax(stringLiteral: """
-            }
-            """)
         }
         
         let deinitFunc = DeinitializerDeclSyntax() {
