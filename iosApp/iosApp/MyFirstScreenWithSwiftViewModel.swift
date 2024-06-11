@@ -9,6 +9,7 @@
 import SwiftUI
 import Combine
 
+@MainActor
 class FirstScreenViewModel: ObservableObject {
     
     private let param1: String?
@@ -28,7 +29,6 @@ class FirstScreenViewModel: ObservableObject {
             .sink { [weak self] in
                 self?.userId = $0
         })
-        self.loadData()
     }
     
     func updateUserId() {
@@ -36,19 +36,18 @@ class FirstScreenViewModel: ObservableObject {
         AppContext.shared.userId = "\(Int.random(in: 1..<Int.max))"
     }
     
-    func loadData() {
-        Task { @MainActor in
-            do {
-                logger.d(messageString: "START LOADING SCREEN")
-                self.mainScreenUIState = .Loading()
-                let accoundData = try await accountService.getAccountInfo()
-                let profileData = try await profilService.getProfile()
-                logger.d(messageString: "OK LOADING SCREEN")
-                self.mainScreenUIState = .Success(profile: profileData, account: accoundData)
-            } catch {
-                logger.e(messageString: "FAILING LOADING SCREEN")
-                self.mainScreenUIState = .Error(message: "Something bad \(error)")
-            }
+    func loadData() async {
+        do {
+            logger.d(messageString: "START LOADING SCREEN")
+            self.mainScreenUIState = .Loading()
+            let accoundData = try await accountService.getAccountInfo()
+            let profileData = try await profilService.getProfile()
+            try await Task.sleep(nanoseconds: 3_000_000_000)
+            logger.d(messageString: "OK LOADING SCREEN")
+            self.mainScreenUIState = .Success(profile: profileData, account: accoundData)
+        } catch {
+            logger.e(messageString: "FAILING LOADING SCREEN")
+            self.mainScreenUIState = .Error(message: "Something bad \(error)")
         }
     }
     
@@ -67,7 +66,10 @@ struct MyFirstScreenWithSwiftDataStore: View {
             MyFirstView(mainScreenUIState: viewModel.mainScreenUIState,
                         userId: viewModel.userId,
                         updateUserId: viewModel.updateUserId,
-                        retry: viewModel.loadData)
+                        retry: {})
+        }
+        .task {
+            await viewModel.loadData()
         }
     }
 }

@@ -16,6 +16,7 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
+import kotlinx.coroutines.flow.WhileSubscribed
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.merge
@@ -45,11 +46,14 @@ public class MainScreenViewModel(public val param1: String? = null) : ViewModel(
     public val mainScreenUIState: StateFlow<MainScreenUIState> =
         listOf(_mainScreenUIState, loadContent())
             .merge()
-            .stateIn(viewModelScope, SharingStarted.Eagerly, MainScreenUIState.Loading)
+            .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), MainScreenUIState.Loading)
 
-    private fun loadContent(): Flow<MainScreenUIState> =
+    private fun loadContent(reloading: Boolean = false): Flow<MainScreenUIState> =
         flow {
             try {
+                if (!reloading && mainScreenUIState.value is MainScreenUIState.Success) {
+                    return@flow
+                }
                 emit(MainScreenUIState.Loading)
                 logger.d("START LOADING SCREEN")
                 val profileData = profileService.getProfile()
@@ -67,7 +71,7 @@ public class MainScreenViewModel(public val param1: String? = null) : ViewModel(
 
     public fun reload() {
         viewModelScope.launch {
-            _mainScreenUIState.emitAll(loadContent())
+            _mainScreenUIState.emitAll(loadContent(true))
         }
     }
 
@@ -76,7 +80,7 @@ public class MainScreenViewModel(public val param1: String? = null) : ViewModel(
     // <editor-fold desc="UserId">
     public val userId: StateFlow<String?> =
         appContext.userIdFlow
-            .stateIn(viewModelScope, SharingStarted.Eagerly, null)
+            .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), null)
 
     public fun updateUserId() {
         logger.d("updateUserId")

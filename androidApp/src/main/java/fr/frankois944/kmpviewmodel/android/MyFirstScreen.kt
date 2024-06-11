@@ -47,18 +47,17 @@ fun MyFirstScreen(
         }
     }
 
-    Column(modifier = modifier) {
-        val mainScreenUIState by viewModel.mainScreenUIState.collectAsStateWithLifecycle()
-        val userId by viewModel.userId.collectAsStateWithLifecycle()
+    val mainScreenUIState by viewModel.mainScreenUIState.collectAsStateWithLifecycle()
+    val userId by viewModel.userId.collectAsStateWithLifecycle()
 
-        MyFirstView(
-            mainScreenUIState = mainScreenUIState,
-            onNextView = onNextView,
-            userId = userId,
-            updateUserId = { viewModel.updateUserId() },
-            retry = { viewModel.reload() },
-        )
-    }
+    MyFirstView(
+        modifier = modifier,
+        mainScreenUIState = mainScreenUIState,
+        onNextView = onNextView,
+        userId = userId,
+        updateUserId = { viewModel.updateUserId() },
+        retry = { viewModel.reload() },
+    )
 }
 
 @Composable
@@ -80,9 +79,11 @@ fun MyFirstView(
                 Text(text = "RETRY")
             }
         }
+
         MainScreenUIState.Loading -> {
             CircularProgressIndicator()
         }
+
         is MainScreenUIState.Success -> {
             val data by remember {
                 derivedStateOf { mainScreenUIState }

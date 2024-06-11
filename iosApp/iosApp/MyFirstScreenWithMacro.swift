@@ -27,5 +27,8 @@ struct MyFirstScreenWithMacro: View {
                         updateUserId: viewModel.instance.updateUserId,
                         retry: viewModel.instance.reload)
         }
+        .task {
+            await viewModel.start()
+        }
     }
 }

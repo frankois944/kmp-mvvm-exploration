@@ -67,7 +67,6 @@ public struct SharedViewModelMacro: MemberMacro {
         
     
         let viewModelStore = DeclSyntax(stringLiteral: "private let viewModelStore = ViewModelStore()")
-        let disposeBag = DeclSyntax(stringLiteral: "private var jobs = Set<Task<(), Never>>()")
         
         var bindings = [DeclSyntax]()
         bindingList.forEach { item in
@@ -85,33 +84,36 @@ public struct SharedViewModelMacro: MemberMacro {
                 ExprSyntax(stringLiteral: """
                 print("INIT \(item.binding.name) : " + String(describing: viewModel.\(item.binding.name).value))
                 """)
-                ExprSyntax(stringLiteral: """
-                jobs.insert(Task { @MainActor [weak self] in
-                    for await value in viewModel.\(item.binding.name) {
-                        if value != self?.\(item.binding.name) {
-                            #if DEBUG
-                            print("SINK \(item.binding.name) : " + String(describing: value))
-                            #endif
-                            self?.\(item.binding.name) = value
-                        }
-                    }
-                })
-                """)
             }
         }
         
         let instanceAttr = DeclSyntax(stringLiteral: """
             var instance: \(className) { self.viewModelStore.get(key: \"\(className)Key\") as! \(className) }
             """)
-        let deinitFunc = DeinitializerDeclSyntax() {
-            ExprSyntax(stringLiteral:"""
-            jobs.forEach {
-                $0.cancel()
+        
+        let startViewModel = try FunctionDeclSyntax("func start() async") {
+            ExprSyntax(stringLiteral: """
+            await withTaskGroup(of: (Void).self) { group in
+            """)
+            for item in bindingList {
+                ExprSyntax(stringLiteral: """
+                group.addTask { @MainActor [weak self] in
+                    if self != nil {
+                        for await value in self!.instance.\(item.binding.name) {
+                            if value != self?.\(item.binding.name) {
+                                self?.\(item.binding.name) = value
+                            }
+                        }
+                    }
+                }
+                """)
+            }
+            ExprSyntax(stringLiteral: """
             }
             """)
-            ExprSyntax(stringLiteral: """
-            jobs.removeAll()
-            """)
+        }
+        
+        let deinitFunc = DeinitializerDeclSyntax() {
             ExprSyntax(stringLiteral: """
             self.viewModelStore.clear()
             """)
@@ -119,12 +121,12 @@ public struct SharedViewModelMacro: MemberMacro {
         
         var result = [
             DeclSyntax(viewModelStore),
-            DeclSyntax(disposeBag)
         ]
         result.append(contentsOf: bindings)
         result.append(contentsOf: [
             DeclSyntax(initFunc),
             DeclSyntax(instanceAttr),
+            DeclSyntax(startViewModel),
             DeclSyntax(deinitFunc)
         ])
         return result
