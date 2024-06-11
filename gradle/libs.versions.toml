@@ -16,10 +16,10 @@ android-navigation-compose = "2.8.0-beta02" # https://developer.android.com/jetp
 skie = "0.8.2" # https://github.com/touchlab/SKIE/releases
 kotlin-serialization = "1.7.0" # https://github.com/Kotlin/kotlinx.serialization/releases
 kotlin-dateTime = "0.6.0" # https://github.com/Kotlin/kotlinx-datetime/releases
-kover = "0.8.0" # https://github.com/Kotlin/kotlinx-kover/releases
+kover = "0.8.1" # https://github.com/Kotlin/kotlinx-kover/releases
 datastorePreferencesCore = "1.1.1" # https://developer.android.com/jetpack/androidx/releases/datastore
 collection = "1.4.0" # https://developer.android.com/jetpack/androidx/releases/collection
-kermit = "2.0.3" # https://github.com/touchlab/Kermit/releases
+kermit = "2.0.4" # https://github.com/touchlab/Kermit/releases
 okio = "3.9.0" # https://square.github.io/okio/changelog/
 
 [libraries]
