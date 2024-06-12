@@ -2,7 +2,7 @@ plugins {
     alias(libs.plugins.androidApplication)
     alias(libs.plugins.kotlinAndroid)
     alias(libs.plugins.ksp)
-    alias(libs.plugins.compose.compiler)
+    alias(libs.plugins.composeCompiler)
     alias(libs.plugins.kotlinParcelize)
 }
 
@@ -72,7 +72,7 @@ dependencies {
 
     implementation(platform(libs.koin.bom))
     implementation(platform(libs.koin.annotation.bom))
-    implementation(libs.bundles.android.koin)
+    implementation(libs.bundles.koin.android)
     ksp(platform(libs.koin.annotation.bom))
     ksp(libs.koin.annotation.ksp)
     implementation(libs.kotlin.coroutines)

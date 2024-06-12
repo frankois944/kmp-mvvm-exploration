@@ -51,7 +51,7 @@ kotlin {
             implementation(libs.kotlin.datetime)
             implementation(project.dependencies.platform(libs.koin.annotation.bom))
             implementation(project.dependencies.platform(libs.koin.bom))
-            implementation(libs.bundles.kmp.koin)
+            implementation(libs.bundles.koin.kmp)
             implementation(libs.androidx.datastore.preferences.core)
             implementation(libs.androidx.collection)
             implementation(libs.okio)
@@ -66,11 +66,11 @@ kotlin {
             implementation(libs.okio.fakefilesystem)
         }
         iosMain.dependencies {
-            implementation(libs.bundles.kmp.koin)
+            implementation(libs.bundles.koin.kmp)
             api(libs.kermit.simple)
         }
         androidMain.dependencies {
-            implementation(libs.bundles.android.koin)
+            implementation(libs.bundles.koin.android)
         }
     }
 }

@@ -68,8 +68,8 @@ androidx-compose = [
     "androidx-compose-material3",
     "androidx-compose-ui-tooling-preview"
 ]
-android-koin = ["koin-core", "koin-android", "koin-android-compose", "koin-annotation"]
-kmp-koin = ["koin-core", "koin-compose", "koin-annotation"]
+koin-android = ["koin-core", "koin-android", "koin-android-compose", "koin-annotation"]
+koin-kmp = ["koin-core", "koin-compose", "koin-annotation"]
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }
@@ -80,5 +80,5 @@ ksp = { id = "com.google.devtools.ksp", version.ref = "ksp" }
 skie = { id = "co.touchlab.skie", version.ref = "skie" }
 kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", version.ref = "kotlin" }
 kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
-compose-compiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
+composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlinParcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
