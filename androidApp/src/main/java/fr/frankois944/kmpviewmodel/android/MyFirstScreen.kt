@@ -1,8 +1,10 @@
 package fr.frankois944.kmpviewmodel.android
 
 import androidx.compose.foundation.clickable
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
@@ -16,6 +18,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
@@ -51,7 +54,7 @@ fun MyFirstScreen(
     val userId by viewModel.userId.collectAsStateWithLifecycle()
 
     MyFirstView(
-        modifier = modifier,
+        modifier = modifier.fillMaxSize(),
         mainScreenUIState = mainScreenUIState,
         onNextView = onNextView,
         userId = userId,
@@ -69,54 +72,58 @@ fun MyFirstView(
     onNextView: () -> Unit = {},
     retry: () -> Unit = {},
 ) {
-    when (mainScreenUIState) {
-        is MainScreenUIState.Error -> {
-            Text(
-                text = "Error : ${mainScreenUIState.message}",
-                color = Color.Red,
-            )
-            Button(onClick = { retry() }) {
-                Text(text = "RETRY")
-            }
-        }
-
-        MainScreenUIState.Loading -> {
-            CircularProgressIndicator()
-        }
-
-        is MainScreenUIState.Success -> {
-            val data by remember {
-                derivedStateOf { mainScreenUIState }
-            }
-
-            Column {
-                Row {
-                    Text(
-                        text = "Bonjour $userId: ",
-                    )
-                    Text(
-                        text = data.profile.username,
-                        fontWeight = FontWeight.ExtraBold,
-                    )
-                }
-                Button(onClick = updateUserId) {
-                    Text(text = "RANDOM")
-                }
+    Column(modifier = modifier) {
+        when (mainScreenUIState) {
+            is MainScreenUIState.Error -> {
                 Text(
-                    text = "Vos transactions",
+                    text = "Error : ${mainScreenUIState.message}",
+                    color = Color.Red,
                 )
-                LazyColumn {
-                    items(items = data.account.transaction) { transaction ->
+                Button(onClick = { retry() }) {
+                    Text(text = "RETRY")
+                }
+            }
+
+            MainScreenUIState.Loading -> {
+                Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxSize()) {
+                    CircularProgressIndicator()
+                }
+            }
+
+            is MainScreenUIState.Success -> {
+                val data by remember {
+                    derivedStateOf { mainScreenUIState }
+                }
+
+                Column {
+                    Row {
                         Text(
-                            text = transaction,
-                            fontWeight = FontWeight.SemiBold,
-                            modifier =
-                                Modifier
-                                    .fillMaxWidth()
-                                    .clickable {
-                                        onNextView()
-                                    },
+                            text = "Bonjour $userId: ",
                         )
+                        Text(
+                            text = data.profile.username,
+                            fontWeight = FontWeight.ExtraBold,
+                        )
+                    }
+                    Button(onClick = updateUserId) {
+                        Text(text = "RANDOM")
+                    }
+                    Text(
+                        text = "Vos transactions",
+                    )
+                    LazyColumn {
+                        items(items = data.account.transaction) { transaction ->
+                            Text(
+                                text = transaction,
+                                fontWeight = FontWeight.SemiBold,
+                                modifier =
+                                    Modifier
+                                        .fillMaxWidth()
+                                        .clickable {
+                                            onNextView()
+                                        },
+                            )
+                        }
                     }
                 }
             }
