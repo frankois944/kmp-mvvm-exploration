@@ -11,6 +11,7 @@ import fr.frankois944.kmpviewmodel.models.context.AppContext
 import fr.frankois944.kmpviewmodel.models.services.account.IAccountService
 import fr.frankois944.kmpviewmodel.models.services.profile.IProfileService
 import kotlinx.coroutines.ExperimentalCoroutinesApi
+import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
@@ -21,6 +22,7 @@ import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.flow.stateIn
+import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import kotlin.random.Random
@@ -68,9 +70,10 @@ public class MainScreenViewModel(public val param1: String? = null) : ViewModel(
             }
         }
 
-    public suspend fun reload() {
-        _mainScreenUIState.emitAll(loadContent(true))
-    }
+    public fun reload(): Job =
+        viewModelScope.launch {
+            _mainScreenUIState.emitAll(loadContent(true))
+        }
 
 // </editor-fold>
 

@@ -19,7 +19,7 @@ class MyMainScreenViewModel: ObservableObject {}
 struct MyFirstScreenWithMacro: View {
     
     @StateObject var viewModel = MyMainScreenViewModel(.init(param1: nil))
-    @State private var reloadingTask: Task<(), Never>?
+    @State private var reloadingTask: Kotlinx_coroutines_coreJob?
     
     var body: some View {
         VStack {
@@ -27,13 +27,11 @@ struct MyFirstScreenWithMacro: View {
                         userId: viewModel.userId,
                         updateUserId: viewModel.instance.updateUserId,
                         retry: {
-                self.reloadingTask = Task {
-                    try? await viewModel.instance.reload()
-                }
+                self.reloadingTask = viewModel.instance.reload()
             })
         }
         .onDisappear {
-            reloadingTask?.cancel()
+            reloadingTask?.cancel(cause: nil)
         }
         .task {
             await viewModel.start()
