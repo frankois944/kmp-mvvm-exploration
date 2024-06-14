@@ -29,11 +29,9 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
-import co.touchlab.kermit.Logger
+import fr.frankois944.kmpviewmodel.logs.log
 import org.koin.androidx.compose.KoinAndroidContext
-import org.koin.compose.koinInject
 import org.koin.core.annotation.KoinExperimentalAPI
-import org.koin.core.parameter.parametersOf
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,7 +42,7 @@ class MainActivity : ComponentActivity() {
                 // Get current navigation context
                 val navController = rememberNavController()
                 var canGoBack by remember { mutableStateOf(false) }
-                val logger: Logger = koinInject(parameters = { parametersOf("MainActivity") })
+                val logger = log("MainActivity")
 
                 MyApplicationTheme {
                     val scrollBehavior =

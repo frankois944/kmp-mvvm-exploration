@@ -13,12 +13,20 @@ struct MyFirstScreenWithoutMacro: View {
     @StateObject var viewModel: SharedViewModel<MainScreenViewModel> = .init(.init(param1: nil))
     @State var mainScreenUIState: MainScreenUIState = .Loading()
     @State var userId: String?
+    @State private var reloadingTask: Task<(), Never>?
     
     var body: some View {
         MyFirstView(mainScreenUIState: mainScreenUIState,
                     userId: userId,
                     updateUserId: viewModel.instance.updateUserId,
-                    retry: viewModel.instance.reload)
+                    retry: {
+            self.reloadingTask = Task {
+                try? await viewModel.instance.reload()
+            }
+        })
+        .onDisappear {
+            reloadingTask?.cancel()
+        }
         .collect(flow: viewModel.instance.mainScreenUIState, into: $mainScreenUIState) {
             print("COLLECTING mainScreenUIState : \(String(describing: $0))")
             return $0

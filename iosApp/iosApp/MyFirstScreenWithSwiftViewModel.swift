@@ -36,8 +36,11 @@ class FirstScreenViewModel: ObservableObject {
         AppContext.shared.userId = "\(Int.random(in: 1..<Int.max))"
     }
     
-    func loadData() async {
+    func loadData(reloading: Bool = false) async {
         do {
+            if !reloading && self.mainScreenUIState is MainScreenUIState.Success {
+                return
+            }
             logger.d(messageString: "START LOADING SCREEN")
             self.mainScreenUIState = .Loading()
             let accoundData = try await accountService.getAccountInfo()
@@ -60,13 +63,21 @@ class FirstScreenViewModel: ObservableObject {
 
 struct MyFirstScreenWithSwiftDataStore: View {
     @StateObject var viewModel = FirstScreenViewModel(param1: nil)
+    @State private var reloadingTask = Set<Task<(), Never>>()
     
     var body: some View {
         VStack {
             MyFirstView(mainScreenUIState: viewModel.mainScreenUIState,
                         userId: viewModel.userId,
                         updateUserId: viewModel.updateUserId,
-                        retry: {})
+                        retry: {
+                self.reloadingTask.insert(Task {
+                    await viewModel.loadData(reloading: true)
+                })
+            })
+        }
+        .onDisappear {
+            reloadingTask.forEach { $0.cancel() }
         }
         .task {
             await viewModel.loadData()

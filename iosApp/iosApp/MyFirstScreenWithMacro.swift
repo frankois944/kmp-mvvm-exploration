@@ -19,13 +19,21 @@ class MyMainScreenViewModel: ObservableObject {}
 struct MyFirstScreenWithMacro: View {
     
     @StateObject var viewModel = MyMainScreenViewModel(.init(param1: nil))
+    @State private var reloadingTask: Task<(), Never>?
     
     var body: some View {
         VStack {
             MyFirstView(mainScreenUIState: viewModel.mainScreenUIState,
                         userId: viewModel.userId,
                         updateUserId: viewModel.instance.updateUserId,
-                        retry: viewModel.instance.reload)
+                        retry: {
+                self.reloadingTask = Task {
+                    try? await viewModel.instance.reload()
+                }
+            })
+        }
+        .onDisappear {
+            reloadingTask?.cancel()
         }
         .task {
             await viewModel.start()

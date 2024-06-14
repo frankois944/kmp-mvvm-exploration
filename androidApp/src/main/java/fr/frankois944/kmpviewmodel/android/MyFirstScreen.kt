@@ -4,7 +4,6 @@ import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
-import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.lazy.LazyColumn
@@ -18,6 +17,7 @@ import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
+import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -27,10 +27,12 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import co.touchlab.kermit.Logger
 import fr.frankois944.kmpviewmodel.helpers.eventbus.AppEvents
 import fr.frankois944.kmpviewmodel.helpers.eventbus.IEventBus
+import fr.frankois944.kmpviewmodel.logs.log
 import fr.frankois944.kmpviewmodel.models.dto.AccountData
 import fr.frankois944.kmpviewmodel.models.dto.ProfileData
 import fr.frankois944.kmpviewmodel.viewmodels.mainscreen.MainScreenUIState
 import fr.frankois944.kmpviewmodel.viewmodels.mainscreen.MainScreenViewModel
+import kotlinx.coroutines.launch
 import org.koin.androidx.compose.koinViewModel
 import org.koin.compose.koinInject
 import org.koin.core.parameter.parametersOf
@@ -41,9 +43,10 @@ fun MyFirstScreen(
     param1: String? = null,
     viewModel: MainScreenViewModel = koinViewModel(parameters = { parametersOf(param1 ?: "") }),
     eventBus: IEventBus = koinInject(),
-    logger: Logger = koinInject(parameters = { parametersOf("MyFirstScreen") }),
+    logger: Logger = log("MyFirstScreen"),
     onNextView: () -> Unit,
 ) {
+    val coroutineScope = rememberCoroutineScope()
     LaunchedEffect(Unit) {
         eventBus.subscribeEvent<AppEvents>().collect {
             logger.d("EVENT RECEIVED : $it")
@@ -59,7 +62,11 @@ fun MyFirstScreen(
         onNextView = onNextView,
         userId = userId,
         updateUserId = { viewModel.updateUserId() },
-        retry = { viewModel.reload() },
+        retry = {
+            coroutineScope.launch {
+                viewModel.reload()
+            }
+        },
     )
 }
 

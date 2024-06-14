@@ -21,7 +21,6 @@ import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.flow.stateIn
-import kotlinx.coroutines.launch
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import kotlin.random.Random
@@ -69,10 +68,8 @@ public class MainScreenViewModel(public val param1: String? = null) : ViewModel(
             }
         }
 
-    public fun reload() {
-        viewModelScope.launch {
-            _mainScreenUIState.emitAll(loadContent(true))
-        }
+    public suspend fun reload() {
+        _mainScreenUIState.emitAll(loadContent(true))
     }
 
 // </editor-fold>
