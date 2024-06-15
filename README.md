@@ -28,17 +28,17 @@ Inspiration from this repository https://github.com/joreilly/FantasyPremierLeagu
 
 https://github.com/frankois944/kmp-mvvm-exploration/blob/da295bdff93b7dafda8e0bf1f0fbb0ce6bc3e257/iosApp/iosApp/SharedViewModel.swift#L11-L27
 
-### MVVM using Macro
+### MVVM using Skie
 
 https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/MyFirstScreenWithoutMacro.swift
 
 This approach is using the Skie flow SwiftUI capability https://skie.touchlab.co/features/flows-in-swiftui
 
-### MVVM without Skie
+### MVVM without Skie but Macro
 
 https://github.com/frankois944/kmp-mvvm-exploration/blob/da295bdff93b7dafda8e0bf1f0fbb0ce6bc3e257/iosApp/iosApp/MyFirstScreenWithMacro.swift
 
-This approach is using a macro I made to automatically wrap a KMP viewmodel inside an ObservableObject.
+This approach is using a macro I made to automatically wrap a KMP viewmodel inside an ObservableObject, almost like a SwiftUI viewmodel.
 
 https://github.com/frankois944/kmp-mvvm-exploration/blob/da295bdff93b7dafda8e0bf1f0fbb0ce6bc3e257/iosApp/iosApp/MyFirstScreenWithMacro.swift#L12-L17
 
