@@ -48,7 +48,7 @@ https://github.com/frankois944/kmp-mvvm-exploration/blob/da295bdff93b7dafda8e0bf
 
 https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/MyFirstScreenWithSwiftViewModel.swift
 
-No usage of KMP mvvm, just like an MVVM SwiftUI class
+No usage of KMP mvvm, just like a MVVM SwiftUI class
 
 ## Thinking
 
