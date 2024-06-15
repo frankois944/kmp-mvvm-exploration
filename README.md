@@ -24,6 +24,8 @@ Inspiration from this repository https://github.com/joreilly/FantasyPremierLeagu
 
 - Then importing SKIE to fully access the Kotlin Flow from Swift
 
+And activate some usefull features :
+
 https://github.com/frankois944/kmp-mvvm-exploration/blob/bc18549d9f867d145e5dd0548c7522a962ae762c/Shared/build.gradle.kts#L117-L125
  
 - Finally creating a SwiftUI class to manage the KMP viewmodel lifecycle 
