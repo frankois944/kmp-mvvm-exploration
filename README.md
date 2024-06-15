@@ -36,7 +36,7 @@ https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/MyFi
 
 This approach is using the Skie flow SwiftUI capability https://skie.touchlab.co/features/flows-in-swiftui
 
-### MVVM without Skie but Macro
+### MVVM using Macro
 
 https://github.com/frankois944/kmp-mvvm-exploration/blob/da295bdff93b7dafda8e0bf1f0fbb0ce6bc3e257/iosApp/iosApp/MyFirstScreenWithMacro.swift
 
