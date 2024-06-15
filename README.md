@@ -32,6 +32,10 @@ https://github.com/frankois944/kmp-mvvm-exploration/blob/bc18549d9f867d145e5dd05
 
 https://github.com/frankois944/kmp-mvvm-exploration/blob/da295bdff93b7dafda8e0bf1f0fbb0ce6bc3e257/iosApp/iosApp/SharedViewModel.swift#L11-L27
 
+From this *viewmodel*
+
+https://github.com/frankois944/kmp-mvvm-exploration/blob/3a3530e0e700730d6e4d4a981253bd8e2f484f50/Shared/src/commonMain/kotlin/fr/frankois944/kmpviewmodel/viewmodels/mainscreen/MainScreenViewModel.kt
+
 ### MVVM using Skie observable
 
 https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/MyFirstScreenWithoutMacro.swift
