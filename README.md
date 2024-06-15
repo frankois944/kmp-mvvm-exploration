@@ -7,7 +7,7 @@ It's not that simple, I'm working on it for some times and with the advancement 
 You will find inside this repo :
 
 - Injection with Koin annotation on KMP project
-- Loggin with Kermit
+- Logging with Kermit
 - Usage of Android DataStore on KMP
 - MVVM with different approch
 - and more little experiences
