@@ -38,14 +38,14 @@ struct MyFirstView: View {
                 Button("RANDOM", action: updateUserId)
                 Text("Vos transactions")
                 List(success.account.transaction, id: \.self) { transaction in
-                    /*NavigationLink(destination: MyFirstScreenWithoutMacro(viewModel: .init(.init(param1: "4242")))) {
-                        Text(transaction)
-                            .fontWeight(.semibold)
-                    }*/
-                    NavigationLink(destination: MyFirstScreenWithSwiftDataStore(viewModel: .init(param1: "4242"))) {
+                    NavigationLink(destination: MyFirstScreenWithMacro()) {
                         Text(transaction)
                             .fontWeight(.semibold)
                     }
+                    /*NavigationLink(destination: MyFirstScreenWithSwiftDataStore(viewModel: .init(param1: "4242"))) {
+                        Text(transaction)
+                            .fontWeight(.semibold)
+                    }*/
                 }
             }
         }

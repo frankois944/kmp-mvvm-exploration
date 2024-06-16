@@ -24,15 +24,11 @@ struct iOSApp: App {
     let notification: Notification.Name = .init(AppEvents.shareContent.name)
     
     init() {
-        
 #if DEBUG
         AppInitKt.startApp(appConfig: .init(isDebug: true, isProduction: false))
 #else
         AppInitKt.startApp(appConfig: .init(isDebug: false, isProduction: false))
 #endif
-        
-        
-        
     }
     
     var body: some Scene {
