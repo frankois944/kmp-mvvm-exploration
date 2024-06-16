@@ -18,7 +18,7 @@ class MyMainScreenViewModel: ObservableObject {}
 
 struct MyFirstScreenWithMacro: View {
     
-    @StateObject var viewModel = MyMainScreenViewModel(.init(param1: nil))
+    @StateObject private var viewModel = MyMainScreenViewModel(.init(param1: nil))
     @State private var reloadingTask: Kotlinx_coroutines_coreJob?
     
     var body: some View {

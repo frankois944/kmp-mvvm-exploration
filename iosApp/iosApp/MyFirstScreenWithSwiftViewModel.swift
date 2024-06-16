@@ -63,7 +63,7 @@ class FirstScreenViewModel: ObservableObject {
 
 
 struct MyFirstScreenWithSwiftDataStore: View {
-    @StateObject var viewModel = FirstScreenViewModel(param1: nil)
+    @StateObject private var viewModel = FirstScreenViewModel(param1: nil)
     @State private var reloadingTask = Set<Task<(), Never>>()
     
     var body: some View {

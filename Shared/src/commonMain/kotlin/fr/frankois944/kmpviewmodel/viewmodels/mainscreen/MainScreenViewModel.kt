@@ -74,8 +74,7 @@ public class MainScreenViewModel(public val param1: String? = null) : ViewModel(
         viewModelScope.launch {
             _mainScreenUIState.emitAll(loadContent(true))
         }
-
-// </editor-fold>
+    // </editor-fold>
 
     // <editor-fold desc="UserId">
     public val userId: StateFlow<String?> =
@@ -87,12 +86,12 @@ public class MainScreenViewModel(public val param1: String? = null) : ViewModel(
         appContext.userId = Random.nextInt().toString()
         eventBus.publish(AppEvents.SHARE_CONTENT)
     }
-// </editor-fold>
+    // </editor-fold>
 
     // <editor-fold desc="CleanUP">
     override fun onCleared() {
         super.onCleared()
         logger.d("onCleared")
     }
-// </editor-fold>
+    // </editor-fold>
 }
