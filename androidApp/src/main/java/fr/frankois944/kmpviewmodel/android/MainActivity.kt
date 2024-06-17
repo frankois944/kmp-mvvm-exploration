@@ -29,7 +29,10 @@ import androidx.compose.ui.input.nestedscroll.nestedScroll
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
+import androidx.navigation.toRoute
 import fr.frankois944.kmpviewmodel.logs.log
+import fr.frankois944.kmpviewmodel.router.MainScreen
+import fr.frankois944.kmpviewmodel.router.SecondScreen
 import org.koin.androidx.compose.KoinAndroidContext
 import org.koin.core.annotation.KoinExperimentalAPI
 
@@ -91,22 +94,22 @@ class MainActivity : ComponentActivity() {
                         NavHost(
                             modifier = Modifier.padding(it),
                             navController = navController,
-                            startDestination = "MyFirstScreen",
+                            startDestination = MainScreen,
                         ) {
-                            composable(
-                                "MyFirstScreen",
-                            ) {
+                            composable<MainScreen> {
                                 canGoBack = false
                                 MyFirstScreen {
-                                    logger.d("Trigger Navigate to NextScreen/TOTO")
-                                    navController.navigate("NextScreen/TOTO")
+                                    logger.d("Trigger Navigate to $SecondScreen")
+                                    navController.navigate(SecondScreen(userId = "4424"))
                                 }
                             }
-                            composable("NextScreen/{value}") { nav ->
+                            composable<SecondScreen> { nav ->
                                 canGoBack = true
-                                MyFirstScreen(param1 = nav.arguments!!.getString("value")!!) {
-                                    logger.d("Trigger Navigate to NextScreen/PLOP")
-                                    navController.navigate("NextScreen/PLOP")
+                                MyFirstScreen(
+                                    param1 = nav.toRoute<SecondScreen>().userId,
+                                ) {
+                                    logger.d("Trigger Navigate to ${SecondScreen()}")
+                                    navController.navigate(SecondScreen("4242321"))
                                 }
                             }
                         }
@@ -116,3 +119,6 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
+
+val Bundle.values: List<Any>
+    get() = emptyList()

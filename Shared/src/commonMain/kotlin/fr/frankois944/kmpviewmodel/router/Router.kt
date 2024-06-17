@@ -1,20 +1,12 @@
 package fr.frankois944.kmpviewmodel.router
 
-import org.koin.core.component.KoinComponent
+import kotlinx.serialization.Serializable
 
-public enum class Router(private val route: String) {
-    MainScreen(route = "MainScreen"),
-    MainScreen2(route = "MainScreen2/{userId}"),
-    ;
+@Serializable
+public data object MainScreen
 
-    /*fun args(): List<NamedNavArgument> {
-        return when (this) {
-            MainScreen -> listOf()
-            MainScreen2 -> listOf(navArgument("userId") { type = NavType.StringType })
-        }
-    }*/
-
-    public companion object : KoinComponent {
-        public val startDestination: Router = MainScreen
-    }
-}
+// Define a profile route that takes an ID
+@Serializable
+public data class SecondScreen(
+    val userId: String? = null,
+)

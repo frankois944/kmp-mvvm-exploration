@@ -17,11 +17,12 @@ extension Error {
     }
 }
 
-
 @main
 struct iOSApp: App {
     
     let notification: Notification.Name = .init(AppEvents.shareContent.name)
+
+    @State var router = NavigationPath()
     
     init() {
 #if DEBUG
@@ -33,8 +34,11 @@ struct iOSApp: App {
     
     var body: some Scene {
         WindowGroup {
-            NavigationView {
+            NavigationStack(path: $router) {
                 MyFirstScreenWithMacro()
+                    .navigationDestination(for: SecondScreen.self) { value in
+                        MyFirstScreenWithMacro()
+                    }
             }
             .environmentObject(AppContext.shared)
             .onReceive(NotificationCenter.default.publisher(for: notification),
@@ -44,3 +48,5 @@ struct iOSApp: App {
         }
     }
 }
+
+
