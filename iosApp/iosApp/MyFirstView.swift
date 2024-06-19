@@ -38,7 +38,7 @@ struct MyFirstView: View {
                 Button("RANDOM", action: updateUserId)
                 Text("Vos transactions")
                 List(success.account.transaction, id: \.self) { transaction in
-                    NavigationLink(transaction, value: SecondScreen(userId: "2142"))
+                    NavigationLink(transaction, value: NavRoute.SecondScreen(userId: "2142"))
                         .fontWeight(.semibold)
                 }
             }

@@ -36,7 +36,7 @@ struct iOSApp: App {
         WindowGroup {
             NavigationStack(path: $router) {
                 MyFirstScreenWithMacro()
-                    .navigationDestination(for: SecondScreen.self) { value in
+                    .navigationDestination(for: NavRoute.SecondScreen.self) { value in
                         MyFirstScreenWithMacro()
                     }
             }

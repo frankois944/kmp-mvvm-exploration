@@ -31,8 +31,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import fr.frankois944.kmpviewmodel.logs.log
-import fr.frankois944.kmpviewmodel.router.MainScreen
-import fr.frankois944.kmpviewmodel.router.SecondScreen
+import fr.frankois944.kmpviewmodel.router.NavRoute
 import org.koin.androidx.compose.KoinAndroidContext
 import org.koin.core.annotation.KoinExperimentalAPI
 
@@ -94,22 +93,22 @@ class MainActivity : ComponentActivity() {
                         NavHost(
                             modifier = Modifier.padding(it),
                             navController = navController,
-                            startDestination = MainScreen,
+                            startDestination = NavRoute.MainScreen,
                         ) {
-                            composable<MainScreen> {
+                            composable<NavRoute.MainScreen> {
                                 canGoBack = false
                                 MyFirstScreen {
-                                    logger.d("Trigger Navigate to $SecondScreen")
-                                    navController.navigate(SecondScreen(userId = "4424"))
+                                    logger.d("Trigger Navigate to ${NavRoute.SecondScreen}")
+                                    navController.navigate(NavRoute.SecondScreen(userId = "4424"))
                                 }
                             }
-                            composable<SecondScreen> { nav ->
+                            composable<NavRoute.SecondScreen> { nav ->
                                 canGoBack = true
                                 MyFirstScreen(
-                                    param1 = nav.toRoute<SecondScreen>().userId,
+                                    param1 = nav.toRoute<NavRoute.SecondScreen>().userId,
                                 ) {
-                                    logger.d("Trigger Navigate to ${SecondScreen()}")
-                                    navController.navigate(SecondScreen("4242321"))
+                                    logger.d("Trigger Navigate to ${NavRoute.SecondScreen()}")
+                                    navController.navigate(NavRoute.SecondScreen("4242321"))
                                 }
                             }
                         }
