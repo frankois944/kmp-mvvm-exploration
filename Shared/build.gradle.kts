@@ -10,7 +10,6 @@ plugins {
     alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.kover)
     alias(libs.plugins.kotlinParcelize)
-    id("io.kotzilla.cloud-inject")
 }
 
 kotlin {
