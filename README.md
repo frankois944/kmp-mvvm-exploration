@@ -65,6 +65,13 @@ Look at the logs I added to verify the lifecycle, it should be exactly the same 
 
 ### Getting the viewmodel from Swift and Koin
 
-As this sample is using Koin, I want to get my viewmodel like Android, not on direct way  (it's still working)
+As this playground is using Koin, I want to get my viewmodel from koin, not on direct way (but it's still working)
+So we can use koin qualifier and parameters like koin for Android
 
-We need to export an important kotlin méthode
+- We need to export an important kotlin method
+https://github.com/frankois944/kmp-mvvm-exploration/blob/93718471ebba46ef69f58790f5405f6b1e4b90ee/Shared/src/iosMain/kotlin/fr/frankois944/kmpviewmodel/AppInit.ios.kt#L12
+- Then create some swift helpers
+https://github.com/frankois944/kmp-mvvm-exploration/blob/dc95775f62bc87c737402311529729833bda6b1f/iosApp/iosApp/KoinHelper.swift#L11-L36
+- Finally, get the instance from the swift views
+https://github.com/frankois944/kmp-mvvm-exploration/blob/dc95775f62bc87c737402311529729833bda6b1f/iosApp/iosApp/MyFirstScreenWithoutMacro.swift#L14-L21
+  
