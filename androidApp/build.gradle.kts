@@ -8,11 +8,20 @@ plugins {
 
 android {
     namespace = "fr.frankois944.kmpviewmodel.android"
-    compileSdk = libs.versions.compileSdk.get().toInt()
+    compileSdk =
+        libs.versions.compileSdk
+            .get()
+            .toInt()
     defaultConfig {
         applicationId = "fr.frankois944.kmpviewmodel.android"
-        minSdk = libs.versions.minSdk.get().toInt()
-        targetSdk = libs.versions.targetSdk.get().toInt()
+        minSdk =
+            libs.versions.minSdk
+                .get()
+                .toInt()
+        targetSdk =
+            libs.versions.targetSdk
+                .get()
+                .toInt()
         versionCode = 1
         versionName = "1.0"
         buildConfigField(
@@ -61,6 +70,7 @@ android {
 
 dependencies {
     implementation(projects.shared)
+    implementation("io.kotzilla:cloud-inject:0.10.0-Beta3")
 
     implementation(libs.androidx.compose.activity)
 

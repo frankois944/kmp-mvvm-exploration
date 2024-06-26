@@ -7,6 +7,8 @@ import fr.frankois944.kmpviewmodel.android.BuildConfig.DEBUG
 import fr.frankois944.kmpviewmodel.android.BuildConfig.IS_PRODUCTION
 import fr.frankois944.kmpviewmodel.android.di.AndroidModule
 import fr.frankois944.kmpviewmodel.startApp
+import io.kotzilla.cloudinject.CloudInjectSDK
+import io.kotzilla.cloudinject.analytics.koin.analyticsLogger
 import org.koin.android.ext.koin.androidContext
 import org.koin.ksp.generated.module
 
@@ -16,7 +18,8 @@ class MainApplication : Application() {
         if (DEBUG) {
             // See: https://developer.android.com/reference/android/os/StrictMode
             StrictMode.setThreadPolicy(
-                StrictMode.ThreadPolicy.Builder()
+                StrictMode.ThreadPolicy
+                    .Builder()
                     // .detectDiskReads()
                     // .detectDiskWrites()
                     // .detectNetwork() // or .detectAll() for all detectable problems
@@ -25,7 +28,8 @@ class MainApplication : Application() {
                     .build(),
             )
             StrictMode.setVmPolicy(
-                StrictMode.VmPolicy.Builder()
+                StrictMode.VmPolicy
+                    .Builder()
                     // .detectLeakedSqlLiteObjects()
                     // .detectLeakedClosableObjects()
                     .detectAll()
@@ -33,7 +37,7 @@ class MainApplication : Application() {
                     .build(),
             )
         }
-        // CloudInjectSDK.setup(this)
+        CloudInjectSDK.setup(this)
         startApp(
             appConfig =
                 AppConfig(
@@ -41,7 +45,7 @@ class MainApplication : Application() {
                     isProduction = IS_PRODUCTION,
                 ),
         ) {
-            //   analyticsLogger()
+            analyticsLogger()
             androidContext(this@MainApplication)
             modules(AndroidModule().module)
         }

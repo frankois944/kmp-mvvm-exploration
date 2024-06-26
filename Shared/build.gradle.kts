@@ -10,6 +10,7 @@ plugins {
     alias(libs.plugins.kotlinSerialization)
     alias(libs.plugins.kover)
     alias(libs.plugins.kotlinParcelize)
+    id("io.kotzilla.cloud-inject")
 }
 
 kotlin {
@@ -58,6 +59,7 @@ kotlin {
             implementation(libs.kermit)
             implementation(libs.kermit.koin)
             api(libs.androidx.lifecycle.viewmodel)
+            implementation("io.kotzilla:cloud-inject:0.10.0-Beta3")
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)
@@ -77,9 +79,15 @@ kotlin {
 
 android {
     namespace = "fr.frankois944.kmpviewmodel"
-    compileSdk = libs.versions.compileSdk.get().toInt()
+    compileSdk =
+        libs.versions.compileSdk
+            .get()
+            .toInt()
     defaultConfig {
-        minSdk = libs.versions.minSdk.get().toInt()
+        minSdk =
+            libs.versions.minSdk
+                .get()
+                .toInt()
     }
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_11
