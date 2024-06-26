@@ -13,6 +13,6 @@ plugins {
 
 buildscript {
     dependencies {
-        classpath("io.kotzilla:cloud-inject-gradle:0.10.0-Beta3")
+        classpath(libs.cloud.inject.gradle)
     }
 }

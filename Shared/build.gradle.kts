@@ -59,7 +59,7 @@ kotlin {
             implementation(libs.kermit)
             implementation(libs.kermit.koin)
             api(libs.androidx.lifecycle.viewmodel)
-            implementation("io.kotzilla:cloud-inject:0.10.0-Beta3")
+            implementation(libs.cloud.inject)
         }
         commonTest.dependencies {
             implementation(libs.kotlin.test)

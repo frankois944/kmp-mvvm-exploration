@@ -49,6 +49,5 @@ class MainApplication : Application() {
             androidContext(this@MainApplication)
             modules(AndroidModule().module)
         }
-        // CloudInjectSDK.log("a message ...")
     }
 }

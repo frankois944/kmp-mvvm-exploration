@@ -70,7 +70,7 @@ android {
 
 dependencies {
     implementation(projects.shared)
-    implementation("io.kotzilla:cloud-inject:0.10.0-Beta3")
+    implementation(libs.cloud.inject)
 
     implementation(libs.androidx.compose.activity)
 

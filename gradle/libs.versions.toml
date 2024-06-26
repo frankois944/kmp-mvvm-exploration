@@ -23,9 +23,12 @@ datastorePreferencesCore = "1.1.1" # https://developer.android.com/jetpack/andro
 collection = "1.4.0" # https://developer.android.com/jetpack/androidx/releases/collection
 kermit = "2.0.4" # https://github.com/touchlab/Kermit/releases
 okio = "3.9.0" # https://square.github.io/okio/changelog/
+cloudInject = "0.10.0-Beta3" # https://central.sonatype.com/artifact/io.kotzilla/cloud-inject
 
 [libraries]
 # Logger
+cloud-inject = { module = "io.kotzilla:cloud-inject", version.ref = "cloudInject" }
+cloud-inject-gradle = { module = "io.kotzilla:cloud-inject-gradle", version.ref = "cloudInject" }
 kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
 kermit-koin = { module = "co.touchlab:kermit-koin", version.ref = "kermit" }
 kermit-simple = { module = "co.touchlab:kermit-simple", version.ref = "kermit" }
