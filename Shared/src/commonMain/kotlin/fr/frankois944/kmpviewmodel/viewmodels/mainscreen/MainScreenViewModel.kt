@@ -24,13 +24,15 @@ import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
+import org.koin.core.annotation.InjectedParam
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import kotlin.random.Random
 
 @KoinViewModel
 public class MainScreenViewModel(
-    public val param1: String? = null,
+    @InjectedParam
+    public val param1: String?,
 ) : ViewModel(),
     KoinComponent {
     // <editor-fold desc="Services">
@@ -42,7 +44,7 @@ public class MainScreenViewModel(
     // </editor-fold>
 
     init {
-        logger.d("INIT")
+        logger.d("INIT with params $param1")
     }
 
     // <editor-fold desc="MainScreenUIState">

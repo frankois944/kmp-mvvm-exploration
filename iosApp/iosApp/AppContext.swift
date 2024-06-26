@@ -42,6 +42,8 @@ class AppContext : ObservableObject {
     @Published private var isDebug: Bool = false
     @Published private(set) var isProduction: Bool = false
     
+    var koinApplication: Koin_coreKoinApplication?
+    
     // MARK: - Methods
     
     // MARK: Init

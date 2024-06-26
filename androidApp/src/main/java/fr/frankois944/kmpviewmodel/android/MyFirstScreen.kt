@@ -40,7 +40,7 @@ import org.koin.core.parameter.parametersOf
 fun MyFirstScreen(
     modifier: Modifier = Modifier,
     param1: String? = null,
-    viewModel: MainScreenViewModel = koinViewModel(parameters = { parametersOf(param1 ?: "") }),
+    viewModel: MainScreenViewModel = koinViewModel(parameters = { parametersOf("sfdfs") }),
     eventBus: IEventBus = koinInject(),
     logger: Logger = log("MyFirstScreen"),
     onNextView: () -> Unit,

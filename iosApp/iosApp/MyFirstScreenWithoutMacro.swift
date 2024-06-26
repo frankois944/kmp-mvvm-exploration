@@ -17,7 +17,7 @@ struct MyFirstScreenWithoutMacro: View {
     @State private var reloadingTask: Kotlinx_coroutines_coreJob?
     
     init(param1: String? = nil) {
-        _viewModel = StateObject(wrappedValue: { .init(.init(param1: param1)) }())
+        _viewModel = StateObject(wrappedValue: { .init(.getInstance(parameters: ["IOS-MyFirstScreenWithoutMacro"])) }())
     }
     
     var body: some View {

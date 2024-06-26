@@ -26,10 +26,12 @@ struct iOSApp: App {
     
     init() {
 #if DEBUG
-        AppInitKt.startApp(appConfig: .init(isDebug: true, isProduction: false))
+        let koin = AppInitKt.startApp(appConfig: .init(isDebug: true, isProduction: false))
 #else
-        AppInitKt.startApp(appConfig: .init(isDebug: false, isProduction: false))
+        let koin = AppInitKt.startApp(appConfig: .init(isDebug: false, isProduction: false))
 #endif
+        
+        AppContext.shared.koinApplication = koin
     }
     
     var body: some Scene {
@@ -37,7 +39,7 @@ struct iOSApp: App {
             NavigationStack(path: $router) {
                 MyFirstScreenWithMacro()
                     .navigationDestination(for: NavRoute.SecondScreen.self) { value in
-                        MyFirstScreenWithMacro()
+                        MyFirstScreenWithoutMacro()
                     }
             }
             .environmentObject(AppContext.shared)

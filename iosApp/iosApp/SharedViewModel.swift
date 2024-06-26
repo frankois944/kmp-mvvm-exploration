@@ -25,4 +25,3 @@ class SharedViewModel<VM : ViewModel> : ObservableObject {
         viewModelStore.clear()
     }
 }
-
