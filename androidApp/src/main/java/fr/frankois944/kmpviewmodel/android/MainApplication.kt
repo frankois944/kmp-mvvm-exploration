@@ -16,7 +16,8 @@ class MainApplication : Application() {
         if (DEBUG) {
             // See: https://developer.android.com/reference/android/os/StrictMode
             StrictMode.setThreadPolicy(
-                StrictMode.ThreadPolicy.Builder()
+                StrictMode.ThreadPolicy
+                    .Builder()
                     // .detectDiskReads()
                     // .detectDiskWrites()
                     // .detectNetwork() // or .detectAll() for all detectable problems
@@ -25,7 +26,8 @@ class MainApplication : Application() {
                     .build(),
             )
             StrictMode.setVmPolicy(
-                StrictMode.VmPolicy.Builder()
+                StrictMode.VmPolicy
+                    .Builder()
                     // .detectLeakedSqlLiteObjects()
                     // .detectLeakedClosableObjects()
                     .detectAll()
@@ -33,7 +35,6 @@ class MainApplication : Application() {
                     .build(),
             )
         }
-        // CloudInjectSDK.setup(this)
         startApp(
             appConfig =
                 AppConfig(
@@ -41,10 +42,8 @@ class MainApplication : Application() {
                     isProduction = IS_PRODUCTION,
                 ),
         ) {
-            //   analyticsLogger()
             androidContext(this@MainApplication)
             modules(AndroidModule().module)
         }
-        // CloudInjectSDK.log("a message ...")
     }
 }
