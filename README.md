@@ -7,6 +7,7 @@ It's not that simple, I'm working on it for some times and with the advancement 
 You will find inside this repo :
 
 - Injection with Koin annotation on KMP project
+- Getting KMP ViewModel from swift and Koin 
 - Logging with Kermit
 - Usage of Android DataStore on KMP
 - MVVM with different approch
@@ -62,3 +63,8 @@ The goal of this experiment is to align the behavior between Android ViewModel a
 
 Look at the logs I added to verify the lifecycle, it should be exactly the same on the different approach.
 
+### Getting the viewmodel from Swift and Koin
+
+As this sample is using Koin, I want to get my viewmodel like Android, not on direct way  (it's still working)
+
+We need to export an important kotlin méthode
