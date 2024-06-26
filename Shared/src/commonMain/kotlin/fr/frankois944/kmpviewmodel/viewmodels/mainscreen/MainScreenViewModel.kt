@@ -23,12 +23,16 @@ import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
+import org.koin.android.annotation.KoinViewModel
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.inject
 import kotlin.random.Random
 
-// @KoinViewModel
-public class MainScreenViewModel(public val param1: String? = null) : ViewModel(), KoinComponent {
+@KoinViewModel
+public class MainScreenViewModel(
+    public val param1: String? = null,
+) : ViewModel(),
+    KoinComponent {
     // <editor-fold desc="Services">
     private val profileService: IProfileService by inject()
     private val accountService: IAccountService by inject()
@@ -61,7 +65,9 @@ public class MainScreenViewModel(public val param1: String? = null) : ViewModel(
                 val accountData = accountService.getAccountInfo()
                 delay(3000)
                 // simulate an error
-                // throw Exception("Oups")
+                if (reloading) {
+                    throw Exception("Oups")
+                }
                 logger.d("OK LOADING SCREEN")
                 emit(MainScreenUIState.Success(profileData, accountData))
             } catch (ex: Exception) {
