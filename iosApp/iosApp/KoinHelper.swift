@@ -16,7 +16,7 @@ private class KoinQualifier: Koin_coreQualifier {
 }
 
 extension ViewModel {
-    static func getInstance<T: ViewModel>(qualifier: String? = nil, parameters: [Any]? = nil) -> T {
+    static func getInstance(qualifier: String? = nil, parameters: [Any]? = nil) -> Self {
         if let ktClass = Shared.getOriginalKotlinClass(objCClass: Self.self) {
             var koinQualifier: Koin_coreQualifier?
             if let qualifier = qualifier {
@@ -28,7 +28,7 @@ extension ViewModel {
                                                                           parameters: {
                 .init(_values: .init(array: parameters ?? []), useIndexedValues: true)
             }) {
-                return instance as! T
+                return instance as! Self
             }
         }
         fatalError("Cant resolve ViewModel \(self)")
