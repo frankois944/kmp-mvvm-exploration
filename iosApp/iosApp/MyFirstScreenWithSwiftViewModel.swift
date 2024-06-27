@@ -13,17 +13,18 @@ import Combine
 class FirstScreenViewModel: ObservableObject {
     
     private let param1: String?
-    private let logger = log(tag: "FirstScreenDataStore")
-    private let accountService = AccountService(logger: log(tag: "AccountService"))
-    private let profilService = ProfileService(logger: log(tag: "ProfileService"))
+    private let logger: KermitLogger = koinGet(parameters: ["FirstScreenDataStore"])
+    @KoinInject<AccountService> private var accountService
+    @KoinInject<ProfileService> private var profilService
+    @KoinInject<Shared.AppContext> private var appContext
     private var disposebag = Set<AnyCancellable>()
     
     @Published var mainScreenUIState: MainScreenUIState = .Loading()
     @Published var userId: String?
     
     init(param1: String?) {
-        logger.d(messageString: "INIT")
         self.param1 = param1
+        logger.d(messageString: "INIT")
         self.disposebag.insert(AppContext.shared.$userId
             .receive(on: DispatchQueue.main)
             .sink { [weak self] in
