@@ -148,7 +148,7 @@ extension Koin_coreKoinApplication {
     }
 }
 
-/// lazy inject of koin injection (like `by inject()` koin method)
+/// lazy inject (like `by inject()` koin method)
 @propertyWrapper struct KoinInject<T: AnyObject> {
     var qualifier: String? = nil
     var parameters: [Any]? = nil
@@ -163,7 +163,7 @@ extension Koin_coreKoinApplication {
     }()
 }
 
-/// direct inject of koin Inject (like `get()` koin method)
+/// direct inject (like `get()` koin method)
 func koinGet<T: AnyObject>(qualifier: String? = nil, parameters: [Any]? = nil) -> T {
     guard let koinApplication = AppContext.shared.koinApplication else {
         fatalError("Cant get koinApplication")
@@ -178,7 +178,7 @@ func koinGet<T: AnyObject>(qualifier: String? = nil, parameters: [Any]? = nil) -
     // direct loading of any instance
     private let logger: KermitLogger = koinGet(parameters: ["FirstScreenDataStore"])
 
-    // direct loading of a viewmodel as exemple
+    // get the viewmodel as exemple
     @StateObject private var viewModel: SharedViewModel<MainScreenViewModel>
     init(param1: String? = nil) {
         _viewModel = StateObject(wrappedValue: { .init(parameters: ["IOS-MyFirstScreenWithoutMacro"]) }())
