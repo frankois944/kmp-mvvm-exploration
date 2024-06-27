@@ -75,7 +75,7 @@ class SharedViewModel<VM : ViewModel> : ObservableObject {
 ```
 From this *viewmodel*
 
-https://github.com/frankois944/kmp-mvvm-exploration/blob/3a3530e0e700730d6e4d4a981253bd8e2f484f50/Shared/src/commonMain/kotlin/fr/frankois944/kmpviewmodel/viewmodels/mainscreen/MainScreenViewModel.kt
+https://github.com/frankois944/kmp-mvvm-exploration/blob/main/Shared/src/commonMain/kotlin/fr/frankois944/kmpviewmodel/viewmodels/mainscreen/MainScreenViewModel.kt
 
 ### MVVM using Skie observable
 
@@ -85,13 +85,13 @@ This approach is using the Skie flow SwiftUI capability https://skie.touchlab.co
 
 ### MVVM using Macro
 
-https://github.com/frankois944/kmp-mvvm-exploration/blob/da295bdff93b7dafda8e0bf1f0fbb0ce6bc3e257/iosApp/iosApp/MyFirstScreenWithMacro.swift
+https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/MyFirstScreenWithMacro.swift
 
 This approach is using a [macro I made](https://github.com/frankois944/kmp-mvvm-exploration/tree/main/KTViewModelBuilder) to automatically wrap a KMP viewmodel inside an ObservableObject, almost like a SwiftUI viewmodel.
 
-https://github.com/frankois944/kmp-mvvm-exploration/blob/da295bdff93b7dafda8e0bf1f0fbb0ce6bc3e257/iosApp/iosApp/MyFirstScreenWithMacro.swift#L12-L17
+https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/MyFirstScreenWithMacro.swift#L12-L17
 
-### classic MVVM
+### Classic MVVM
 
 https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/MyFirstScreenWithSwiftViewModel.swift
 
@@ -99,14 +99,15 @@ No usage of KMP mvvm, just like a MVVM SwiftUI class
 
 ## Thinking
 
-The goal of this experiment is to align the behavior between Android ViewModel and SwiftUI ViewModel, it's not that simple as the viewmodel MUST be the same but the lifecycle of View are different.
+The goal of this experiment is to align the behavior between Android ViewModel and SwiftUI ViewModel, it's not that simple as the viewmodel MUST be the same but the lifecycle of View holder are different.
 
 Look at the logs I added to verify the lifecycle, it should be exactly the same on the different approach.
 
 ### Getting the viewmodel from Swift and Koin
 
 As this playground is using Koin, I want to get my viewmodel from koin, not on direct way (but it's still working)
-So we can use koin qualifier and parameters like koin for Android
+
+So we can use koin qualifier and parameters like koin for Android.
 
 - We need to export an important kotlin method
 https://github.com/frankois944/kmp-mvvm-exploration/blob/93718471ebba46ef69f58790f5405f6b1e4b90ee/Shared/src/iosMain/kotlin/fr/frankois944/kmpviewmodel/AppInit.ios.kt#L12
