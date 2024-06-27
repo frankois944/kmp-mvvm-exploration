@@ -16,7 +16,7 @@ private class KoinQualifier: Koin_coreQualifier {
 }
 
 extension ViewModel {
-    static func getInstance(qualifier: String? = nil, parameters: [Any]? = nil) -> Self {
+    static func get(qualifier: String? = nil, parameters: [Any]? = nil) -> Self {
         if let ktClass = Shared.getOriginalKotlinClass(objCClass: Self.self) {
             var koinQualifier: Koin_coreQualifier?
             if let qualifier = qualifier {

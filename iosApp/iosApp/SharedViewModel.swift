@@ -13,8 +13,15 @@ class SharedViewModel<VM : ViewModel> : ObservableObject {
     private let key = String(describing: type(of: VM.self))
     private let viewModelStore = ViewModelStore()
     
+    // Injecting the viewmodel
     init(_ viewModel: VM = .init()) {
         viewModelStore.put(key: key, viewModel: viewModel)
+    }
+    
+    // Instanciate the viewmodel from parameters
+    init(qualifier: String? = nil, parameters: [Any]? = nil) {
+        let viewmodel = VM.get(qualifier: qualifier, parameters: parameters)
+        viewModelStore.put(key: key, viewModel: viewmodel)
     }
     
     var instance: VM {
