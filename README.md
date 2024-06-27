@@ -103,7 +103,7 @@ The goal of this experiment is to align the behavior between Android ViewModel a
 
 Look at the logs I added to verify the lifecycle, it should be exactly the same on the different approach.
 
-### Getting the viewmodel from Swift and Koin
+### Getting the viewmodel or any instance from Swift and Koin
 
 As this playground is using Koin, I want to get my viewmodel from koin, not on direct way (but it's still working)
 
@@ -111,7 +111,7 @@ So we can use koin qualifier and parameters like koin for Android.
 
 - We need to export an important kotlin method
 https://github.com/frankois944/kmp-mvvm-exploration/blob/93718471ebba46ef69f58790f5405f6b1e4b90ee/Shared/src/iosMain/kotlin/fr/frankois944/kmpviewmodel/AppInit.ios.kt#L12
-- Then create some swift helpers
+- [Then create some swift helpers](https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/KoinHelper.swift)
 ```swift
 private class KoinQualifier: Koin_coreQualifier {
     init(value: String) {
@@ -120,32 +120,64 @@ private class KoinQualifier: Koin_coreQualifier {
     var value: String
 }
 
-
-extension ViewModel {
-    static func get(qualifier: String? = nil, parameters: [Any]? = nil) -> Self {
-        if let ktClass = Shared.getOriginalKotlinClass(objCClass: Self.self) {
+extension Koin_coreKoinApplication {
+    // reproducing the koin `get()` method behavior
+    // we can set qualifier and parameters
+    func get<T: AnyObject>(qualifier: String? = nil, parameters: [Any]? = nil) -> T {
+        if let ktClass = Shared.getOriginalKotlinClass(objCClass: T.self) {
             var koinQualifier: Koin_coreQualifier?
             if let qualifier = qualifier {
                 koinQualifier = KoinQualifier(value: qualifier)
             }
             
-            if let instance = AppContext.shared.koinApplication?.koin.get(clazz: ktClass,
-                                                                          qualifier: koinQualifier,
-                                                                          parameters: {
+            if let instance = koin.get(clazz: ktClass,
+                                       qualifier: koinQualifier,
+                                       parameters: {
                 .init(_values: .init(array: parameters ?? []), useIndexedValues: true)
             }) {
-                return instance as! Self
+                return instance as! T
             }
         }
         fatalError("Cant resolve ViewModel \(self)")
     }
 }
-```
-- Finally, get the instance from the swift views
-```swift
-@StateObject private var viewModel: SharedViewModel<MainScreenViewModel> 
- 
-init(param1: String? = nil) { 
-    _viewModel = StateObject(wrappedValue: { .init(.get(parameters: ["IOS-MyFirstScreenWithoutMacro"])) }()) 
+
+/// lazy inject of koin injection (like `by inject()` koin method)
+@propertyWrapper struct KoinInject<T: AnyObject> {
+    var qualifier: String? = nil
+    var parameters: [Any]? = nil
+    
+    init(qualifier: String? = nil, parameters: [Any]? = nil) {
+        self.qualifier = qualifier
+        self.parameters = parameters
+    }
+    
+    lazy var wrappedValue: T = {
+        return koinGet(qualifier: qualifier, parameters: parameters)
+    }()
 }
+
+/// direct inject of koin Inject (like `get()` koin method)
+func koinGet<T: AnyObject>(qualifier: String? = nil, parameters: [Any]? = nil) -> T {
+    guard let koinApplication = AppContext.shared.koinApplication else {
+        fatalError("Cant get koinApplication")
+    }
+    return koinApplication.get(qualifier: qualifier, parameters: parameters)
+}
+```
+- Finally, get the instance from the swift views, ie:
+```swift
+    // lazy loading of any instance
+    @KoinInject<AccountService> private var accountService
+    // direct loading of any instance
+    private let logger: KermitLogger = koinGet(parameters: ["FirstScreenDataStore"])
+
+    // direct loading of a viewmodel as exemple
+    @StateObject private var viewModel: SharedViewModel<MainScreenViewModel>
+    init(param1: String? = nil) {
+        _viewModel = StateObject(wrappedValue: { .init(parameters: ["IOS-MyFirstScreenWithoutMacro"]) }())
+    }
+    // or
+    @StateObject private var viewModel: SharedViewModel<MainScreenViewModel> = .init(koinGet())
+    // and many other ways
 ```
