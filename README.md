@@ -165,7 +165,7 @@ func koinGet<T: AnyObject>(qualifier: String? = nil, parameters: [Any]? = nil) -
     return koinApplication.get(qualifier: qualifier, parameters: parameters)
 }
 ```
-- Finally, get the instance from the swift views, ie:
+- Finally, get the instance from the koin, ie:
 ```swift
     // lazy loading of any instance
     @KoinInject<AccountService> private var accountService
