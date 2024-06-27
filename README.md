@@ -178,7 +178,7 @@ func koinGet<T: AnyObject>(qualifier: String? = nil, parameters: [Any]? = nil) -
     // direct loading of any instance
     private let logger: KermitLogger = koinGet(parameters: ["FirstScreenDataStore"])
 
-    // get the viewmodel as exemple
+    // get the viewmodel as example
     @StateObject private var viewModel: SharedViewModel<MainScreenViewModel>
     init(param1: String? = nil) {
         _viewModel = StateObject(wrappedValue: { .init(parameters: ["IOS-MyFirstScreenWithoutMacro"]) }())
