@@ -7,7 +7,7 @@ It's not that simple, I'm working on it for some times and with the advancement 
 You will find inside this repo :
 
 - Injection with Koin annotation on KMP project
-- Getting KMP ViewModel from swift and Koin 
+- [Getting KMP ViewModel from swift and Koin](#getting-the-viewmodel-from-swift-and-koin)
 - Logging with Kermit
 - Usage of Android DataStore on KMP
 - MVVM with different approch
@@ -21,18 +21,57 @@ So, the most interesting things is about the MVVM :
 
 Inspiration from this repository https://github.com/joreilly/FantasyPremierLeague and this issue https://github.com/joreilly/FantasyPremierLeague/issues/231
 
-- First step is exporting the Kotlin mvvm dependancy to Swift https://github.com/frankois944/kmp-mvvm-exploration/blob/da295bdff93b7dafda8e0bf1f0fbb0ce6bc3e257/Shared/build.gradle.kts#L38
+- First step is exporting the Kotlin mvvm dependancy to Swift
+
+```gradle
+it.binaries.framework {
+    //...
+    export(libs.androidx.lifecycle.viewmodel)
+}
+```
 
 - Then importing SKIE to fully access the Kotlin Flow from Swift
 
 And activate some usefull features :
 
-https://github.com/frankois944/kmp-mvvm-exploration/blob/bc18549d9f867d145e5dd0548c7522a962ae762c/Shared/build.gradle.kts#L117-L125
+```gradle
+skie {
+    features {
+        // https://skie.touchlab.co/features/flows-in-swiftui
+        enableSwiftUIObservingPreview = true
+        // https://skie.touchlab.co/features/combine
+        enableFutureCombineExtensionPreview = true
+        enableFlowCombineConvertorPreview = true
+    }
+}
+```
  
 - Finally creating a SwiftUI class to manage the KMP viewmodel lifecycle 
-
-https://github.com/frankois944/kmp-mvvm-exploration/blob/da295bdff93b7dafda8e0bf1f0fbb0ce6bc3e257/iosApp/iosApp/SharedViewModel.swift#L11-L27
-
+```swift
+class SharedViewModel<VM : ViewModel> : ObservableObject {
+    
+    private let key = String(describing: type(of: VM.self))
+    private let viewModelStore = ViewModelStore()
+    
+    // Injecting the viewmodel
+    init(_ viewModel: VM = .init()) {
+        viewModelStore.put(key: key, viewModel: viewModel)
+    }
+    
+    init(qualifier: String? = nil, parameters: [Any]? = nil) {
+        let viewmodel = VM.get(qualifier: qualifier, parameters: parameters)
+        viewModelStore.put(key: key, viewModel: viewmodel)
+    }
+    
+    var instance: VM {
+        viewModelStore.get(key: key) as! VM
+    }
+    
+    deinit {
+        viewModelStore.clear()
+    }
+}
+```
 From this *viewmodel*
 
 https://github.com/frankois944/kmp-mvvm-exploration/blob/3a3530e0e700730d6e4d4a981253bd8e2f484f50/Shared/src/commonMain/kotlin/fr/frankois944/kmpviewmodel/viewmodels/mainscreen/MainScreenViewModel.kt
@@ -71,7 +110,40 @@ So we can use koin qualifier and parameters like koin for Android
 - We need to export an important kotlin method
 https://github.com/frankois944/kmp-mvvm-exploration/blob/93718471ebba46ef69f58790f5405f6b1e4b90ee/Shared/src/iosMain/kotlin/fr/frankois944/kmpviewmodel/AppInit.ios.kt#L12
 - Then create some swift helpers
-https://github.com/frankois944/kmp-mvvm-exploration/blob/bed8a5b5a2b621a82bea02e9752154362ab4e917/iosApp/iosApp/KoinHelper.swift#L11-L35
+```swift
+private class KoinQualifier: Koin_coreQualifier {
+    init(value: String) {
+        self.value = value
+    }
+    var value: String
+}
+
+
+extension ViewModel {
+    static func get(qualifier: String? = nil, parameters: [Any]? = nil) -> Self {
+        if let ktClass = Shared.getOriginalKotlinClass(objCClass: Self.self) {
+            var koinQualifier: Koin_coreQualifier?
+            if let qualifier = qualifier {
+                koinQualifier = KoinQualifier(value: qualifier)
+            }
+            
+            if let instance = AppContext.shared.koinApplication?.koin.get(clazz: ktClass,
+                                                                          qualifier: koinQualifier,
+                                                                          parameters: {
+                .init(_values: .init(array: parameters ?? []), useIndexedValues: true)
+            }) {
+                return instance as! Self
+            }
+        }
+        fatalError("Cant resolve ViewModel \(self)")
+    }
+}
+```
 - Finally, get the instance from the swift views
-https://github.com/frankois944/kmp-mvvm-exploration/blob/dc95775f62bc87c737402311529729833bda6b1f/iosApp/iosApp/MyFirstScreenWithoutMacro.swift#L14-L21
-  
+```swift
+@StateObject private var viewModel: SharedViewModel<MainScreenViewModel> 
+ 
+init(param1: String? = nil) { 
+    _viewModel = StateObject(wrappedValue: { .init(.get(parameters: ["IOS-MyFirstScreenWithoutMacro"])) }()) 
+}
+```
