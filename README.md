@@ -111,6 +111,12 @@ So we can use koin qualifier and parameters like koin for Android.
 
 - We need to export an important kotlin method
 https://github.com/frankois944/kmp-mvvm-exploration/blob/93718471ebba46ef69f58790f5405f6b1e4b90ee/Shared/src/iosMain/kotlin/fr/frankois944/kmpviewmodel/AppInit.ios.kt#L12
+
+- Store the Kotlin Koin Context somewhere and make it accessible everywhere in the swift App
+```swift
+// For example: store in swift singleton the koin application
+AppContext.shared.koinApplication = // instance of initialized koinapplication
+```
 - [Then create some swift helpers](https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/KoinHelper.swift)
 ```swift
 private class KoinQualifier: Koin_coreQualifier {
