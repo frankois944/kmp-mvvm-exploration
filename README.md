@@ -6,10 +6,10 @@ It's not that simple, I'm working on it for some times and with the advancement 
 
 You will find inside this repo :
 
-- Injection with Koin annotation on KMP project
+- Injection with Koin annotation
 - [Getting KMP ViewModel from swift and Koin](#getting-the-viewmodel-from-swift-and-koin)
 - Logging with Kermit
-- Usage of Android DataStore on KMP
+- Usage of DataStore
 - MVVM with different approach
 - and more little experiences
 
@@ -30,7 +30,7 @@ it.binaries.framework {
 }
 ```
 
-- Then importing SKIE to fully access the Kotlin Flow from Swift
+- Then importing [SKIE](https://skie.touchlab.co/) to fully access the Kotlin Flow from Swift
 
 And activate some useful features :
 
