@@ -7,7 +7,7 @@ It's not that simple, I'm working on it for some times and with the advancement 
 You will find inside this repo :
 
 - Injection with Koin annotation
-- [Getting KMP ViewModel from swift and Koin](#getting-the-viewmodel-from-swift-and-koin)
+- [Getting the viewmodel or any instance from Swift and Koin](#getting-the-viewmodel-or-any-instance-from-swift-and-koin)
 - Logging with Kermit
 - Usage of DataStore
 - MVVM with different approach
