@@ -4,6 +4,7 @@ package fr.frankois944.kmpviewmodel.viewmodels.mainscreen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import co.touchlab.kermit.Logger
 import fr.frankois944.kmpviewmodel.helpers.eventbus.AppEvents
 import fr.frankois944.kmpviewmodel.helpers.eventbus.IEventBus
 import fr.frankois944.kmpviewmodel.logs.log
@@ -26,23 +27,19 @@ import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
 import org.koin.core.annotation.InjectedParam
 import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
 import kotlin.random.Random
 
 @KoinViewModel
 public class MainScreenViewModel(
     @InjectedParam
     public val param1: String?,
+    private val profileService: IProfileService,
+    private val accountService: IAccountService,
+    private val appContext: AppContext,
+    private val eventBus: IEventBus,
+    private val logger: Logger = log("MainScreenViewModel"),
 ) : ViewModel(),
     KoinComponent {
-    // <editor-fold desc="Services">
-    private val profileService: IProfileService by inject()
-    private val accountService: IAccountService by inject()
-    private val appContext: AppContext by inject()
-    private val eventBus: IEventBus by inject()
-    private val logger = log("MainScreenViewModel")
-    // </editor-fold>
-
     init {
         logger.d("INIT with params $param1")
     }
