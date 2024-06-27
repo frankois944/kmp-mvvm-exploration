@@ -71,7 +71,7 @@ So we can use koin qualifier and parameters like koin for Android
 - We need to export an important kotlin method
 https://github.com/frankois944/kmp-mvvm-exploration/blob/93718471ebba46ef69f58790f5405f6b1e4b90ee/Shared/src/iosMain/kotlin/fr/frankois944/kmpviewmodel/AppInit.ios.kt#L12
 - Then create some swift helpers
-https://github.com/frankois944/kmp-mvvm-exploration/blob/dc95775f62bc87c737402311529729833bda6b1f/iosApp/iosApp/KoinHelper.swift#L11-L36
+https://github.com/frankois944/kmp-mvvm-exploration/blob/bed8a5b5a2b621a82bea02e9752154362ab4e917/iosApp/iosApp/KoinHelper.swift#L11-L35
 - Finally, get the instance from the swift views
 https://github.com/frankois944/kmp-mvvm-exploration/blob/dc95775f62bc87c737402311529729833bda6b1f/iosApp/iosApp/MyFirstScreenWithoutMacro.swift#L14-L21
   
