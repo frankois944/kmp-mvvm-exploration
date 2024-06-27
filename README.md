@@ -10,10 +10,10 @@ You will find inside this repo :
 - [Getting KMP ViewModel from swift and Koin](#getting-the-viewmodel-from-swift-and-koin)
 - Logging with Kermit
 - Usage of Android DataStore on KMP
-- MVVM with different approch
+- MVVM with different approach
 - and more little experiences
 
-The 3 first are the easiest, they are almost fully documented, the forth is also done on Android but on iOS, it's currently still experimental.
+The 3 first are the easiest, they are almost fully documented, the fourth is also done on Android but on iOS, it's currently still experimental.
 
 ## MVVM concept on IOS
 
@@ -21,7 +21,7 @@ So, the most interesting things is about the MVVM :
 
 Inspiration from this repository https://github.com/joreilly/FantasyPremierLeague and this issue https://github.com/joreilly/FantasyPremierLeague/issues/231
 
-- First step is exporting the Kotlin mvvm dependancy to Swift
+- First step is exporting the Kotlin mvvm dependency to Swift
 
 ```gradle
 it.binaries.framework {
@@ -32,7 +32,7 @@ it.binaries.framework {
 
 - Then importing SKIE to fully access the Kotlin Flow from Swift
 
-And activate some usefull features :
+And activate some useful features :
 
 ```gradle
 skie {
