@@ -7,7 +7,6 @@ import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
 import kotlinx.coroutines.flow.SharedFlow
-import kotlinx.coroutines.flow.asSharedFlow
 import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.isActive
@@ -28,13 +27,15 @@ internal expect fun EventBus.publishNotification(
  * Created by francois.dabonot@frankois944.fr on 01/06/2023.
  */
 @Single
-internal class EventBus : IEventBus, KoinComponent {
+internal class EventBus :
+    IEventBus,
+    KoinComponent {
     private val coroutineContext = CoroutineScope(Dispatchers.Default)
     internal val logger: Logger by inject(parameters = { parametersOf("EventBus") })
 
     @Suppress("ktlint:standard:backing-property-naming")
     private val _events: MutableSharedFlow<Pair<AppEvents, Any?>> = MutableSharedFlow()
-    private val events: SharedFlow<Pair<AppEvents, Any?>> = _events.asSharedFlow()
+    private val events: SharedFlow<Pair<AppEvents, Any?>> = _events
 
     override fun publish(
         name: AppEvents,
@@ -49,8 +50,8 @@ internal class EventBus : IEventBus, KoinComponent {
         }
     }
 
-    override fun <T : AppEvents> subscribeEvent(): Flow<Pair<T, Any?>> {
-        return channelFlow {
+    override fun <T : AppEvents> subscribeEvent(): Flow<Pair<T, Any?>> =
+        channelFlow {
             launch(Dispatchers.Default) {
                 events.collectLatest { event ->
                     if (coroutineContext.isActive) {
@@ -61,5 +62,4 @@ internal class EventBus : IEventBus, KoinComponent {
                 }
             }
         }
-    }
 }
