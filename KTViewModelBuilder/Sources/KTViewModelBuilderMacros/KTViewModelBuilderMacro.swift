@@ -50,14 +50,13 @@ public struct SharedViewModelMacro: MemberMacro {
                 .as(TupleExprSyntax.self)?.elements.dropFirst().first?.expression
                 .as(MemberAccessExprSyntax.self)?.base?
                 .as(DeclReferenceExprSyntax.self)?.baseName.text
-            var isOptional = false
+            let isOptional = type == nil
             if type == nil {
                 type = value.expression
                     .as(TupleExprSyntax.self)?.elements.dropFirst().first?.expression
                     .as(MemberAccessExprSyntax.self)?.base?
                     .as(OptionalChainingExprSyntax.self)?.expression
                     .as(DeclReferenceExprSyntax.self)?.baseName.text
-                isOptional = true
             }
             guard let name = name, let type = type else {
                 fatalError("Invalid publishing couple \(String(describing: name)) \(String(describing: type))")

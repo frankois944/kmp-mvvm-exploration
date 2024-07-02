@@ -14,8 +14,8 @@ class FirstScreenViewModel: ObservableObject {
     
     private let param1: String?
     private let logger: KermitLogger = koinGet(parameters: ["FirstScreenDataStore"])
-    @KoinInject<AccountService> private var accountService
-    @KoinInject<ProfileService> private var profilService
+    @KoinInject<Shared.IAccountService> private var accountService
+    @KoinInject<Shared.IProfileService> private var profilService
     @KoinInject<Shared.AppContext> private var appContext
     private var disposebag = Set<AnyCancellable>()
     

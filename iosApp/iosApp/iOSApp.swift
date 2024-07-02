@@ -37,9 +37,9 @@ struct iOSApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationStack(path: $router) {
-                MyFirstScreenWithoutMacro()
+                MyFirstScreenWithSwiftDataStore()
                     .navigationDestination(for: NavRoute.SecondScreen.self) { value in
-                        MyFirstScreenWithMacro()
+                        MyFirstScreenWithSwiftDataStore()
                     }
             }
             .environmentObject(AppContext.shared)
