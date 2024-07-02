@@ -1,7 +1,6 @@
 package fr.frankois944.kmpviewmodel.models.context
 
 import co.touchlab.kermit.Logger
-import fr.frankois944.kmpviewmodel.logs.log
 import fr.frankois944.kmpviewmodel.models.context.preferences.IPersistingData
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
@@ -9,6 +8,7 @@ import org.koin.core.annotation.Single
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.get
 import org.koin.core.component.inject
+import org.koin.core.parameter.parameterSetOf
 
 /**
  * The context contains the data needed by the application to work.
@@ -21,7 +21,7 @@ public class AppContext(
     /**
      * Logger
      */
-    private val logger: Logger = log("AppContext")
+    private val logger: Logger by inject(parameters = { parameterSetOf("AppContext") })
 
     public companion object : KoinComponent {
         /**

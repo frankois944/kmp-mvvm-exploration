@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import KTViewModelBuilder
 @_exported import Shared
 
 extension Error {
@@ -21,7 +22,9 @@ extension Error {
 struct iOSApp: App {
     
     let notification: Notification.Name = .init(AppEvents.shareContent.name)
-
+    let appContext: AppContext
+    
+    @State var logger: KermitLogger
     @State var router = NavigationPath()
     
     init() {
@@ -30,22 +33,22 @@ struct iOSApp: App {
 #else
         let koin = AppInitKt.startApp(appConfig: .init(isDebug: false, isProduction: false))
 #endif
-        
-        AppContext.shared.koinApplication = koin
+        appContext = .init(koinApplication: koin)
+        logger = koinGet(parameters: ["iOSApp"])
     }
     
     var body: some Scene {
         WindowGroup {
             NavigationStack(path: $router) {
-                MyFirstScreenWithSwiftDataStore()
+                MyFirstScreenWithSwiftViewModel()
                     .navigationDestination(for: NavRoute.SecondScreen.self) { value in
-                        MyFirstScreenWithSwiftDataStore()
+                        MyFirstScreenWithSwiftViewModel()
                     }
             }
-            .environmentObject(AppContext.shared)
+            .environmentObject(appContext)
             .onReceive(NotificationCenter.default.publisher(for: notification),
                        perform: {
-                log(tag: "iOSApp").i(messageString: "Notification received : \($0)")
+                logger.i(messageString: "Notification received : \($0)")
             })
         }
     }

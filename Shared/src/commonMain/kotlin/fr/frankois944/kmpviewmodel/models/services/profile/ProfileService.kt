@@ -1,15 +1,18 @@
 package fr.frankois944.kmpviewmodel.models.services.profile
 
 import co.touchlab.kermit.Logger
-import fr.frankois944.kmpviewmodel.logs.log
 import fr.frankois944.kmpviewmodel.models.dto.ProfileData
 import org.koin.core.annotation.Single
 import org.koin.core.component.KoinComponent
+import org.koin.core.component.get
+import org.koin.core.parameter.parameterSetOf
 
 @Single
-public class ProfileService(
-    public val logger: Logger = log("ProfileService"),
-) : IProfileService, KoinComponent {
+public class ProfileService :
+    IProfileService,
+    KoinComponent {
+    public val logger: Logger = get(parameters = { parameterSetOf("ProfileService") })
+
     @Throws(Exception::class)
     override suspend fun getProfile(): ProfileData {
         logger.d("Load")

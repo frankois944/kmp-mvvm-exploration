@@ -27,7 +27,6 @@ import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import co.touchlab.kermit.Logger
 import fr.frankois944.kmpviewmodel.helpers.eventbus.AppEvents
 import fr.frankois944.kmpviewmodel.helpers.eventbus.IEventBus
-import fr.frankois944.kmpviewmodel.logs.log
 import fr.frankois944.kmpviewmodel.models.dto.AccountData
 import fr.frankois944.kmpviewmodel.models.dto.ProfileData
 import fr.frankois944.kmpviewmodel.viewmodels.mainscreen.MainScreenUIState
@@ -42,7 +41,7 @@ fun MyFirstScreen(
     param1: String? = null,
     viewModel: MainScreenViewModel = koinViewModel(parameters = { parametersOf(param1) }),
     eventBus: IEventBus = koinInject(),
-    logger: Logger = log("MyFirstScreen"),
+    logger: Logger = koinInject(parameters = { parametersOf("MyFirstScreen") }),
     onNextView: () -> Unit,
 ) {
     val coroutineScope = rememberCoroutineScope()

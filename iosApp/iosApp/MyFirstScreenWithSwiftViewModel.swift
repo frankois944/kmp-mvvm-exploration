@@ -13,9 +13,10 @@ import Combine
 class FirstScreenViewModel: ObservableObject {
     
     private let param1: String?
-    private let logger: KermitLogger = koinGet(parameters: ["FirstScreenDataStore"])
+    private let logger: KermitLogger = koinGet(parameters: ["FirstScreenViewModel"])
     @KoinInject<Shared.IAccountService> private var accountService
     @KoinInject<Shared.IProfileService> private var profilService
+    @KoinInject<Shared.IEventBus> private var eventBus
     @KoinInject<Shared.AppContext> private var appContext
     private var disposebag = Set<AnyCancellable>()
     
@@ -25,16 +26,18 @@ class FirstScreenViewModel: ObservableObject {
     init(param1: String?) {
         self.param1 = param1
         logger.d(messageString: "INIT")
-        self.disposebag.insert(AppContext.shared.$userId
+        disposebag.insert(appContext.usernameFlow
+            .toPublisher()
             .receive(on: DispatchQueue.main)
             .sink { [weak self] in
                 self?.userId = $0
-        })
+            })
     }
     
     func updateUserId() {
         logger.d(messageString: "updateUserId")
-        AppContext.shared.userId = "\(Int.random(in: 1..<Int.max))"
+        appContext.username = "\(Int.random(in: 1..<Int.max))"
+        eventBus.publish(name: .shareContent, value: nil)
     }
     
     func loadData(reloading: Bool = false) async {
@@ -63,7 +66,7 @@ class FirstScreenViewModel: ObservableObject {
 }
 
 
-struct MyFirstScreenWithSwiftDataStore: View {
+struct MyFirstScreenWithSwiftViewModel: View {
     @StateObject private var viewModel = FirstScreenViewModel(param1: nil)
     @State private var reloadingTask = Set<Task<(), Never>>()
     
@@ -88,5 +91,5 @@ struct MyFirstScreenWithSwiftDataStore: View {
 }
 
 #Preview {
-    MyFirstScreenWithSwiftDataStore()
+    MyFirstScreenWithSwiftViewModel()
 }

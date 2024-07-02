@@ -3,20 +3,24 @@ package fr.frankois944.kmpviewmodel.models.context.preferences
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
 import co.touchlab.kermit.Logger
-import fr.frankois944.kmpviewmodel.logs.log
 import kotlinx.coroutines.flow.Flow
 import org.koin.core.annotation.Single
 import org.koin.core.component.KoinComponent
+import org.koin.core.component.get
+import org.koin.core.component.inject
+import org.koin.core.parameter.parameterSetOf
+import org.koin.core.parameter.parametersOf
 import kotlin.coroutines.EmptyCoroutineContext.get
 
 @Single
 internal class PersistingData(
     storage: DataStore<Preferences>,
-) : IPersistingData, KoinComponent {
+) : IPersistingData,
+    KoinComponent {
     /**
      * Logger
      */
-    private val logger: Logger = log("PersistingData")
+    private val logger: Logger by inject(parameters = { parameterSetOf("PersistingData") })
 
     /**
      * Use this value to specify a non null field as a null value
@@ -36,11 +40,13 @@ internal class PersistingData(
         DataStoreFactory(
             storage = storage,
             key = DataStoreFactory.createKey<String>(USER_NAME),
+            logger = get(parameters = { parametersOf("DataStoreFactory[USER_NAME]") }),
         )
     override val usernameFlow: Flow<String?> = usernameFactory.flow
     override var username: String?
         get() = usernameFactory.value.takeIf { it != nullValue }
         set(value) {
+            logger.v("UPDATING username $value")
             usernameFactory.value = value ?: nullValue
         }
 
@@ -52,11 +58,13 @@ internal class PersistingData(
         DataStoreFactory(
             storage = storage,
             key = DataStoreFactory.createKey<Boolean>(IS_ENABLED),
+            logger = get(parameters = { parametersOf("DataStoreFactory[IS_ENABLED]") }),
         )
     override val isEnabledFlow: Flow<Boolean?> = isEnabledFactory.flow
     override var isEnabled: Boolean
         get() = isEnabledFactory.value ?: false
         set(value) {
+            logger.v("UPDATING isEnabled $value")
             isEnabledFactory.value = value
         }
 

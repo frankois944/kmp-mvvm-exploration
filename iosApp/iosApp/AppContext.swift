@@ -10,64 +10,51 @@ import Foundation
 import SwiftUI
 import Combine
 
+/// if you want to observe the kotlin AppContext, you need to wrap it inside an ObservableObject
+/// like a viewmodel
+///
+/// You can store it inside an `.environmentObject` SwiftUI
 class AppContext : ObservableObject {
     
     // MARK: Properties
     
-    static let shared = AppContext()
+    static private var _shared: AppContext? = nil
+    /// Singleton to access the Native/Shared AppContext.
+    ///
+    /// **AppContext.init MUST be called before accessing this property**
+    static var shared: AppContext {
+        guard let _shared else {
+            fatalError("Call AppContext.init first to setup the singleton")
+        }
+        return _shared
+    }
     
     // MARK: Private
     
-    private let common = Shared.AppContext.companion.instance
-    private let logger = log(tag: "AppContext")
+    private lazy var logger: KermitLogger = koinGet(parameters: ["AppContext"])
+    private lazy var common: Shared.AppContext = koinGet()
     private var disposebag = Set<AnyCancellable>()
     
     // MARK: Public
-    @Published var username: String? {
-        didSet {
-            common.username = username
-        }
-    }
-    
-    @Published var sessionToken: String? {
+
+    var sessionToken: String? {
         didSet {
             common.sessionToken = sessionToken
         }
     }
-    @Published var userId: String?  {
-        didSet {
-            common.userId = userId
-        }
-    }
-    @Published private var isDebug: Bool = false
-    @Published private(set) var isProduction: Bool = false
-    
-    var koinApplication: Koin_coreKoinApplication?
+    /// the koin scope application used by the shared code,
+    /// It's needed for resolving injected instances from swift code
+    let koinApplication: Koin_coreKoinApplication
     
     // MARK: - Methods
     
     // MARK: Init
     
-    init() {
+    init(koinApplication: Koin_coreKoinApplication) {
+        self.koinApplication = koinApplication
+        AppContext._shared = self
         logger.d(messageString: "INIT APPCONTEXT")
-        /*isDebug = common.platform.isDebug
-         isProduction = common.platform.isProduction*/
-        disposebag.insert(
-            common.usernameFlow.toPublisher()
-                .receive(on: DispatchQueue.main)
-                .sink { [weak self] in
-                    self?.logger.i(messageString: "UPDATING username with \(String(describing: $0))")
-                    self?.username = $0
-                }
-        )
-        disposebag.insert(
-            common.userIdFlow.toPublisher()
-                .receive(on: DispatchQueue.main)
-                .sink { [weak self] in
-                    self?.logger.i(messageString: "UPDATING userId with \(String(describing: $0))")
-                    self?.userId = $0
-                }
-        )
+       
         disposebag.insert(
             common.sessionTokenFlow.toPublisher()
                 .receive(on: DispatchQueue.main)

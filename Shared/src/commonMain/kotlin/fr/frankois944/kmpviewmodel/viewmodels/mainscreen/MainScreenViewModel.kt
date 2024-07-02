@@ -7,7 +7,6 @@ import androidx.lifecycle.viewModelScope
 import co.touchlab.kermit.Logger
 import fr.frankois944.kmpviewmodel.helpers.eventbus.AppEvents
 import fr.frankois944.kmpviewmodel.helpers.eventbus.IEventBus
-import fr.frankois944.kmpviewmodel.logs.log
 import fr.frankois944.kmpviewmodel.models.context.AppContext
 import fr.frankois944.kmpviewmodel.models.services.account.IAccountService
 import fr.frankois944.kmpviewmodel.models.services.profile.IProfileService
@@ -27,6 +26,8 @@ import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
 import org.koin.core.annotation.InjectedParam
 import org.koin.core.component.KoinComponent
+import org.koin.core.component.get
+import org.koin.core.parameter.parameterSetOf
 import kotlin.random.Random
 
 @KoinViewModel
@@ -37,9 +38,10 @@ public class MainScreenViewModel(
     private val accountService: IAccountService,
     private val appContext: AppContext,
     private val eventBus: IEventBus,
-    private val logger: Logger = log("MainScreenViewModel"),
 ) : ViewModel(),
     KoinComponent {
+    public val logger: Logger = get(parameters = { parameterSetOf("MainScreenViewModel") })
+
     init {
         logger.d("INIT with params $param1")
     }
@@ -83,12 +85,12 @@ public class MainScreenViewModel(
 
     // <editor-fold desc="UserId">
     public val userId: StateFlow<String?> =
-        appContext.userIdFlow
+        appContext.usernameFlow
             .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), null)
 
     public fun updateUserId() {
         logger.d("updateUserId")
-        appContext.userId = Random.nextInt().toString()
+        appContext.username = Random.nextInt().toString()
         eventBus.publish(AppEvents.SHARE_CONTENT)
     }
     // </editor-fold>

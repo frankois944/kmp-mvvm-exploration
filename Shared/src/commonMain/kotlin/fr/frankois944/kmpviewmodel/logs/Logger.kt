@@ -1,11 +1,8 @@
 package fr.frankois944.kmpviewmodel.logs
 
-import co.touchlab.kermit.Logger
 import co.touchlab.kermit.Severity
 import co.touchlab.kermit.loggerConfigInit
 import co.touchlab.kermit.platformLogWriter
-import org.koin.core.parameter.parametersOf
-import org.koin.mp.KoinPlatform.getKoin
 
 /**
  * Setup the logger and the log writers + severity
@@ -28,4 +25,4 @@ internal fun buildLoggerConfig(
     )
 }
 
-public fun log(tag: String?): Logger = getKoin().get<Logger>(parameters = { parametersOf(tag) })
+// public fun log(tag: String?): Logger = getKoin().get<Logger>(parameters = { parametersOf(tag) })

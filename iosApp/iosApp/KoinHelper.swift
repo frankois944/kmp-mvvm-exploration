@@ -7,6 +7,7 @@
 //
 
 import Foundation
+import SwiftUI
 
 private class KoinQualifier: Koin_coreQualifier {
     init(value: String) {
@@ -62,9 +63,7 @@ extension Koin_coreKoinApplication {
 
 /// direct inject of koin Inject (like `get()` koin method)
 func koinGet<T: AnyObject>(qualifier: String? = nil, parameters: [Any]? = nil) -> T {
-    guard let koinApplication = AppContext.shared.koinApplication else {
-        fatalError("Cant get koinApplication")
-    }
-    return koinApplication.get(qualifier: qualifier, parameters: parameters)
+    return AppContext.shared.koinApplication.get(qualifier: qualifier,
+                                                 parameters: parameters)
 }
 

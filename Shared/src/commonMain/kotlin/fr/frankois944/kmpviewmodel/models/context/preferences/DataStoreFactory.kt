@@ -10,6 +10,7 @@ import androidx.datastore.preferences.core.floatPreferencesKey
 import androidx.datastore.preferences.core.intPreferencesKey
 import androidx.datastore.preferences.core.longPreferencesKey
 import androidx.datastore.preferences.core.stringPreferencesKey
+import co.touchlab.kermit.Logger
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.first
@@ -19,6 +20,7 @@ import kotlinx.coroutines.runBlocking
 internal class DataStoreFactory<T>(
     private val storage: DataStore<Preferences>,
     private val key: Preferences.Key<T>,
+    private val logger: Logger,
 ) {
     @Suppress("UNCHECKED_CAST")
     internal companion object {
@@ -43,11 +45,13 @@ internal class DataStoreFactory<T>(
     internal var value: T?
         get() =
             runBlocking(Dispatchers.Default) {
+                logger.v("Getting value - key: $key, value: $value")
                 storage.data.map { preferences -> preferences[key] }.first()
             }
         set(value) {
             runBlocking(Dispatchers.Default) {
                 storage.edit { preferences ->
+                    logger.v("Storing value - key: $key, value: $value")
                     @Suppress("UNCHECKED_CAST")
                     preferences[key] = value as T
                 }
