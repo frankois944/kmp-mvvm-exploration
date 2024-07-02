@@ -130,7 +130,14 @@ extension Koin_coreKoinApplication {
     // reproducing the koin `get()` method behavior
     // we can set qualifier and parameters
     func get<T: AnyObject>(qualifier: String? = nil, parameters: [Any]? = nil) -> T {
-        if let ktClass = Shared.getOriginalKotlinClass(objCClass: T.self) {
+        // check if T is a Class or a Protocol
+        let protocolType = NSProtocolFromString("\(T.self)")
+        
+        if let ktClass =  protocolType != nil ?
+            // resolve KClass by Protocol
+            Shared.getOriginalKotlinClass(objCProtocol: protocolType!) :
+                // resolve KClass by Clacs
+                Shared.getOriginalKotlinClass(objCClass: T.self) {
             var koinQualifier: Koin_coreQualifier?
             if let qualifier = qualifier {
                 koinQualifier = KoinQualifier(value: qualifier)
@@ -144,7 +151,7 @@ extension Koin_coreKoinApplication {
                 return instance as! T
             }
         }
-        fatalError("Cant resolve ViewModel \(self)")
+        fatalError("Cant resolve Koin Injection \(self)")
     }
 }
 
