@@ -26,7 +26,7 @@ extension Koin_coreKoinApplication {
         if let ktClass =  protocolType != nil ?
             // resolve KClass by Protocol
             Shared.getOriginalKotlinClass(objCProtocol: protocolType!) :
-                // resolve KClass by Clacs
+                // resolve KClass by Class
                 Shared.getOriginalKotlinClass(objCClass: T.self) {
             var koinQualifier: Koin_coreQualifier?
             if let qualifier = qualifier {
