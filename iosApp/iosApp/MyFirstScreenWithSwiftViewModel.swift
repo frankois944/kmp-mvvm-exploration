@@ -69,7 +69,8 @@ class FirstScreenViewModel: ObservableObject {
 struct MyFirstScreenWithSwiftViewModel: View {
     @StateObject private var viewModel = FirstScreenViewModel(param1: nil)
     @State private var reloadingTask = Set<Task<(), Never>>()
-    @State var events: MyFirstScreenUiEvents?
+    @State private var events: MyFirstScreenUiEvents?
+    let onNextView: () -> Void
 
     var body: some View {
         VStack {
@@ -80,12 +81,14 @@ struct MyFirstScreenWithSwiftViewModel: View {
         .onChange(of: events, perform: {
             switch onEnum(of: $0) {
             case .retry:
-                self.reloadingTask.insert(Task {
+                reloadingTask.insert(Task {
                     await viewModel.loadData(reloading: true)
                 })
             case .updateUserId:
                 viewModel.updateUserId()
-            default:
+            case .nextView:
+                onNextView()
+            case .none:
                 break
             }
         })
@@ -99,5 +102,5 @@ struct MyFirstScreenWithSwiftViewModel: View {
 }
 
 #Preview {
-    MyFirstScreenWithSwiftViewModel()
+    MyFirstScreenWithSwiftViewModel {}
 }

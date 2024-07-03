@@ -15,6 +15,7 @@ struct MyFirstView: View {
     let mainScreenUIState: MainScreenUIState
     let userId: String?
     @Binding var events: MyFirstScreenUiEvents?
+    @State private var selection: String?
 
     var body: some View {
         VStack {
@@ -36,12 +37,22 @@ struct MyFirstView: View {
                     Text(success.profile.username)
                         .fontWeight(.bold)
                 }
-                Button("RANDOM", action: { events = .UpdateUserId(value: "42") })
+                Button("RANDOM", action: {
+                    events = .UpdateUserId(value: "42")
+                })
                 Text("Vos transactions")
-                List(success.account.transaction, id: \.self) { transaction in
-                    NavigationLink(transaction, value: NavRoute.SecondScreen(userId: "2142"))
+                List(success.account.transaction, id: \.self, selection: $selection) { transaction in
+                    Text(transaction)
                         .fontWeight(.semibold)
                 }
+                .onChange(of: selection, perform: { value in
+                    if value != nil {
+                        events = .NextView()
+                    }
+                })
+                .onDisappear(perform: {
+                    selection = nil
+                })
             }
         }
     }

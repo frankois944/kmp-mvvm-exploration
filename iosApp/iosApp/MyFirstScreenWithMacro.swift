@@ -20,7 +20,8 @@ struct MyFirstScreenWithMacro: View {
 
     @StateObject private var viewModel = MyMainScreenViewModel(koinGet(parameters: ["IOS-MyFirstScreenWithMacro"]))
     @State private var reloadingTask: Kotlinx_coroutines_coreJob?
-    @State var events: MyFirstScreenUiEvents?
+    @State private var events: MyFirstScreenUiEvents?
+    let onNextView: () -> Void
 
     var body: some View {
         VStack {
@@ -31,10 +32,12 @@ struct MyFirstScreenWithMacro: View {
         .onChange(of: events, perform: {
             switch onEnum(of: $0) {
             case .retry:
-                self.reloadingTask = viewModel.instance.reload()
+                reloadingTask = viewModel.instance.reload()
             case .updateUserId:
                 viewModel.instance.updateUserId()
-            default:
+            case .nextView:
+                onNextView()
+            case .none:
                 break
             }
         })

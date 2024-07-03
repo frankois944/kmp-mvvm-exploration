@@ -15,10 +15,12 @@ struct MyFirstScreenWithoutMacro: View {
     @State private var mainScreenUIState: MainScreenUIState = .Loading()
     @State private var userId: String?
     @State private var reloadingTask: Kotlinx_coroutines_coreJob?
-    @State var events: MyFirstScreenUiEvents?
+    @State private var events: MyFirstScreenUiEvents?
+    let onNextView: () -> Void
 
-    init(param1: String? = nil) {
+    init(param1: String? = nil, onNextView: @escaping () -> Void) {
         _viewModel = StateObject(wrappedValue: { .init(parameters: ["IOS-MyFirstScreenWithoutMacro"]) }())
+        self.onNextView = onNextView
     }
 
     var body: some View {
@@ -31,10 +33,12 @@ struct MyFirstScreenWithoutMacro: View {
             .onChange(of: events, perform: {
                 switch onEnum(of: $0) {
                 case .retry:
-                    self.reloadingTask = viewModel.instance.reload()
+                    reloadingTask = viewModel.instance.reload()
                 case .updateUserId:
                     viewModel.instance.updateUserId()
-                default:
+                case .nextView:
+                    onNextView()
+                case .none:
                     break
                 }
             })

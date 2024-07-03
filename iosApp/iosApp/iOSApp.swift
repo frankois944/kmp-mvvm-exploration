@@ -39,10 +39,14 @@ struct IOSApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationStack(path: $router) {
-                MyFirstScreenWithSwiftViewModel()
-                    .navigationDestination(for: NavRoute.SecondScreen.self) { _ in
-                        MyFirstScreenWithSwiftViewModel()
+                MyFirstScreenWithSwiftViewModel {
+                    router.append(NavRoute.SecondScreen(userId: "rerteterret"))
+                }
+                .navigationDestination(for: NavRoute.SecondScreen.self) { _ in
+                    MyFirstScreenWithSwiftViewModel {
+                        router.append(NavRoute.SecondScreen(userId: "2142"))
                     }
+                }
             }
             .environmentObject(AppContext.shared)
             .onReceive(NotificationCenter.default.publisher(for: notification),
