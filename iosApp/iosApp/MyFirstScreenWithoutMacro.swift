@@ -15,6 +15,7 @@ struct MyFirstScreenWithoutMacro: View {
     @State private var mainScreenUIState: MainScreenUIState = .Loading()
     @State private var userId: String?
     @State private var reloadingTask: Kotlinx_coroutines_coreJob?
+    @State var events: MyFirstScreenUiEvents?
 
     init(param1: String? = nil) {
         _viewModel = StateObject(wrappedValue: { .init(parameters: ["IOS-MyFirstScreenWithoutMacro"]) }())
@@ -23,13 +24,20 @@ struct MyFirstScreenWithoutMacro: View {
     var body: some View {
         MyFirstView(mainScreenUIState: mainScreenUIState,
                     userId: userId,
-                    updateUserId: viewModel.instance.updateUserId,
-                    retry: {
-                        self.reloadingTask = viewModel.instance.reload()
-                    })
+                    events: $events)
             .onDisappear {
                 reloadingTask?.cancel(cause: nil)
             }
+            .onChange(of: events, perform: {
+                switch onEnum(of: $0) {
+                case .retry:
+                    self.reloadingTask = viewModel.instance.reload()
+                case .updateUserId:
+                    viewModel.instance.updateUserId()
+                default:
+                    break
+                }
+            })
             .collect(flow: viewModel.instance.mainScreenUIState, into: $mainScreenUIState) {
                 print("COLLECTING mainScreenUIState : \(String(describing: $0))")
                 return $0

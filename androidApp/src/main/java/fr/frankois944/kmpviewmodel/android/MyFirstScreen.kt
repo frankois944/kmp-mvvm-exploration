@@ -31,6 +31,7 @@ import fr.frankois944.kmpviewmodel.models.dto.AccountData
 import fr.frankois944.kmpviewmodel.models.dto.ProfileData
 import fr.frankois944.kmpviewmodel.viewmodels.mainscreen.MainScreenUIState
 import fr.frankois944.kmpviewmodel.viewmodels.mainscreen.MainScreenViewModel
+import fr.frankois944.kmpviewmodel.viewmodels.mainscreen.MyFirstScreenUiEvents
 import org.koin.androidx.compose.koinViewModel
 import org.koin.compose.koinInject
 import org.koin.core.parameter.parametersOf
@@ -57,11 +58,13 @@ fun MyFirstScreen(
     MyFirstView(
         modifier = modifier.fillMaxSize(),
         mainScreenUIState = mainScreenUIState,
-        onNextView = onNextView,
         userId = userId,
-        updateUserId = { viewModel.updateUserId() },
-        retry = {
-            viewModel.reload()
+        events = {
+            when (it) {
+                MyFirstScreenUiEvents.NextView -> onNextView()
+                MyFirstScreenUiEvents.Retry -> viewModel.reload()
+                is MyFirstScreenUiEvents.UpdateUserId -> viewModel.updateUserId()
+            }
         },
     )
 }
@@ -71,9 +74,7 @@ fun MyFirstView(
     modifier: Modifier = Modifier,
     mainScreenUIState: MainScreenUIState,
     userId: String?,
-    updateUserId: () -> Unit = {},
-    onNextView: () -> Unit = {},
-    retry: () -> Unit = {},
+    events: (MyFirstScreenUiEvents) -> Unit = {},
 ) {
     Column(modifier = modifier) {
         when (mainScreenUIState) {
@@ -82,7 +83,7 @@ fun MyFirstView(
                     text = "Error : ${mainScreenUIState.message}",
                     color = Color.Red,
                 )
-                Button(onClick = { retry() }) {
+                Button(onClick = { events(MyFirstScreenUiEvents.Retry) }) {
                     Text(text = "RETRY")
                 }
             }
@@ -108,7 +109,7 @@ fun MyFirstView(
                             fontWeight = FontWeight.ExtraBold,
                         )
                     }
-                    Button(onClick = updateUserId) {
+                    Button(onClick = { events(MyFirstScreenUiEvents.UpdateUserId("42")) }) {
                         Text(text = "RANDOM")
                     }
                     Text(
@@ -123,7 +124,7 @@ fun MyFirstView(
                                     Modifier
                                         .fillMaxWidth()
                                         .clickable {
-                                            onNextView()
+                                            events(MyFirstScreenUiEvents.NextView)
                                         },
                             )
                         }
@@ -144,8 +145,6 @@ private fun MyFirstPreviewViewLoading() {
             MyFirstView(
                 mainScreenUIState = MainScreenUIState.Loading,
                 userId = "sqd",
-                updateUserId = { },
-                onNextView = { },
             )
         }
     }
@@ -161,8 +160,6 @@ private fun MyFirstPreviewViewError() {
             MyFirstView(
                 mainScreenUIState = MainScreenUIState.Error("An error"),
                 userId = "sdfsdf",
-                updateUserId = { },
-                onNextView = { },
             )
         }
     }
@@ -182,8 +179,6 @@ private fun MyFirstPreviewViewSuccess() {
                         account = AccountData(transaction = listOf("Tr1", "Tr2")),
                     ),
                 userId = "sdffds",
-                updateUserId = { },
-                onNextView = { },
             )
         }
     }

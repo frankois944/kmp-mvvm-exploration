@@ -69,18 +69,26 @@ class FirstScreenViewModel: ObservableObject {
 struct MyFirstScreenWithSwiftViewModel: View {
     @StateObject private var viewModel = FirstScreenViewModel(param1: nil)
     @State private var reloadingTask = Set<Task<(), Never>>()
+    @State var events: MyFirstScreenUiEvents?
 
     var body: some View {
         VStack {
             MyFirstView(mainScreenUIState: viewModel.mainScreenUIState,
                         userId: viewModel.userId,
-                        updateUserId: viewModel.updateUserId,
-                        retry: {
-                            self.reloadingTask.insert(Task {
-                                await viewModel.loadData(reloading: true)
-                            })
-                        })
+                        events: $events)
         }
+        .onChange(of: events, perform: {
+            switch onEnum(of: $0) {
+            case .retry:
+                self.reloadingTask.insert(Task {
+                    await viewModel.loadData(reloading: true)
+                })
+            case .updateUserId:
+                viewModel.updateUserId()
+            default:
+                break
+            }
+        })
         .onDisappear {
             reloadingTask.forEach { $0.cancel() }
         }
