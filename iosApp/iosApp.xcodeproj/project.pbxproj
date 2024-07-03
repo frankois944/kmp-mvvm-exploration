@@ -122,10 +122,10 @@
 			buildPhases = (
 				7555FFB5242A651A00829871 /* ShellScript */,
 				7555FF77242A565900829871 /* Sources */,
+				11068CBC2C35496500DA7201 /* Linting */,
 				7555FF78242A565900829871 /* Frameworks */,
 				7555FF79242A565900829871 /* Resources */,
 				7555FFB4242A642300829871 /* Embed Frameworks */,
-				11068CBC2C35496500DA7201 /* Linting */,
 			);
 			buildRules = (
 			);
