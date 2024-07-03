@@ -8,26 +8,26 @@
 
 import Foundation
 
-class SharedViewModel<VM : ViewModel> : ObservableObject {
-    
+class SharedViewModel<VM: ViewModel>: ObservableObject {
+
     private let key = String(describing: type(of: VM.self))
     private let viewModelStore = ViewModelStore()
-    
+
     // Injecting the viewmodel
     init(_ viewModel: VM = .init()) {
         viewModelStore.put(key: key, viewModel: viewModel)
     }
-    
+
     // Creating the viewmodel from compatible koin parameters
     init(qualifier: String? = nil, parameters: [Any]? = nil) {
         let viewmodel: VM = koinGet(qualifier: qualifier, parameters: parameters)
         viewModelStore.put(key: key, viewModel: viewmodel)
     }
-    
+
     var instance: VM {
-        viewModelStore.get(key: key) as! VM
+        (viewModelStore.get(key: key) as? VM)!
     }
-    
+
     deinit {
         viewModelStore.clear()
     }

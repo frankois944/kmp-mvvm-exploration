@@ -17,10 +17,10 @@ import KTViewModelBuilder
 class MyMainScreenViewModel: ObservableObject {}
 
 struct MyFirstScreenWithMacro: View {
-    
+
     @StateObject private var viewModel = MyMainScreenViewModel(koinGet(parameters: ["IOS-MyFirstScreenWithMacro"]))
     @State private var reloadingTask: Kotlinx_coroutines_coreJob?
-    
+
     var body: some View {
         VStack {
             MyFirstView(mainScreenUIState: viewModel.mainScreenUIState,

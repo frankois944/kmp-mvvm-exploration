@@ -10,16 +10,16 @@ import Foundation
 import SwiftUI
 
 struct MyFirstScreenWithoutMacro: View {
-    
+
     @StateObject private var viewModel: SharedViewModel<MainScreenViewModel>
     @State private var mainScreenUIState: MainScreenUIState = .Loading()
     @State private var userId: String?
     @State private var reloadingTask: Kotlinx_coroutines_coreJob?
-    
+
     init(param1: String? = nil) {
         _viewModel = StateObject(wrappedValue: { .init(parameters: ["IOS-MyFirstScreenWithoutMacro"]) }())
     }
-    
+
     var body: some View {
         MyFirstView(mainScreenUIState: mainScreenUIState,
                     userId: userId,

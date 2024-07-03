@@ -16,7 +16,7 @@ struct MyFirstView: View {
     let userId: String?
     let updateUserId: () -> Void
     let retry: () -> Void
-    
+
     var body: some View {
         VStack {
             switch onEnum(of: mainScreenUIState) {
@@ -45,7 +45,6 @@ struct MyFirstView: View {
         }
     }
 }
-
 
 #Preview("LOADING") {
     MyFirstView(mainScreenUIState: .Loading(), userId: "", updateUserId: {}, retry: {})

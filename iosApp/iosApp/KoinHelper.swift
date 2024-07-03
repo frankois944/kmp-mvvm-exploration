@@ -23,7 +23,7 @@ extension Koin_coreKoinApplication {
     func get<T: AnyObject>(qualifier: String? = nil, parameters: [Any]? = nil) -> T {
         // check if T is a Class or a Protocol
         let protocolType = NSProtocolFromString("\(T.self)")
-        
+
         if let ktClass =  protocolType != nil ?
             // resolve KClass by Protocol
             Shared.getOriginalKotlinClass(objCProtocol: protocolType!) :
@@ -33,13 +33,16 @@ extension Koin_coreKoinApplication {
             if let qualifier = qualifier {
                 koinQualifier = KoinQualifier(value: qualifier)
             }
-            
+
             if let instance = koin.get(clazz: ktClass,
                                        qualifier: koinQualifier,
                                        parameters: {
                 .init(_values: .init(array: parameters ?? []), useIndexedValues: true)
             }) {
-                return instance as! T
+                guard let instance = instance as? T else {
+                    fatalError("Koin get cant be cast to \(T.self)")
+                }
+                return instance
             }
         }
         fatalError("Cant resolve Koin Injection \(self)")
@@ -48,14 +51,14 @@ extension Koin_coreKoinApplication {
 
 /// lazy inject of koin injection (like `by inject()` koin method)
 @propertyWrapper struct KoinInject<T: AnyObject> {
-    var qualifier: String? = nil
-    var parameters: [Any]? = nil
-    
+    var qualifier: String?
+    var parameters: [Any]?
+
     init(qualifier: String? = nil, parameters: [Any]? = nil) {
         self.qualifier = qualifier
         self.parameters = parameters
     }
-    
+
     lazy var wrappedValue: T = {
         return koinGet(qualifier: qualifier, parameters: parameters)
     }()
@@ -66,4 +69,3 @@ func koinGet<T: AnyObject>(qualifier: String? = nil, parameters: [Any]? = nil) -
     return AppContext.shared.koinApplication.get(qualifier: qualifier,
                                                  parameters: parameters)
 }
-

@@ -11,7 +11,7 @@ import KTViewModelBuilder
 @_exported import Shared
 
 extension Error {
-    
+
     var asKotlinThrowable: KotlinThrowable {
         KotlinThrowable(message: self.localizedDescription,
                         cause: KotlinThrowable(message: "\(self)"))
@@ -19,14 +19,14 @@ extension Error {
 }
 
 @main
-struct iOSApp: App {
-    
+struct IOSApp: App {
+
     let notification: Notification.Name = .init(AppEvents.shareContent.name)
     let appContext: AppContext
-    
+
     @State var logger: KermitLogger
     @State var router = NavigationPath()
-    
+
     init() {
 #if DEBUG
         let koin = AppInitKt.startApp(appConfig: .init(isDebug: true, isProduction: false))
@@ -36,12 +36,12 @@ struct iOSApp: App {
         appContext = .init(koinApplication: koin)
         logger = koinGet(parameters: ["iOSApp"])
     }
-    
+
     var body: some Scene {
         WindowGroup {
             NavigationStack(path: $router) {
                 MyFirstScreenWithSwiftViewModel()
-                    .navigationDestination(for: NavRoute.SecondScreen.self) { value in
+                    .navigationDestination(for: NavRoute.SecondScreen.self) { _ in
                         MyFirstScreenWithSwiftViewModel()
                     }
             }
@@ -53,4 +53,3 @@ struct iOSApp: App {
         }
     }
 }
-
