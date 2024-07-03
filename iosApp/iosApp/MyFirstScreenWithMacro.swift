@@ -27,8 +27,8 @@ struct MyFirstScreenWithMacro: View {
                         userId: viewModel.userId,
                         updateUserId: viewModel.instance.updateUserId,
                         retry: {
-                self.reloadingTask = viewModel.instance.reload()
-            })
+                            self.reloadingTask = viewModel.instance.reload()
+                        })
         }
         .onDisappear {
             reloadingTask?.cancel(cause: nil)

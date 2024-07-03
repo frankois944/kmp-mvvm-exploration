@@ -18,17 +18,10 @@ class AppContext: ObservableObject {
 
     // MARK: Properties
 
-    static private var _shared: AppContext?
     /// Singleton to access the Native/Shared AppContext.
     ///
-    /// **AppContext.init MUST be called before accessing this property**
-    static var shared: AppContext {
-        // swiftlint:disable:next identifier_name
-        guard let _shared else {
-            fatalError("Call AppContext.init first to setup the singleton")
-        }
-        return _shared
-    }
+    /// **AppContext.configure MUST be called before accessing this property**
+    static var shared: AppContext!
 
     // MARK: Private
 
@@ -51,19 +44,30 @@ class AppContext: ObservableObject {
 
     // MARK: Init
 
-    init(koinApplication: Koin_coreKoinApplication) {
+    /// Create the singleton
+    /// - Parameter koinApplication: A Koin application scope
+    private init(koinApplication: Koin_coreKoinApplication) {
         self.koinApplication = koinApplication
-        AppContext._shared = self
-        logger.d(messageString: "INIT APPCONTEXT")
+    }
 
+    /// Initialize all values of the AppContext
+    private func setup() {
+        logger.d(messageString: "INIT APPCONTEXT")
         disposebag.insert(
             common.usernameFlow.toPublisher()
                 .receive(on: DispatchQueue.main)
                 .sink { [weak self] in
-                    self?.logger.i(messageString: "UPDATING sessionToken with \(String(describing: $0))")
+                    self?.logger.i(messageString: "UPDATING usernameFlow with \(String(describing: $0))")
                     self?.sessionToken = $0
                 }
         )
+    }
+
+    /// Create the AppContext Singleton and initialize it
+    /// - Parameter koinApplication: A Koin application scope
+    static func configure(koinApplication: Koin_coreKoinApplication) {
+        AppContext.shared = AppContext(koinApplication: koinApplication)
+        AppContext.shared.setup()
     }
 
     // MARK: - DeInit

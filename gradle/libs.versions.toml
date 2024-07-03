@@ -14,9 +14,9 @@ android-activity-compose = "1.9.0" # https://developer.android.com/jetpack/andro
 androidx-lifecycle = "2.8.3" # https://developer.android.com/jetpack/androidx/releases/lifecycle
 android-navigation-compose = "2.8.0-beta04" # https://developer.android.com/jetpack/androidx/releases/navigation
 skie = "0.8.2" # https://github.com/touchlab/SKIE/releases
-kotlin-serialization = "1.7.0" # https://github.com/Kotlin/kotlinx.serialization/releases
+kotlin-serialization = "1.7.1" # https://github.com/Kotlin/kotlinx.serialization/releases
 kotlin-dateTime = "0.6.0" # https://github.com/Kotlin/kotlinx-datetime/releases
-kover = "0.8.1" # https://github.com/Kotlin/kotlinx-kover/releases
+kover = "0.8.2" # https://github.com/Kotlin/kotlinx-kover/releases
 datastorePreferencesCore = "1.1.1" # https://developer.android.com/jetpack/androidx/releases/datastore
 collection = "1.4.0" # https://developer.android.com/jetpack/androidx/releases/collection
 kermit = "2.0.4" # https://github.com/touchlab/Kermit/releases
@@ -29,8 +29,8 @@ kermit-koin = { module = "co.touchlab:kermit-koin", version.ref = "kermit" }
 kermit-simple = { module = "co.touchlab:kermit-simple", version.ref = "kermit" }
 # DataStore
 androidx-datastore-preferences-core = { module = "androidx.datastore:datastore-preferences-core", version.ref = "datastorePreferencesCore" }
+# Collection
 androidx-collection = { module = "androidx.collection:collection", version.ref = "collection" }
-
 # Kotlin
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlin-dateTime" }

@@ -27,11 +27,11 @@ class FirstScreenViewModel: ObservableObject {
         self.param1 = param1
         logger.d(messageString: "INIT")
         disposebag.insert(appContext.usernameFlow
-            .toPublisher()
-            .receive(on: DispatchQueue.main)
-            .sink { [weak self] in
-                self?.userId = $0
-            }
+                            .toPublisher()
+                            .receive(on: DispatchQueue.main)
+                            .sink { [weak self] in
+                                self?.userId = $0
+                            }
         )
     }
 
@@ -76,10 +76,10 @@ struct MyFirstScreenWithSwiftViewModel: View {
                         userId: viewModel.userId,
                         updateUserId: viewModel.updateUserId,
                         retry: {
-                self.reloadingTask.insert(Task {
-                    await viewModel.loadData(reloading: true)
-                })
-            })
+                            self.reloadingTask.insert(Task {
+                                await viewModel.loadData(reloading: true)
+                            })
+                        })
         }
         .onDisappear {
             reloadingTask.forEach { $0.cancel() }

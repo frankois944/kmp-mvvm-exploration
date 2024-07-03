@@ -27,8 +27,8 @@ extension Koin_coreKoinApplication {
         if let ktClass =  protocolType != nil ?
             // resolve KClass by Protocol
             Shared.getOriginalKotlinClass(objCProtocol: protocolType!) :
-                // resolve KClass by Class
-                Shared.getOriginalKotlinClass(objCClass: T.self) {
+            // resolve KClass by Class
+            Shared.getOriginalKotlinClass(objCClass: T.self) {
             var koinQualifier: Koin_coreQualifier?
             if let qualifier = qualifier {
                 koinQualifier = KoinQualifier(value: qualifier)
@@ -37,8 +37,8 @@ extension Koin_coreKoinApplication {
             if let instance = koin.get(clazz: ktClass,
                                        qualifier: koinQualifier,
                                        parameters: {
-                .init(_values: .init(array: parameters ?? []), useIndexedValues: true)
-            }) {
+                                        .init(_values: .init(array: parameters ?? []), useIndexedValues: true)
+                                       }) {
                 guard let instance = instance as? T else {
                     fatalError("Koin get cant be cast to \(T.self)")
                 }

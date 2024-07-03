@@ -22,18 +22,17 @@ extension Error {
 struct IOSApp: App {
 
     let notification: Notification.Name = .init(AppEvents.shareContent.name)
-    let appContext: AppContext
 
     @State var logger: KermitLogger
     @State var router = NavigationPath()
 
     init() {
-#if DEBUG
+        #if DEBUG
         let koin = AppInitKt.startApp(appConfig: .init(isDebug: true, isProduction: false))
-#else
+        #else
         let koin = AppInitKt.startApp(appConfig: .init(isDebug: false, isProduction: false))
-#endif
-        appContext = .init(koinApplication: koin)
+        #endif
+        AppContext.configure(koinApplication: koin)
         logger = koinGet(parameters: ["iOSApp"])
     }
 
@@ -45,11 +44,11 @@ struct IOSApp: App {
                         MyFirstScreenWithSwiftViewModel()
                     }
             }
-            .environmentObject(appContext)
+            .environmentObject(AppContext.shared)
             .onReceive(NotificationCenter.default.publisher(for: notification),
                        perform: {
-                logger.i(messageString: "Notification received : \($0)")
-            })
+                        logger.i(messageString: "Notification received : \($0)")
+                       })
         }
     }
 }
