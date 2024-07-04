@@ -4,6 +4,7 @@ plugins {
     alias(libs.plugins.ksp)
     alias(libs.plugins.composeCompiler)
     alias(libs.plugins.kotlinParcelize)
+    id("io.kotzilla.cloud-inject")
 }
 
 android {

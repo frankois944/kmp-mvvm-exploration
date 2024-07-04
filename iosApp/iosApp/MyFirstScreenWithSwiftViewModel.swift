@@ -50,7 +50,7 @@ class FirstScreenViewModel: ObservableObject {
             self.mainScreenUIState = .Loading()
             let accoundData = try await accountService.getAccountInfo()
             let profileData = try await profilService.getProfile()
-            try await Task.sleep(nanoseconds: 3_000_000_000)
+            try await Task.sleep(nanoseconds: 1_000_000_000)
             // throw NSError(domain: "TESTING", code: 42) for testing
             logger.d(messageString: "OK LOADING SCREEN")
             self.mainScreenUIState = .Success(profile: profileData, account: accoundData)

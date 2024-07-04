@@ -6,6 +6,8 @@ import fr.frankois944.kmpviewmodel.di.LoggerModule
 import fr.frankois944.kmpviewmodel.di.SharedModule
 import fr.frankois944.kmpviewmodel.logs.buildLoggerConfig
 import fr.frankois944.kmpviewmodel.platform.IPlatform
+import io.kotzilla.cloudinject.CloudInjectCoreSDK
+import io.kotzilla.cloudinject.analytics.koin.analyticsLogger
 import org.koin.core.KoinApplication
 import org.koin.core.context.startKoin
 import org.koin.core.parameter.parametersOf
@@ -23,10 +25,9 @@ public fun startApp(
     appConfig: AppConfig,
     nativeAppDeclaration: KoinAppDeclaration? = null,
 ): KoinApplication {
-    // CloudInjectCoreSDK.setupAndConnect("fr.frankois944.kmpviewmodel.android", "1.0")
+    CloudInjectCoreSDK.setupAndConnect("fr.frankois944.kmpviewmodel.ios", "1.0")
     // Initialize Koin in sync way
     return startKoin {
-        //   analyticsLogger()
         if (!appConfig.isProduction) { // on production, do not print logs
             // use Koin logger with Kermit
             KermitKoinLogger(
@@ -50,6 +51,7 @@ public fun startApp(
         )
         // load native koin declaration (Android)
         nativeAppDeclaration?.let { it() }
+        analyticsLogger()
     }.also {
         // We can complete the koin initialisation here, like async load modules...
         // inject AppConfig parameter in IPlatform interface. See SharedModule.kt
