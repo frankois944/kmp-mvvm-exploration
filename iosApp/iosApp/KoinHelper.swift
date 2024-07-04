@@ -21,31 +21,37 @@ extension Koin_coreKoinApplication {
     // reproducing the koin `get()` method behavior
     // we can set qualifier and parameters
     func get<T: AnyObject>(qualifier: String? = nil, parameters: [Any]? = nil) -> T {
-        // check if T is a Class or a Protocol
-        let protocolType = NSProtocolFromString("\(T.self)")
+        let ktClass: KotlinKClass?
+        // check if T is a Class or a Protocol and get the linked kotlin class
+        if let protocolType = NSProtocolFromString("\(T.self)") {
+            ktClass = Shared.getOriginalKotlinClass(objCProtocol: protocolType)
+        } else {
+            ktClass = Shared.getOriginalKotlinClass(objCClass: T.self)
+        }
 
-        if let ktClass =  protocolType != nil ?
-            // resolve KClass by Protocol
-            Shared.getOriginalKotlinClass(objCProtocol: protocolType!) :
-            // resolve KClass by Class
-            Shared.getOriginalKotlinClass(objCClass: T.self) {
-            var koinQualifier: Koin_coreQualifier?
-            if let qualifier = qualifier {
-                koinQualifier = KoinQualifier(value: qualifier)
-            }
+        guard let ktClass else {
+            // no Kotlin Class found, it's an critical error
+            fatalError("Cant resolve objc class \(T.self)")
+        }
 
-            if let instance = koin.get(clazz: ktClass,
-                                       qualifier: koinQualifier,
-                                       parameters: {
-                                        .init(_values: .init(array: parameters ?? []), useIndexedValues: true)
-                                       }) {
-                guard let instance = instance as? T else {
-                    fatalError("Koin get cant be cast to \(T.self)")
-                }
-                return instance
+        var koinQualifier: Koin_coreQualifier?
+        if let qualifier = qualifier {
+            koinQualifier = KoinQualifier(value: qualifier)
+        }
+
+        var koinParameters: (() -> Koin_coreParametersHolder)?
+        if let parameters {
+            koinParameters = {
+                .init(_values: .init(array: parameters), useIndexedValues: nil)
             }
         }
-        fatalError("Cant resolve Koin Injection \(self)")
+
+        guard let instance = koin.get(clazz: ktClass,
+                                      qualifier: koinQualifier,
+                                      parameters: koinParameters) as? T else {
+            fatalError("Cant resolve Koin Injection \(self)")
+        }
+        return instance
     }
 }
 
