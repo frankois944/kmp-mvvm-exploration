@@ -23,8 +23,10 @@ public fun startApp(
     appConfig: AppConfig,
     nativeAppDeclaration: KoinAppDeclaration? = null,
 ): KoinApplication {
+    // CloudInjectCoreSDK.setupAndConnect("fr.frankois944.kmpviewmodel.android", "1.0")
     // Initialize Koin in sync way
     return startKoin {
+        //   analyticsLogger()
         if (!appConfig.isProduction) { // on production, do not print logs
             // use Koin logger with Kermit
             KermitKoinLogger(

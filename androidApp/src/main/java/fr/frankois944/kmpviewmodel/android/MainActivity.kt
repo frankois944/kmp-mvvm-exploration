@@ -20,6 +20,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberBottomAppBarState
 import androidx.compose.material3.rememberTopAppBarState
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -30,10 +31,14 @@ import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
-import fr.frankois944.kmpviewmodel.logs.log
+import co.touchlab.kermit.Logger
+import fr.frankois944.kmpviewmodel.helpers.eventbus.AppEvents
+import fr.frankois944.kmpviewmodel.helpers.eventbus.IEventBus
 import fr.frankois944.kmpviewmodel.router.NavRoute
 import org.koin.androidx.compose.KoinAndroidContext
+import org.koin.compose.koinInject
 import org.koin.core.annotation.KoinExperimentalAPI
+import org.koin.core.parameter.parameterSetOf
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -44,7 +49,14 @@ class MainActivity : ComponentActivity() {
                 // Get current navigation context
                 val navController = rememberNavController()
                 var canGoBack by remember { mutableStateOf(false) }
-                val logger = log("MainActivity")
+                val logger: Logger = koinInject(parameters = { parameterSetOf("MainActivity") })
+                val eventBus: IEventBus = koinInject()
+
+                LaunchedEffect(Unit) {
+                    eventBus.subscribeEvent<AppEvents>().collect {
+                        logger.d("EVENT RECEIVED : $it")
+                    }
+                }
 
                 MyApplicationTheme {
                     val scrollBehavior =

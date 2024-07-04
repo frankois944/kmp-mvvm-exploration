@@ -10,33 +10,45 @@ import Foundation
 import SwiftUI
 
 struct MyFirstScreenWithoutMacro: View {
-    
+
     @StateObject private var viewModel: SharedViewModel<MainScreenViewModel>
     @State private var mainScreenUIState: MainScreenUIState = .Loading()
     @State private var userId: String?
     @State private var reloadingTask: Kotlinx_coroutines_coreJob?
-    
-    init(param1: String? = nil) {
-        _viewModel = StateObject(wrappedValue: { .init(.init(param1: param1)) }())
+    @State private var events: MyFirstScreenUiEvents?
+    let onNextView: () -> Void
+
+    init(param1: String? = nil, onNextView: @escaping () -> Void) {
+        _viewModel = StateObject(wrappedValue: { .init(parameters: ["IOS-MyFirstScreenWithoutMacro"]) }())
+        self.onNextView = onNextView
     }
-    
+
     var body: some View {
         MyFirstView(mainScreenUIState: mainScreenUIState,
                     userId: userId,
-                    updateUserId: viewModel.instance.updateUserId,
-                    retry: {
-            self.reloadingTask = viewModel.instance.reload()
-        })
-        .onDisappear {
-            reloadingTask?.cancel(cause: nil)
-        }
-        .collect(flow: viewModel.instance.mainScreenUIState, into: $mainScreenUIState) {
-            print("COLLECTING mainScreenUIState : \(String(describing: $0))")
-            return $0
-        }
-        .collect(flow: viewModel.instance.userId, into: $userId) {
-            print("COLLECTING userId : \(String(describing: $0))")
-            return $0
-        }
+                    events: $events)
+            .onDisappear {
+                reloadingTask?.cancel(cause: nil)
+            }
+            .onChange(of: events, perform: {
+                switch onEnum(of: $0) {
+                case .retry:
+                    reloadingTask = viewModel.instance.reload()
+                case .updateUserId:
+                    viewModel.instance.updateUserId()
+                case .nextView:
+                    onNextView()
+                case .none:
+                    break
+                }
+            })
+            .collect(flow: viewModel.instance.mainScreenUIState, into: $mainScreenUIState) {
+                print("COLLECTING mainScreenUIState : \(String(describing: $0))")
+                return $0
+            }
+            .collect(flow: viewModel.instance.userId, into: $userId) {
+                print("COLLECTING userId : \(String(describing: $0))")
+                return $0
+            }
     }
 }

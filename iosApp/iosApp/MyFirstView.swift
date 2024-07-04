@@ -14,9 +14,9 @@ import Combine
 struct MyFirstView: View {
     let mainScreenUIState: MainScreenUIState
     let userId: String?
-    let updateUserId: () -> Void
-    let retry: () -> Void
-    
+    @Binding var events: MyFirstScreenUiEvents?
+    @State private var selection: String?
+
     var body: some View {
         VStack {
             switch onEnum(of: mainScreenUIState) {
@@ -26,39 +26,55 @@ struct MyFirstView: View {
             case .error(let error):
                 Text("Error : \(error.message)")
                     .foregroundStyle(.red)
-                Button(action: retry) {
+                Button(action: {
+                    events = .Retry()
+                }, label: {
                     Text("RETRY")
-                }
+                })
             case .success(let success):
                 HStack {
                     Text("Bonjour \(userId ?? "NULL"): ")
                     Text(success.profile.username)
                         .fontWeight(.bold)
                 }
-                Button("RANDOM", action: updateUserId)
+                Button("RANDOM", action: {
+                    events = .UpdateUserId(value: "42")
+                })
                 Text("Vos transactions")
-                List(success.account.transaction, id: \.self) { transaction in
-                    NavigationLink(transaction, value: NavRoute.SecondScreen(userId: "2142"))
+                List(success.account.transaction,
+                     id: \.self,
+                     selection: $selection) {
+                    Text($0)
                         .fontWeight(.semibold)
                 }
+                .onChange(of: selection, perform: {
+                    if $0 != nil {
+                        events = .NextView()
+                    }
+                })
+                .onDisappear(perform: {
+                    selection = nil
+                })
             }
         }
     }
 }
 
-
 #Preview("LOADING") {
-    MyFirstView(mainScreenUIState: .Loading(), userId: "", updateUserId: {}, retry: {})
+    MyFirstView(mainScreenUIState: .Loading(),
+                userId: "",
+                events: .constant(nil))
 }
 
 #Preview("ERROR") {
-    MyFirstView(mainScreenUIState: .Error(message: "An error"), userId: "", updateUserId: {}, retry: {})
+    MyFirstView(mainScreenUIState: .Error(message: "An error"),
+                userId: "",
+                events: .constant(nil))
 }
 
-#Preview("FAILED") {
+#Preview("DONE") {
     MyFirstView(mainScreenUIState: .Success(profile: .init(username: "Joker"),
                                             account: .init(transaction: ["Tr1", "Tr2"])),
                 userId: "",
-                updateUserId: {},
-                retry: {})
+                events: .constant(nil))
 }

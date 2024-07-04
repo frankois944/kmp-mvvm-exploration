@@ -4,9 +4,9 @@ package fr.frankois944.kmpviewmodel.viewmodels.mainscreen
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import co.touchlab.kermit.Logger
 import fr.frankois944.kmpviewmodel.helpers.eventbus.AppEvents
 import fr.frankois944.kmpviewmodel.helpers.eventbus.IEventBus
-import fr.frankois944.kmpviewmodel.logs.log
 import fr.frankois944.kmpviewmodel.models.context.AppContext
 import fr.frankois944.kmpviewmodel.models.services.account.IAccountService
 import fr.frankois944.kmpviewmodel.models.services.profile.IProfileService
@@ -24,25 +24,26 @@ import kotlinx.coroutines.flow.merge
 import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
+import org.koin.core.annotation.InjectedParam
 import org.koin.core.component.KoinComponent
-import org.koin.core.component.inject
+import org.koin.core.component.get
+import org.koin.core.parameter.parameterSetOf
 import kotlin.random.Random
 
 @KoinViewModel
 public class MainScreenViewModel(
-    public val param1: String? = null,
+    @InjectedParam
+    public val param1: String?,
+    private val profileService: IProfileService,
+    private val accountService: IAccountService,
+    private val appContext: AppContext,
+    private val eventBus: IEventBus,
 ) : ViewModel(),
     KoinComponent {
-    // <editor-fold desc="Services">
-    private val profileService: IProfileService by inject()
-    private val accountService: IAccountService by inject()
-    private val appContext: AppContext by inject()
-    private val eventBus: IEventBus by inject()
-    private val logger = log("MainScreenViewModel")
-    // </editor-fold>
+    public val logger: Logger = get(parameters = { parameterSetOf("MainScreenViewModel") })
 
     init {
-        logger.d("INIT")
+        logger.d("INIT with params $param1")
     }
 
     // <editor-fold desc="MainScreenUIState">
@@ -63,7 +64,7 @@ public class MainScreenViewModel(
                 logger.d("START LOADING SCREEN")
                 val profileData = profileService.getProfile()
                 val accountData = accountService.getAccountInfo()
-                delay(3000)
+                delay(1000)
                 // simulate an error
                 if (reloading) {
                     throw Exception("Oups")
@@ -84,12 +85,12 @@ public class MainScreenViewModel(
 
     // <editor-fold desc="UserId">
     public val userId: StateFlow<String?> =
-        appContext.userIdFlow
+        appContext.usernameFlow
             .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), null)
 
     public fun updateUserId() {
         logger.d("updateUserId")
-        appContext.userId = Random.nextInt().toString()
+        appContext.username = Random.nextInt().toString()
         eventBus.publish(AppEvents.SHARE_CONTENT)
     }
     // </editor-fold>

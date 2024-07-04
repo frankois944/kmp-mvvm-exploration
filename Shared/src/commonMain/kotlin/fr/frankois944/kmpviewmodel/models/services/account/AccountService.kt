@@ -1,16 +1,18 @@
 package fr.frankois944.kmpviewmodel.models.services.account
 
 import co.touchlab.kermit.Logger
-import fr.frankois944.kmpviewmodel.logs.log
 import fr.frankois944.kmpviewmodel.models.dto.AccountData
 import org.koin.core.annotation.Single
 import org.koin.core.component.KoinComponent
 import org.koin.core.component.get
+import org.koin.core.parameter.parameterSetOf
 
 @Single
-public class AccountService(
-    public val logger: Logger = log("AccountService"),
-) : IAccountService, KoinComponent {
+public class AccountService :
+    IAccountService,
+    KoinComponent {
+    public val logger: Logger = get(parameters = { parameterSetOf("AccountService") })
+
     @Throws(Exception::class)
     override suspend fun getAccountInfo(): AccountData {
         logger.d("Load")

@@ -7,10 +7,11 @@
 //
 
 import SwiftUI
+import KTViewModelBuilder
 @_exported import Shared
 
 extension Error {
-    
+
     var asKotlinThrowable: KotlinThrowable {
         KotlinThrowable(message: self.localizedDescription,
                         cause: KotlinThrowable(message: "\(self)"))
@@ -18,35 +19,40 @@ extension Error {
 }
 
 @main
-struct iOSApp: App {
-    
+struct IOSApp: App {
+
     let notification: Notification.Name = .init(AppEvents.shareContent.name)
 
+    @State var logger: KermitLogger
     @State var router = NavigationPath()
-    
+
     init() {
-#if DEBUG
-        AppInitKt.startApp(appConfig: .init(isDebug: true, isProduction: false))
-#else
-        AppInitKt.startApp(appConfig: .init(isDebug: false, isProduction: false))
-#endif
+        #if DEBUG
+        let koin = AppInitKt.startApp(appConfig: .init(isDebug: true, isProduction: false))
+        #else
+        let koin = AppInitKt.startApp(appConfig: .init(isDebug: false, isProduction: false))
+        #endif
+        AppContext.configure(koinApplication: koin)
+        logger = koinGet(parameters: ["iOSApp"])
     }
-    
+
     var body: some Scene {
         WindowGroup {
             NavigationStack(path: $router) {
-                MyFirstScreenWithMacro()
-                    .navigationDestination(for: NavRoute.SecondScreen.self) { value in
-                        MyFirstScreenWithMacro()
+                MyFirstScreenWithSwiftViewModel {
+                    router.append(NavRoute.SecondScreen(userId: "rerteterret"))
+                }
+                .navigationDestination(for: NavRoute.SecondScreen.self) { _ in
+                    MyFirstScreenWithSwiftViewModel {
+                        router.append(NavRoute.SecondScreen(userId: "2142"))
                     }
+                }
             }
             .environmentObject(AppContext.shared)
             .onReceive(NotificationCenter.default.publisher(for: notification),
                        perform: {
-                log(tag: "iOSApp").i(messageString: "Notification received : \($0)")
-            })
+                        logger.i(messageString: "Notification received : \($0)")
+                       })
         }
     }
 }
-
-

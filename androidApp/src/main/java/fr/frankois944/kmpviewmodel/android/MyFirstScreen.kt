@@ -13,11 +13,9 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,13 +23,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import co.touchlab.kermit.Logger
-import fr.frankois944.kmpviewmodel.helpers.eventbus.AppEvents
-import fr.frankois944.kmpviewmodel.helpers.eventbus.IEventBus
-import fr.frankois944.kmpviewmodel.logs.log
 import fr.frankois944.kmpviewmodel.models.dto.AccountData
 import fr.frankois944.kmpviewmodel.models.dto.ProfileData
 import fr.frankois944.kmpviewmodel.viewmodels.mainscreen.MainScreenUIState
 import fr.frankois944.kmpviewmodel.viewmodels.mainscreen.MainScreenViewModel
+import fr.frankois944.kmpviewmodel.viewmodels.mainscreen.MyFirstScreenUiEvents
 import org.koin.androidx.compose.koinViewModel
 import org.koin.compose.koinInject
 import org.koin.core.parameter.parametersOf
@@ -40,29 +36,23 @@ import org.koin.core.parameter.parametersOf
 fun MyFirstScreen(
     modifier: Modifier = Modifier,
     param1: String? = null,
-    viewModel: MainScreenViewModel = koinViewModel(parameters = { parametersOf(param1 ?: "") }),
-    eventBus: IEventBus = koinInject(),
-    logger: Logger = log("MyFirstScreen"),
+    viewModel: MainScreenViewModel = koinViewModel(parameters = { parametersOf(param1) }),
+    logger: Logger = koinInject(parameters = { parametersOf("MyFirstScreen") }),
     onNextView: () -> Unit,
 ) {
-    val coroutineScope = rememberCoroutineScope()
-    LaunchedEffect(Unit) {
-        eventBus.subscribeEvent<AppEvents>().collect {
-            logger.d("EVENT RECEIVED : $it")
-        }
-    }
-
     val mainScreenUIState by viewModel.mainScreenUIState.collectAsStateWithLifecycle()
     val userId by viewModel.userId.collectAsStateWithLifecycle()
 
     MyFirstView(
         modifier = modifier.fillMaxSize(),
         mainScreenUIState = mainScreenUIState,
-        onNextView = onNextView,
         userId = userId,
-        updateUserId = { viewModel.updateUserId() },
-        retry = {
-            viewModel.reload()
+        events = {
+            when (it) {
+                is MyFirstScreenUiEvents.NextView -> onNextView()
+                is MyFirstScreenUiEvents.Retry -> viewModel.reload()
+                is MyFirstScreenUiEvents.UpdateUserId -> viewModel.updateUserId()
+            }
         },
     )
 }
@@ -72,9 +62,7 @@ fun MyFirstView(
     modifier: Modifier = Modifier,
     mainScreenUIState: MainScreenUIState,
     userId: String?,
-    updateUserId: () -> Unit = {},
-    onNextView: () -> Unit = {},
-    retry: () -> Unit = {},
+    events: (MyFirstScreenUiEvents) -> Unit = {},
 ) {
     Column(modifier = modifier) {
         when (mainScreenUIState) {
@@ -83,7 +71,7 @@ fun MyFirstView(
                     text = "Error : ${mainScreenUIState.message}",
                     color = Color.Red,
                 )
-                Button(onClick = { retry() }) {
+                Button(onClick = { events(MyFirstScreenUiEvents.Retry()) }) {
                     Text(text = "RETRY")
                 }
             }
@@ -109,7 +97,7 @@ fun MyFirstView(
                             fontWeight = FontWeight.ExtraBold,
                         )
                     }
-                    Button(onClick = updateUserId) {
+                    Button(onClick = { events(MyFirstScreenUiEvents.UpdateUserId("42")) }) {
                         Text(text = "RANDOM")
                     }
                     Text(
@@ -124,7 +112,7 @@ fun MyFirstView(
                                     Modifier
                                         .fillMaxWidth()
                                         .clickable {
-                                            onNextView()
+                                            events(MyFirstScreenUiEvents.NextView())
                                         },
                             )
                         }
@@ -145,8 +133,6 @@ private fun MyFirstPreviewViewLoading() {
             MyFirstView(
                 mainScreenUIState = MainScreenUIState.Loading,
                 userId = "sqd",
-                updateUserId = { },
-                onNextView = { },
             )
         }
     }
@@ -162,8 +148,6 @@ private fun MyFirstPreviewViewError() {
             MyFirstView(
                 mainScreenUIState = MainScreenUIState.Error("An error"),
                 userId = "sdfsdf",
-                updateUserId = { },
-                onNextView = { },
             )
         }
     }
@@ -183,8 +167,6 @@ private fun MyFirstPreviewViewSuccess() {
                         account = AccountData(transaction = listOf("Tr1", "Tr2")),
                     ),
                 userId = "sdffds",
-                updateUserId = { },
-                onNextView = { },
             )
         }
     }
