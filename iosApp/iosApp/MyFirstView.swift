@@ -41,12 +41,16 @@ struct MyFirstView: View {
                     events = .UpdateUserId(value: "42")
                 })
                 Text("Vos transactions")
-                List(success.account.transaction, id: \.self, selection: $selection) { transaction in
-                    Text(transaction)
+                List(success.account.transaction,
+                     id: \.self,
+                     selection: $selection) {
+                    Text($0)
                         .fontWeight(.semibold)
                 }
-                .onChange(of: selection, perform: { _ in
-                    events = .NextView()
+                .onChange(of: selection, perform: {
+                    if $0 != nil {
+                        events = .NextView()
+                    }
                 })
                 .onDisappear(perform: {
                     selection = nil
