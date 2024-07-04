@@ -13,11 +13,9 @@ import androidx.compose.material3.CircularProgressIndicator
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
-import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.derivedStateOf
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.remember
-import androidx.compose.runtime.rememberCoroutineScope
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
@@ -25,8 +23,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import co.touchlab.kermit.Logger
-import fr.frankois944.kmpviewmodel.helpers.eventbus.AppEvents
-import fr.frankois944.kmpviewmodel.helpers.eventbus.IEventBus
 import fr.frankois944.kmpviewmodel.models.dto.AccountData
 import fr.frankois944.kmpviewmodel.models.dto.ProfileData
 import fr.frankois944.kmpviewmodel.viewmodels.mainscreen.MainScreenUIState
@@ -41,17 +37,9 @@ fun MyFirstScreen(
     modifier: Modifier = Modifier,
     param1: String? = null,
     viewModel: MainScreenViewModel = koinViewModel(parameters = { parametersOf(param1) }),
-    eventBus: IEventBus = koinInject(),
     logger: Logger = koinInject(parameters = { parametersOf("MyFirstScreen") }),
     onNextView: () -> Unit,
 ) {
-    val coroutineScope = rememberCoroutineScope()
-    LaunchedEffect(Unit) {
-        eventBus.subscribeEvent<AppEvents>().collect {
-            logger.d("EVENT RECEIVED : $it")
-        }
-    }
-
     val mainScreenUIState by viewModel.mainScreenUIState.collectAsStateWithLifecycle()
     val userId by viewModel.userId.collectAsStateWithLifecycle()
 

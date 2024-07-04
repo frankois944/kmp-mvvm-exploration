@@ -20,6 +20,7 @@ import androidx.compose.material3.Text
 import androidx.compose.material3.TopAppBarDefaults
 import androidx.compose.material3.rememberBottomAppBarState
 import androidx.compose.material3.rememberTopAppBarState
+import androidx.compose.runtime.LaunchedEffect
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -31,6 +32,8 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.toRoute
 import co.touchlab.kermit.Logger
+import fr.frankois944.kmpviewmodel.helpers.eventbus.AppEvents
+import fr.frankois944.kmpviewmodel.helpers.eventbus.IEventBus
 import fr.frankois944.kmpviewmodel.router.NavRoute
 import org.koin.androidx.compose.KoinAndroidContext
 import org.koin.compose.koinInject
@@ -47,6 +50,13 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
                 var canGoBack by remember { mutableStateOf(false) }
                 val logger: Logger = koinInject(parameters = { parameterSetOf("MainActivity") })
+                val eventBus: IEventBus = koinInject()
+
+                LaunchedEffect(Unit) {
+                    eventBus.subscribeEvent<AppEvents>().collect {
+                        logger.d("EVENT RECEIVED : $it")
+                    }
+                }
 
                 MyApplicationTheme {
                     val scrollBehavior =
