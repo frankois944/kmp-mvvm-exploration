@@ -61,8 +61,8 @@ fun MyFirstScreen(
         userId = userId,
         events = {
             when (it) {
-                MyFirstScreenUiEvents.NextView -> onNextView()
-                MyFirstScreenUiEvents.Retry -> viewModel.reload()
+                is MyFirstScreenUiEvents.NextView -> onNextView()
+                is MyFirstScreenUiEvents.Retry -> viewModel.reload()
                 is MyFirstScreenUiEvents.UpdateUserId -> viewModel.updateUserId()
             }
         },
@@ -83,7 +83,7 @@ fun MyFirstView(
                     text = "Error : ${mainScreenUIState.message}",
                     color = Color.Red,
                 )
-                Button(onClick = { events(MyFirstScreenUiEvents.Retry) }) {
+                Button(onClick = { events(MyFirstScreenUiEvents.Retry()) }) {
                     Text(text = "RETRY")
                 }
             }
@@ -124,7 +124,7 @@ fun MyFirstView(
                                     Modifier
                                         .fillMaxWidth()
                                         .clickable {
-                                            events(MyFirstScreenUiEvents.NextView)
+                                            events(MyFirstScreenUiEvents.NextView())
                                         },
                             )
                         }

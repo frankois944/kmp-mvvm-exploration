@@ -45,10 +45,8 @@ struct MyFirstView: View {
                     Text(transaction)
                         .fontWeight(.semibold)
                 }
-                .onChange(of: selection, perform: { value in
-                    if value != nil {
-                        events = .NextView()
-                    }
+                .onChange(of: selection, perform: { _ in
+                    events = .NextView()
                 })
                 .onDisappear(perform: {
                     selection = nil
@@ -70,7 +68,7 @@ struct MyFirstView: View {
                 events: .constant(nil))
 }
 
-#Preview("FAILED") {
+#Preview("DONE") {
     MyFirstView(mainScreenUIState: .Success(profile: .init(username: "Joker"),
                                             account: .init(transaction: ["Tr1", "Tr2"])),
                 userId: "",

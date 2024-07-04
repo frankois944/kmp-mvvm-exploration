@@ -11,7 +11,7 @@ public sealed class MyFirstScreenUiEvents : ScreenUiEvent() {
     public class Retry : MyFirstScreenUiEvents()
 
     public class UpdateUserId(
-        value: String,
+        public val value: String,
     ) : MyFirstScreenUiEvents()
 
     public class NextView : MyFirstScreenUiEvents()
