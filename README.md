@@ -13,7 +13,7 @@ You will find inside this repo :
 - MVVM with different approach
 - and more little experiences
 
-The 3 first are the easiest, they are almost fully documented, the fourth is also done on Android but on iOS, it's currently still experimental.
+The 4 first are the easiest, they are almost fully documented, the 5th is also done on Android but on iOS, it's currently still experimental.
 
 ## MVVM concept on IOS
 
