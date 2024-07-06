@@ -109,7 +109,7 @@ As this playground is using Koin, I want to get my viewmodel from koin, not on d
 
 So we can use koin qualifier and parameters like koin for Android.
 
-- We need to export an important kotlin method which resolve ObjC class to Kotlin Class
+- We need to export an important kotlin method which resolve ObjC class to Kotlin Class from Swift Application
 
 https://github.com/frankois944/kmp-mvvm-exploration/blob/main/Shared/src/iosMain/kotlin/fr/frankois944/kmpviewmodel/AppInit.ios.kt
 
