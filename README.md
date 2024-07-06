@@ -109,8 +109,9 @@ As this playground is using Koin, I want to get my viewmodel from koin, not on d
 
 So we can use koin qualifier and parameters like koin for Android.
 
-- We need to export an important kotlin method
-https://github.com/frankois944/kmp-mvvm-exploration/blob/main/Shared/src/iosMain/kotlin/fr/frankois944/kmpviewmodel/AppInit.ios.kt#L12
+- We need to export an important kotlin method which resolve ObjC class to Kotlin Class
+
+https://github.com/frankois944/kmp-mvvm-exploration/blob/main/Shared/src/iosMain/kotlin/fr/frankois944/kmpviewmodel/AppInit.ios.kt
 
 - Store the Kotlin Koin Context somewhere and make it accessible everywhere in the swift App
 ```swift
