@@ -166,27 +166,25 @@ extension Koin_coreKoinApplication {
     }
 }
 
-/// lazy inject (like `by inject()` koin method)
+/// propertyWrapper like `by inject()` koin method
 @propertyWrapper struct KoinInject<T: AnyObject> {
-    var qualifier: String? = nil
-    var parameters: [Any]? = nil
-    
+    var qualifier: String?
+    var parameters: [Any]?
+
     init(qualifier: String? = nil, parameters: [Any]? = nil) {
         self.qualifier = qualifier
         self.parameters = parameters
     }
-    
+
     lazy var wrappedValue: T = {
         return koinGet(qualifier: qualifier, parameters: parameters)
     }()
 }
 
-/// direct inject (like `get()` koin method)
+/// like the `get()` koin method
 func koinGet<T: AnyObject>(qualifier: String? = nil, parameters: [Any]? = nil) -> T {
-    guard let koinApplication = AppContext.shared.koinApplication else {
-        fatalError("Cant get koinApplication")
-    }
-    return koinApplication.get(qualifier: qualifier, parameters: parameters)
+    return AppContext.shared.koinApplication.get(qualifier: qualifier,
+                                                 parameters: parameters)
 }
 ```
 - Finally, get the instance from the koin, ie:
