@@ -103,7 +103,7 @@ The goal of this experiment is to align the behavior between Android ViewModel a
 
 Look at the logs I added to verify the lifecycle, it should be exactly the same on the different approach.
 
-### Getting the viewmodel or any instance from Swift and Koin
+## Getting the viewmodel or any instance from Swift and Koin
 
 As this playground is using Koin, I want to get my viewmodel from koin, not on direct way (but it's still working)
 
