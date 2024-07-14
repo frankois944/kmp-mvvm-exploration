@@ -43,7 +43,7 @@ struct IOSApp: App {
                     router.append(NavRoute.SecondScreen(userId: "rerteterret"))
                 }
                 .navigationDestination(for: NavRoute.SecondScreen.self) { _ in
-                    MyFirstScreenWithSwiftViewModel {
+                    MyFirstScreenUIKitView {
                         router.append(NavRoute.SecondScreen(userId: "2142"))
                     }
                 }
