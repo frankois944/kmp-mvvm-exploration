@@ -105,7 +105,7 @@ No usage of KMP mvvm, just like a MVVM SwiftUI class
 
 https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/UIKIt/MyFirstScreenViewController.swift
 
-UIKit is not dead, we can use the `SharedViewModel` class and the SKIE combine support 
+UIKit is not dead, we can use the `SharedViewModel` class and the [SKIE combine support ](https://skie.touchlab.co/features/combine)
 
 ## Thinking
 
