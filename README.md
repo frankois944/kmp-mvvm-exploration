@@ -11,10 +11,10 @@ You will find inside this repo :
 - Logging with Kermit
 - Usage of DataStore
 - MVVM with different approach
-    - [SKIE](https://github.com/frankois944/kmp-mvvm-exploration#mvvm-using-skie-observable)
-    - [CUSTOM MACRO](https://github.com/frankois944/kmp-mvvm-exploration#mvvm-using-macro)
-    - [CLASSIC](https://github.com/frankois944/kmp-mvvm-exploration?tab=readme-ov-file#classic-mvvm)
-    - UIKIT
+    - [Skie observable](https://github.com/frankois944/kmp-mvvm-exploration#mvvm-using-skie-observable)
+    - [Custom macro](https://github.com/frankois944/kmp-mvvm-exploration#mvvm-using-macro)
+    - [SwiftUI MVVM](https://github.com/frankois944/kmp-mvvm-exploration?tab=readme-ov-file#classic-mvvm)
+    - [UIKit](https://github.com/frankois944/kmp-mvvm-exploration/blob/main/README.md#uikit)
 - and more little experiences
 
 The 4 first are the easiest, they are almost fully documented, the 5th is also done on Android but on iOS, it's currently still experimental.
@@ -105,7 +105,7 @@ No usage of KMP mvvm, just like a MVVM SwiftUI class
 
 https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/UIKIt/MyFirstScreenViewController.swift
 
-UIKit is not dead, we can use the `SharedViewModel` and the SKIE combine support 
+UIKit is not dead, we can use the `SharedViewModel` class and the SKIE combine support 
 
 ## Thinking
 
