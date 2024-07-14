@@ -11,6 +11,10 @@ You will find inside this repo :
 - Logging with Kermit
 - Usage of DataStore
 - MVVM with different approach
+    - [Skie observable](https://github.com/frankois944/kmp-mvvm-exploration#mvvm-using-skie-observable)
+    - [Custom macro](https://github.com/frankois944/kmp-mvvm-exploration#mvvm-using-macro)
+    - [SwiftUI MVVM](https://github.com/frankois944/kmp-mvvm-exploration?tab=readme-ov-file#classic-mvvm)
+    - [UIKit](https://github.com/frankois944/kmp-mvvm-exploration/blob/main/README.md#uikit)
 - and more little experiences
 
 The 4 first are the easiest, they are almost fully documented, the 5th is also done on Android but on iOS, it's currently still experimental.
@@ -79,23 +83,29 @@ https://github.com/frankois944/kmp-mvvm-exploration/blob/main/Shared/src/commonM
 
 ### MVVM using Skie observable
 
-https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/MyFirstScreenWithoutMacro.swift
+https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/SwiftUI/MyFirstScreenWithoutMacro.swift
 
-This approach is using the Skie flow SwiftUI capability https://skie.touchlab.co/features/flows-in-swiftui
+This approach is using the [SKIE flow SwiftUI capability](https://skie.touchlab.co/features/flows-in-swiftui) 
 
 ### MVVM using Macro
 
-https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/MyFirstScreenWithMacro.swift
+https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/SwiftUI/MyFirstScreenWithMacro.swift
 
 This approach is using a [macro I made](https://github.com/frankois944/kmp-mvvm-exploration/tree/main/KTViewModelBuilder) to automatically wrap a KMP viewmodel inside an ObservableObject, almost like a SwiftUI viewmodel.
 
-https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/MyFirstScreenWithMacro.swift#L12-L17
+https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/SwiftUI/MyFirstScreenWithMacro.swift#L12-L17
 
 ### Classic MVVM
 
-https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/MyFirstScreenWithSwiftViewModel.swift
+https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/SwiftUI/MyFirstScreenWithSwiftViewModel.swift
 
 No usage of KMP mvvm, just like a MVVM SwiftUI class
+
+### UIKit
+
+https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/UIKIt/MyFirstScreenViewController.swift
+
+UIKit is not dead, we can use the `SharedViewModel` class and the [SKIE combine support ](https://skie.touchlab.co/features/combine)
 
 ## Thinking
 
