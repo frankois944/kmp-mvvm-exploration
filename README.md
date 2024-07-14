@@ -85,7 +85,7 @@ https://github.com/frankois944/kmp-mvvm-exploration/blob/main/Shared/src/commonM
 
 https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/SwiftUI/MyFirstScreenWithoutMacro.swift
 
-This approach is using the Skie flow SwiftUI capability https://skie.touchlab.co/features/flows-in-swiftui
+This approach is using the [SKIE flow SwiftUI capability](https://skie.touchlab.co/features/flows-in-swiftui) 
 
 ### MVVM using Macro
 
