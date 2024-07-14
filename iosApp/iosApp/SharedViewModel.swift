@@ -7,8 +7,11 @@
 //
 
 import Foundation
+
 /// Manage the viewmodel lifecycle for SwiftUI apps
-/// Also, this class is working on UIKit apps (ObservableObject inheritance can be removed if needed)
+/// Also, this class is working on UIKit apps
+///
+/// ObservableObject inheritance can be removed if needed if no need of SwiftUI
 class SharedViewModel<VM: ViewModel>: ObservableObject {
 
     private let key = String(describing: type(of: VM.self))

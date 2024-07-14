@@ -10,35 +10,10 @@ import UIKit
 import SwiftUI
 import Combine
 
-// Create a UIViewController for SwiftUI
-struct MyFirstScreenUIKitView: UIViewControllerRepresentable {
-    typealias UIViewControllerType = MyFirstScreenViewController
-
-    let param1: String?
-    let onNextView: () -> Void
-
-    init(param1: String? = nil, onNextView: @escaping () -> Void) {
-        self.param1 = param1
-        self.onNextView = onNextView
-    }
-
-    func makeUIViewController(context: Context) -> MyFirstScreenViewController {
-        let newVc = (UIStoryboard(name: "MyFirstScreen", bundle: nil).instantiateInitialViewController()
-                        as? MyFirstScreenViewController)!
-        newVc.param1 = param1
-        newVc.onNextView = onNextView
-        return newVc
-    }
-
-    func updateUIViewController(_ uiViewController: MyFirstScreenViewController, context: Context) {
-        // Updates the state of the specified view controller with new information from SwiftUI.
-    }
-}
-
 class MyFirstScreenViewController: UIViewController {
-    
+
     // MARK: IBOutlet
-    
+
     @IBOutlet var loadingIndicator: UIActivityIndicatorView!
     @IBOutlet var errorLabel: UILabel!
     @IBOutlet var userNaneLabel: UILabel!
@@ -46,7 +21,7 @@ class MyFirstScreenViewController: UIViewController {
     @IBOutlet var errorView: UIView!
     @IBOutlet var successView: UIView!
     @IBOutlet var tableView: UITableView!
-    
+
     // MARK: - Properties
 
     private let viewModel: SharedViewModel<MainScreenViewModel> = .init(koinGet())
@@ -56,12 +31,17 @@ class MyFirstScreenViewController: UIViewController {
     var param1: String?
     var onNextView: (() -> Void)?
     var dataList: [String]?
-    
+
     // MARK: - Init
 
     override func viewDidLoad() {
         super.viewDidLoad()
         logger.d(messageString: "viewDidLoad")
+        bindView()
+    }
+
+    // bind the viewmodel to the view
+    private func bindView() {
         viewModel.instance.mainScreenUIState.toPublisher()
             .receive(on: DispatchQueue.main)
             .sink { [weak self] in
@@ -89,7 +69,7 @@ class MyFirstScreenViewController: UIViewController {
             }
             .store(in: &disposebag)
     }
-    
+
     // MARK: - IBAction
 
     @IBAction func updateUserId() {
