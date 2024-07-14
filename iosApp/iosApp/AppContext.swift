@@ -74,9 +74,5 @@ class AppContext: ObservableObject {
 
     deinit {
         d(string: "DEINIT \(self)")
-        disposebag.forEach {
-            $0.cancel()
-        }
-        disposebag.removeAll()
     }
 }
