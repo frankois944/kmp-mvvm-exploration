@@ -7,7 +7,6 @@
 //
 
 import UIKit
-import SwiftUI
 import Combine
 
 class MyFirstScreenViewController: UIViewController {
