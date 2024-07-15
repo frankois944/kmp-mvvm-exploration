@@ -8,10 +8,10 @@ import org.koin.core.component.get
 import org.koin.core.parameter.parameterSetOf
 
 @Single
-public class ProfileService :
+internal class ProfileService :
     IProfileService,
     KoinComponent {
-    public val logger: Logger = get(parameters = { parameterSetOf("ProfileService") })
+    val logger: Logger = get(parameters = { parameterSetOf("ProfileService") })
 
     @Throws(Exception::class)
     override suspend fun getProfile(): ProfileData {

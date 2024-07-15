@@ -8,10 +8,10 @@ import org.koin.core.component.get
 import org.koin.core.parameter.parameterSetOf
 
 @Single
-public class AccountService :
+internal class AccountService :
     IAccountService,
     KoinComponent {
-    public val logger: Logger = get(parameters = { parameterSetOf("AccountService") })
+    val logger: Logger = get(parameters = { parameterSetOf("AccountService") })
 
     @Throws(Exception::class)
     override suspend fun getAccountInfo(): AccountData {

@@ -11,9 +11,13 @@ You will find inside this repo :
 - Logging with Kermit
 - Usage of DataStore
 - MVVM with different approach
+    - [Skie observable](https://github.com/frankois944/kmp-mvvm-exploration#mvvm-using-skie-observable)
+    - [Custom macro](https://github.com/frankois944/kmp-mvvm-exploration#mvvm-using-macro)
+    - [SwiftUI MVVM](https://github.com/frankois944/kmp-mvvm-exploration?tab=readme-ov-file#classic-mvvm)
+    - [UIKit](https://github.com/frankois944/kmp-mvvm-exploration/blob/main/README.md#uikit)
 - and more little experiences
 
-The 3 first are the easiest, they are almost fully documented, the fourth is also done on Android but on iOS, it's currently still experimental.
+The 4 first are the easiest, they are almost fully documented, the 5th is also done on Android but on iOS, it's currently still experimental.
 
 ## MVVM concept on IOS
 
@@ -79,23 +83,29 @@ https://github.com/frankois944/kmp-mvvm-exploration/blob/main/Shared/src/commonM
 
 ### MVVM using Skie observable
 
-https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/MyFirstScreenWithoutMacro.swift
+https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/SwiftUI/MyFirstScreenWithoutMacro.swift
 
-This approach is using the Skie flow SwiftUI capability https://skie.touchlab.co/features/flows-in-swiftui
+This approach is using the [SKIE flow SwiftUI capability](https://skie.touchlab.co/features/flows-in-swiftui) 
 
 ### MVVM using Macro
 
-https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/MyFirstScreenWithMacro.swift
+https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/SwiftUI/MyFirstScreenWithMacro.swift
 
 This approach is using a [macro I made](https://github.com/frankois944/kmp-mvvm-exploration/tree/main/KTViewModelBuilder) to automatically wrap a KMP viewmodel inside an ObservableObject, almost like a SwiftUI viewmodel.
 
-https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/MyFirstScreenWithMacro.swift#L12-L17
+https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/SwiftUI/MyFirstScreenWithMacro.swift#L12-L17
 
 ### Classic MVVM
 
-https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/MyFirstScreenWithSwiftViewModel.swift
+https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/SwiftUI/MyFirstScreenWithSwiftViewModel.swift
 
 No usage of KMP mvvm, just like a MVVM SwiftUI class
+
+### UIKit
+
+https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/UIKIt/MyFirstScreenViewController.swift
+
+UIKit is not dead, we can use the `SharedViewModel` class and the [SKIE combine support ](https://skie.touchlab.co/features/combine)
 
 ## Thinking
 
@@ -103,14 +113,15 @@ The goal of this experiment is to align the behavior between Android ViewModel a
 
 Look at the logs I added to verify the lifecycle, it should be exactly the same on the different approach.
 
-### Getting the viewmodel or any instance from Swift and Koin
+## Getting the viewmodel or any instance from Swift and Koin
 
 As this playground is using Koin, I want to get my viewmodel from koin, not on direct way (but it's still working)
 
 So we can use koin qualifier and parameters like koin for Android.
 
-- We need to export an important kotlin method
-https://github.com/frankois944/kmp-mvvm-exploration/blob/93718471ebba46ef69f58790f5405f6b1e4b90ee/Shared/src/iosMain/kotlin/fr/frankois944/kmpviewmodel/AppInit.ios.kt#L12
+- We need to export an important kotlin method which resolve ObjC class to Kotlin Class from Swift Application
+
+https://github.com/frankois944/kmp-mvvm-exploration/blob/main/Shared/src/iosMain/kotlin/fr/frankois944/kmpviewmodel/AppInit.ios.kt
 
 - Store the Kotlin Koin Context somewhere and make it accessible everywhere in the swift App
 ```swift
@@ -127,55 +138,63 @@ private class KoinQualifier: Koin_coreQualifier {
 }
 
 extension Koin_coreKoinApplication {
+
     // reproducing the koin `get()` method behavior
     // we can set qualifier and parameters
     func get<T: AnyObject>(qualifier: String? = nil, parameters: [Any]? = nil) -> T {
-        // check if T is a Class or a Protocol
-        let protocolType = NSProtocolFromString("\(T.self)")
-        
-        if let ktClass =  protocolType != nil ?
-            // resolve KClass by Protocol
-            Shared.getOriginalKotlinClass(objCProtocol: protocolType!) :
-                // resolve KClass by Class
-                Shared.getOriginalKotlinClass(objCClass: T.self) {
-            var koinQualifier: Koin_coreQualifier?
-            if let qualifier = qualifier {
-                koinQualifier = KoinQualifier(value: qualifier)
-            }
-            
-            if let instance = koin.get(clazz: ktClass,
-                                       qualifier: koinQualifier,
-                                       parameters: {
-                .init(_values: .init(array: parameters ?? []), useIndexedValues: true)
-            }) {
-                return instance as! T
+        let ktClass: KotlinKClass?
+        // check if T is a Class or a Protocol and get the linked kotlin class
+        if let protocolType = NSProtocolFromString("\(T.self)") {
+            ktClass = Shared.getOriginalKotlinClass(objCProtocol: protocolType)
+        } else {
+            ktClass = Shared.getOriginalKotlinClass(objCClass: T.self)
+        }
+
+        guard let ktClass else {
+            // no Kotlin Class found, it's an critical error
+            fatalError("Cant resolve objc class \(T.self)")
+        }
+
+        var koinQualifier: Koin_coreQualifier?
+        if let qualifier = qualifier {
+            koinQualifier = KoinQualifier(value: qualifier)
+        }
+
+        var koinParameters: (() -> Koin_coreParametersHolder)?
+        if let parameters {
+            koinParameters = {
+                .init(_values: .init(array: parameters), useIndexedValues: nil)
             }
         }
-        fatalError("Cant resolve Koin Injection \(self)")
+
+        guard let instance = koin.get(clazz: ktClass,
+                                      qualifier: koinQualifier,
+                                      parameters: koinParameters) as? T else {
+            fatalError("Cant resolve Koin Injection \(self)")
+        }
+        return instance
     }
 }
 
-/// lazy inject (like `by inject()` koin method)
+/// propertyWrapper like `by inject()` koin method
 @propertyWrapper struct KoinInject<T: AnyObject> {
-    var qualifier: String? = nil
-    var parameters: [Any]? = nil
-    
+    var qualifier: String?
+    var parameters: [Any]?
+
     init(qualifier: String? = nil, parameters: [Any]? = nil) {
         self.qualifier = qualifier
         self.parameters = parameters
     }
-    
+
     lazy var wrappedValue: T = {
         return koinGet(qualifier: qualifier, parameters: parameters)
     }()
 }
 
-/// direct inject (like `get()` koin method)
+/// like the `get()` koin method
 func koinGet<T: AnyObject>(qualifier: String? = nil, parameters: [Any]? = nil) -> T {
-    guard let koinApplication = AppContext.shared.koinApplication else {
-        fatalError("Cant get koinApplication")
-    }
-    return koinApplication.get(qualifier: qualifier, parameters: parameters)
+    return AppContext.shared.koinApplication.get(qualifier: qualifier,
+                                                 parameters: parameters)
 }
 ```
 - Finally, get the instance from the koin, ie:

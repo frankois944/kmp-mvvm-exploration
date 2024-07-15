@@ -6,7 +6,6 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharedFlow
 import kotlinx.coroutines.flow.channelFlow
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.isActive
@@ -33,9 +32,7 @@ internal class EventBus :
     private val coroutineContext = CoroutineScope(Dispatchers.Default)
     internal val logger: Logger by inject(parameters = { parametersOf("EventBus") })
 
-    @Suppress("ktlint:standard:backing-property-naming")
-    private val _events: MutableSharedFlow<Pair<AppEvents, Any?>> = MutableSharedFlow()
-    private val events: SharedFlow<Pair<AppEvents, Any?>> = _events
+    private val events: MutableSharedFlow<Pair<AppEvents, Any?>> = MutableSharedFlow()
 
     override fun publish(
         name: AppEvents,
@@ -44,7 +41,7 @@ internal class EventBus :
         logger.d("Publish event $name $value")
         coroutineContext.launch {
             // send the notification to the Kotlin compatible API
-            _events.emit(Pair(name, value))
+            events.emit(Pair(name, value))
             // Send the notification to the native API
             publishNotification(name, value)
         }

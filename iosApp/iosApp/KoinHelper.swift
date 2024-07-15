@@ -31,7 +31,7 @@ extension Koin_coreKoinApplication {
 
         guard let ktClass else {
             // no Kotlin Class found, it's an critical error
-            fatalError("Cant resolve objc class \(T.self)")
+            fatalError("Cant resolve objc class [Type]:\(T.self)")
         }
 
         var koinQualifier: Koin_coreQualifier?
@@ -49,7 +49,7 @@ extension Koin_coreKoinApplication {
         guard let instance = koin.get(clazz: ktClass,
                                       qualifier: koinQualifier,
                                       parameters: koinParameters) as? T else {
-            fatalError("Cant resolve Koin Injection \(self)")
+            fatalError("Cant resolve Koin Injection [Type]:\(T.self) [ktClass]:\(ktClass)")
         }
         return instance
     }
