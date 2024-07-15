@@ -10,7 +10,7 @@ You will find inside this repo :
 - [Getting the viewmodel or any instance from Swift and Koin](#getting-the-viewmodel-or-any-instance-from-swift-and-koin)
 - Logging with Kermit
 - Usage of DataStore
-- MVVM with different approach
+- [MVVM with different approach](https://github.com/frankois944/kmp-mvvm-exploration/edit/main/README.md#the-viewmodel)
     - [Skie observable](https://github.com/frankois944/kmp-mvvm-exploration#mvvm-using-skie-observable)
     - [Custom macro](https://github.com/frankois944/kmp-mvvm-exploration#mvvm-using-macro)
     - [SwiftUI MVVM](https://github.com/frankois944/kmp-mvvm-exploration?tab=readme-ov-file#classic-mvvm)
@@ -77,6 +77,8 @@ class SharedViewModel<VM : ViewModel> : ObservableObject {
     }
 }
 ```
+### The ViewModel
+
 Based on this Kotlin [viewmodel](https://github.com/frankois944/kmp-mvvm-exploration/blob/main/Shared/src/commonMain/kotlin/fr/frankois944/kmpviewmodel/viewmodels/mainscreen/MainScreenViewModel.kt).
 
 Also, you can find the android integration [here](https://github.com/frankois944/kmp-mvvm-exploration/blob/main/androidApp/src/main/java/fr/frankois944/kmpviewmodel/android/MyFirstScreen.kt).
