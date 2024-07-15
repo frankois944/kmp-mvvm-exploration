@@ -53,14 +53,14 @@ class AppContext: ObservableObject {
     /// Initialize all values of the AppContext
     private func setup() {
         logger.d(messageString: "INIT APPCONTEXT")
-        disposebag.insert(
-            common.usernameFlow.toPublisher()
-                .receive(on: DispatchQueue.main)
-                .sink { [weak self] in
-                    self?.logger.i(messageString: "UPDATING usernameFlow with \(String(describing: $0))")
-                    self?.sessionToken = $0
-                }
-        )
+        common.usernameFlow.toPublisher()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] in
+                self?.logger.i(messageString: "UPDATING usernameFlow with \(String(describing: $0))")
+                self?.sessionToken = $0
+            }
+            .store(in: &disposebag)
+
     }
 
     /// Create the AppContext Singleton and initialize it
@@ -74,9 +74,5 @@ class AppContext: ObservableObject {
 
     deinit {
         d(string: "DEINIT \(self)")
-        disposebag.forEach {
-            $0.cancel()
-        }
-        disposebag.removeAll()
     }
 }
