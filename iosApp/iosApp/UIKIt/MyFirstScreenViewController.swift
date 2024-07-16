@@ -26,7 +26,7 @@ class MyFirstScreenViewController: UIViewController {
     private let viewModel: SharedViewModel<MainScreenViewModel> = .init(koinGet())
     private let logger: KermitLogger = koinGet(parameters: ["MyFirstScreenViewController"])
     private var disposebag = Set<AnyCancellable>()
-    private var jobDisposable = CoroutineJobDisposeBag()
+    private var jobDisposeBag = CoroutineJobDisposeBag()
     private var dataList: [String]?
     var param1: String?
     var onNextView: (() -> Void)?
@@ -80,7 +80,7 @@ class MyFirstScreenViewController: UIViewController {
         logger.d(messageString: "retry")
         viewModel.instance
             .reload()
-            .store(in: &jobDisposable)
+            .store(in: &jobDisposeBag)
     }
 
     deinit {

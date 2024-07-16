@@ -14,7 +14,7 @@ struct MyFirstScreenWithSkie: View {
     @StateObject private var viewModel: SharedViewModel<MainScreenViewModel>
     @State private var mainScreenUIState: MainScreenUIState = .Loading()
     @State private var userId: String?
-    @State private var jobDisposable = CoroutineJobDisposeBag()
+    @State private var jobDisposeBag = CoroutineJobDisposeBag()
     @State private var events: MyFirstScreenUiEvents?
     let onNextView: () -> Void
 
@@ -30,14 +30,14 @@ struct MyFirstScreenWithSkie: View {
             .onDisappear {
                 // Disposing is useful when the View is not destroyed when pop from the navigation Stack
                 // For example: using NavigationView instead of NavigationStack
-                jobDisposable.dispose()
+                jobDisposeBag.dispose()
             }
             .onChange(of: events, perform: {
                 switch onEnum(of: $0) {
                 case .retry:
                     viewModel.instance
                         .reload()
-                        .store(in: &jobDisposable)
+                        .store(in: &jobDisposeBag)
                 case .updateUserId:
                     viewModel.instance.updateUserId()
                 case .nextView:
