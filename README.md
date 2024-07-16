@@ -117,9 +117,9 @@ Look at the logs I added to verify the lifecycle, it should be exactly the same 
 
 ## Getting the viewmodel or any instance from Swift and Koin
 
-As this playground is using Koin, I want to get my viewmodel from koin, not on direct way (but it's still working)
+As this playground is using Koin, I want to get my viewmodel from it, not on direct way with the constructor (it's still working, but it's not great).
 
-So we can use koin qualifier and parameters like koin for Android.
+So we can use Koin qualifier and parameters like Koin for Android.
 
 - We need to export an important kotlin method which resolve ObjC class to Kotlin Class from Swift Application
 
