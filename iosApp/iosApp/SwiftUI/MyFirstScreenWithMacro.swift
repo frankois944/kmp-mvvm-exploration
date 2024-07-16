@@ -19,7 +19,7 @@ class MyMainScreenViewModel: ObservableObject {}
 struct MyFirstScreenWithMacro: View {
 
     @StateObject private var viewModel = MyMainScreenViewModel(koinGet(parameters: ["IOS-MyFirstScreenWithMacro"]))
-    @State private var reloadingTask: Kotlinx_coroutines_coreJob?
+    @State private var jobDisposeBag = CoroutineJobDisposeBag()
     @State private var events: MyFirstScreenUiEvents?
     let onNextView: () -> Void
 
@@ -29,10 +29,17 @@ struct MyFirstScreenWithMacro: View {
                         userId: viewModel.userId,
                         events: $events)
         }
+        .onDisappear {
+            // Disposing is useful when the View is not destroyed when pop from the navigation Stack
+            // For example: using NavigationView instead of NavigationStack
+            jobDisposeBag.dispose()
+        }
         .onChange(of: events, perform: {
             switch onEnum(of: $0) {
             case .retry:
-                reloadingTask = viewModel.instance.reload()
+                viewModel.instance
+                    .reload()
+                    .store(in: &jobDisposeBag)
             case .updateUserId:
                 viewModel.instance.updateUserId()
             case .nextView:
@@ -41,9 +48,6 @@ struct MyFirstScreenWithMacro: View {
                 break
             }
         })
-        .onDisappear {
-            reloadingTask?.cancel(cause: nil)
-        }
         .task {
             await viewModel.start()
         }

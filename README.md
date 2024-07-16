@@ -6,15 +6,15 @@ It's not that simple, I'm working on it for some times and with the advancement 
 
 You will find inside this repo :
 
-- Injection with Koin annotation
+- Injection with [Koin annotation](https://insert-koin.io/)
 - [Getting the viewmodel or any instance from Swift and Koin](#getting-the-viewmodel-or-any-instance-from-swift-and-koin)
-- Logging with Kermit
-- Usage of DataStore
-- [MVVM with different approach](https://github.com/frankois944/kmp-mvvm-exploration#the-viewmodel)
-    - [Skie observable](https://github.com/frankois944/kmp-mvvm-exploration#mvvm-using-skie-observable)
-    - [Custom macro](https://github.com/frankois944/kmp-mvvm-exploration#mvvm-using-macro)
-    - [SwiftUI MVVM](https://github.com/frankois944/kmp-mvvm-exploration?tab=readme-ov-file#classic-mvvm)
-    - [UIKit](https://github.com/frankois944/kmp-mvvm-exploration/blob/main/README.md#uikit)
+- Logging with [Kermit](https://kermit.touchlab.co/)
+- Usage of [DataStore](https://developer.android.com/jetpack/androidx/releases/datastore)
+- [MVVM with different approach](#the-viewmodel)
+    - [Skie observable](#mvvm-using-skie-observable)
+    - [Custom macro](#mvvm-using-macro)
+    - [SwiftUI MVVM](#classic-mvvm)
+    - [UIKit](#uikit)
 - and more little experiences
 
 The 4 first are the easiest, they are almost fully documented, the 5th is also done on Android but on iOS, it's currently still experimental.
@@ -85,7 +85,7 @@ Also, you can find the android integration [here](https://github.com/frankois944
 
 ### MVVM using Skie observable
 
-https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/SwiftUI/MyFirstScreenWithoutMacro.swift
+https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/SwiftUI/MyFirstScreenWithSkie.swift
 
 This approach is using the [SKIE flow SwiftUI capability](https://skie.touchlab.co/features/flows-in-swiftui) 
 
@@ -117,9 +117,9 @@ Look at the logs I added to verify the lifecycle, it should be exactly the same 
 
 ## Getting the viewmodel or any instance from Swift and Koin
 
-As this playground is using Koin, I want to get my viewmodel from koin, not on direct way (but it's still working)
+As this playground is using Koin, I want to get my viewmodel from it, not on direct way with the constructor (it's still working, but it's not great).
 
-So we can use koin qualifier and parameters like koin for Android.
+So we can use Koin qualifier and parameters like Koin for Android.
 
 - We need to export an important kotlin method which resolve ObjC class to Kotlin Class from Swift Application
 
