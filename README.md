@@ -85,7 +85,7 @@ Also, you can find the android integration [here](https://github.com/frankois944
 
 ### MVVM using Skie observable
 
-https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/SwiftUI/MyFirstScreenWithoutMacro.swift
+https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/SwiftUI/MyFirstScreenWithSkie.swift
 
 This approach is using the [SKIE flow SwiftUI capability](https://skie.touchlab.co/features/flows-in-swiftui) 
 

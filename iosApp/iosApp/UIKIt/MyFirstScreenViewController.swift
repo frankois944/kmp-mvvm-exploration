@@ -27,9 +27,9 @@ class MyFirstScreenViewController: UIViewController {
     private let logger: KermitLogger = koinGet(parameters: ["MyFirstScreenViewController"])
     private var disposebag = Set<AnyCancellable>()
     private var reloadingTask: Kotlinx_coroutines_coreJob?
+    private var dataList: [String]?
     var param1: String?
     var onNextView: (() -> Void)?
-    var dataList: [String]?
 
     // MARK: - Init
 

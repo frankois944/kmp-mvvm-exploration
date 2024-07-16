@@ -26,13 +26,13 @@ class FirstScreenViewModel: ObservableObject {
     init(param1: String?) {
         self.param1 = param1
         logger.d(messageString: "INIT")
-        disposebag.insert(appContext.usernameFlow
-                            .toPublisher()
-                            .receive(on: DispatchQueue.main)
-                            .sink { [weak self] in
-                                self?.userId = $0
-                            }
-        )
+        appContext.usernameFlow
+            .toPublisher()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] in
+                self?.userId = $0
+            }
+            .store(in: &disposebag)
     }
 
     func updateUserId() {

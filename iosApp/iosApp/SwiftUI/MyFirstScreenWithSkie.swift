@@ -9,7 +9,7 @@
 import Foundation
 import SwiftUI
 
-struct MyFirstScreenWithoutMacro: View {
+struct MyFirstScreenWithSkie: View {
 
     @StateObject private var viewModel: SharedViewModel<MainScreenViewModel>
     @State private var mainScreenUIState: MainScreenUIState = .Loading()

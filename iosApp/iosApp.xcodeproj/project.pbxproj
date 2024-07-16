@@ -12,7 +12,7 @@
 		0794BB732C43D20D0031EB64 /* MyFirstScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0794BB722C43D20D0031EB64 /* MyFirstScreen.storyboard */; };
 		0794BB752C43D2240031EB64 /* MyFirstScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0794BB742C43D2240031EB64 /* MyFirstScreenViewController.swift */; };
 		0794BB772C43EE270031EB64 /* MyFirstScreenWithUIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0794BB762C43EE270031EB64 /* MyFirstScreenWithUIKit.swift */; };
-		1147C7A82C09B28D005D7E73 /* MyFirstScreenWithoutMacro.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1147C7A72C09B28D005D7E73 /* MyFirstScreenWithoutMacro.swift */; };
+		1147C7A82C09B28D005D7E73 /* MyFirstScreenWithSkie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1147C7A72C09B28D005D7E73 /* MyFirstScreenWithSkie.swift */; };
 		115D10BD2C08A3E70096AA89 /* MyFirstScreenWithSwiftViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115D10BC2C08A3E70096AA89 /* MyFirstScreenWithSwiftViewModel.swift */; };
 		115D10BF2C08A4150096AA89 /* MyFirstScreenWithMacro.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115D10BE2C08A4150096AA89 /* MyFirstScreenWithMacro.swift */; };
 		1163F4FC2BE90DC900F423CE /* AppContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1163F4FB2BE90DC900F423CE /* AppContext.swift */; };
@@ -42,7 +42,7 @@
 		0794BB722C43D20D0031EB64 /* MyFirstScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MyFirstScreen.storyboard; sourceTree = "<group>"; };
 		0794BB742C43D2240031EB64 /* MyFirstScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFirstScreenViewController.swift; sourceTree = "<group>"; };
 		0794BB762C43EE270031EB64 /* MyFirstScreenWithUIKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFirstScreenWithUIKit.swift; sourceTree = "<group>"; };
-		1147C7A72C09B28D005D7E73 /* MyFirstScreenWithoutMacro.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFirstScreenWithoutMacro.swift; sourceTree = "<group>"; };
+		1147C7A72C09B28D005D7E73 /* MyFirstScreenWithSkie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFirstScreenWithSkie.swift; sourceTree = "<group>"; };
 		115D10BC2C08A3E70096AA89 /* MyFirstScreenWithSwiftViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFirstScreenWithSwiftViewModel.swift; sourceTree = "<group>"; };
 		115D10BE2C08A4150096AA89 /* MyFirstScreenWithMacro.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFirstScreenWithMacro.swift; sourceTree = "<group>"; };
 		1163F4FB2BE90DC900F423CE /* AppContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppContext.swift; sourceTree = "<group>"; };
@@ -81,7 +81,7 @@
 				7555FF82242A565900829871 /* MyFirstView.swift */,
 				115D10BC2C08A3E70096AA89 /* MyFirstScreenWithSwiftViewModel.swift */,
 				115D10BE2C08A4150096AA89 /* MyFirstScreenWithMacro.swift */,
-				1147C7A72C09B28D005D7E73 /* MyFirstScreenWithoutMacro.swift */,
+				1147C7A72C09B28D005D7E73 /* MyFirstScreenWithSkie.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -264,7 +264,7 @@
 				0794BB772C43EE270031EB64 /* MyFirstScreenWithUIKit.swift in Sources */,
 				11734C152C2C4DD4004D254A /* KoinHelper.swift in Sources */,
 				0794BB752C43D2240031EB64 /* MyFirstScreenViewController.swift in Sources */,
-				1147C7A82C09B28D005D7E73 /* MyFirstScreenWithoutMacro.swift in Sources */,
+				1147C7A82C09B28D005D7E73 /* MyFirstScreenWithSkie.swift in Sources */,
 				119AF2662C0743AB00EFF623 /* SharedViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
