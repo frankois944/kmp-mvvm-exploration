@@ -19,7 +19,7 @@ struct MyFirstScreenWithSkie: View {
     let onNextView: () -> Void
 
     init(param1: String? = nil, onNextView: @escaping () -> Void) {
-        _viewModel = StateObject(wrappedValue: { .init(parameters: ["IOS-MyFirstScreenWithoutMacro"]) }())
+        _viewModel = StateObject(wrappedValue: { .init(parameters: ["IOS-MyFirstScreenWithSkie"]) }())
         self.onNextView = onNextView
     }
 
