@@ -26,7 +26,7 @@ class MyFirstScreenViewController: UIViewController {
     private let viewModel: SharedViewModel<MainScreenViewModel> = .init(koinGet())
     private let logger: KermitLogger = koinGet(parameters: ["MyFirstScreenViewController"])
     private var disposebag = Set<AnyCancellable>()
-    private var reloadingTask: Kotlinx_coroutines_coreJob?
+    private var jobDisposable = CoroutineJobDisposeBag()
     private var dataList: [String]?
     var param1: String?
     var onNextView: (() -> Void)?
@@ -78,12 +78,13 @@ class MyFirstScreenViewController: UIViewController {
 
     @IBAction func retry() {
         logger.d(messageString: "retry")
-        reloadingTask = viewModel.instance.reload()
+        viewModel.instance
+            .reload()
+            .store(in: &jobDisposable)
     }
 
     deinit {
         logger.d(messageString: "DEINIT")
-        reloadingTask?.cancel(cause: nil)
     }
 
 }
