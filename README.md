@@ -4,6 +4,12 @@ I'm trying to find a good solution for using the MVVM pattern with the KMP ViewM
 
 It's not that simple, I'm working on it for some time and with the advancement of KMP, it sounds to be easier but not so much :)
 
+The KMP MVVM approach on [Android is fully supported](https://developer.android.com/topic/libraries/architecture/viewmodel), using Kotlin multiplatform or not, it's the same implementation.
+
+Otherwise, on iOS, it's kind of experimental, the KMP ViewModel is not made to work on this target, we need to find some workaround for correctly using it.
+
+Other features presented in this repository are optional for using MVVM pattern, but I think it's kind of useful.
+
 You will find inside this repo :
 
 - [Requirement](#mvvm-concept-on-ios)
@@ -17,12 +23,6 @@ You will find inside this repo :
 - Logging with [Kermit](https://kermit.touchlab.co/)
 - Usage of [DataStore](https://developer.android.com/jetpack/androidx/releases/datastore)
 - and more little experiences
-
-The KMP MVVM approach on [Android is fully supported](https://developer.android.com/topic/libraries/architecture/viewmodel), using Kotlin multiplatform or not, it's the same implementation.
-
-Otherwise, on iOS, it's kind of experimental, the KMP ViewModel is not made to work on this target, we need to find some workaround for correctly using it.
-
-Other features presented in this repository are optional for using MVVM pattern, but I think it's kind of useful.
 
 ## MVVM concept on IOS
 
