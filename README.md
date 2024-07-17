@@ -4,7 +4,7 @@ I'm trying to find a good solution for using the MVVM pattern with the KMP ViewM
 
 It's not that simple, I'm working on it for some time and with the advancement of KMP, it sounds to be easier but not so much :)
 
-The KMP MVVM approach on [Android is fully supported](https://developer.android.com/topic/libraries/architecture/viewmodel), using Kotlin multiplatform or not, it's the same implementation.
+The KMP ViewModel approach on [Android is fully supported](https://developer.android.com/topic/libraries/architecture/viewmodel), using Kotlin multiplatform or not, it's the same implementation.
 
 Otherwise, on iOS, it's kind of experimental, the KMP ViewModel is not made to work on this target, we need to find some workaround for correctly using it and the main issue is the **lifecycle**.
 
@@ -19,7 +19,7 @@ You will find inside this repo :
     - [SwiftUI MVVM](#classic-mvvm)
     - [UIKit](#uikit)
 - Injection with [Koin annotation](https://insert-koin.io/)
-- [Getting the viewmodel or any instance from Swift/Koin](#getting-the-viewmodel-or-any-instance-from-swift-and-koin)
+- [Getting the ViewModel or any instance from Swift/Koin](#getting-the-viewmodel-or-any-instance-from-swift-and-koin)
 - Logging with [Kermit](https://kermit.touchlab.co/)
 - Usage of [DataStore](https://developer.android.com/jetpack/androidx/releases/datastore)
 - and more little experiences
@@ -55,7 +55,7 @@ skie {
 }
 ```
  
-- Finally creating a SwiftUI class to manage the KMP viewmodel lifecycle 
+- Finally creating a SwiftUI class to manage the KMP ViewModel lifecycle 
 ```swift
 class SharedViewModel<VM : ViewModel> : ObservableObject {
     
@@ -84,7 +84,7 @@ class SharedViewModel<VM : ViewModel> : ObservableObject {
 ```
 ### The ViewModel
 
-Based on this shared Kotlin [viewmodel](https://github.com/frankois944/kmp-mvvm-exploration/blob/main/Shared/src/commonMain/kotlin/fr/frankois944/kmpviewmodel/viewmodels/mainscreen/MainScreenViewModel.kt).
+Based on this shared Kotlin [ViewModel](https://github.com/frankois944/kmp-mvvm-exploration/blob/main/Shared/src/commonMain/kotlin/fr/frankois944/kmpviewmodel/viewmodels/mainscreen/MainScreenViewModel.kt).
 
 Also, you can find the android integration [here](https://github.com/frankois944/kmp-mvvm-exploration/blob/main/androidApp/src/main/java/fr/frankois944/kmpviewmodel/android/MyFirstScreen.kt).
 
@@ -98,7 +98,7 @@ This approach is using the [SKIE flow SwiftUI capability](https://skie.touchlab.
 
 [Example with a macro](https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/SwiftUI/MyFirstScreenWithMacro.swift), more like an iOS dev will commonly use.
 
-This approach is using a [macro I made](https://github.com/frankois944/kmp-mvvm-exploration/tree/main/KTViewModelBuilder) to automatically wrap a KMP viewmodel inside an ObservableObject, almost like a SwiftUI viewmodel.
+This approach is using a [macro I made](https://github.com/frankois944/kmp-mvvm-exploration/tree/main/KTViewModelBuilder) to automatically wrap a KMP ViewModel inside an ObservableObject, almost like a SwiftUI ViewModel.
 
 ### Classic MVVM
 
@@ -118,9 +118,9 @@ The goal of this experiment is to align the behavior between Android ViewModel a
 
 Look at the logs I added to verify the lifecycle, it should be exactly the same on the different approach.
 
-## Getting the viewmodel or any instance from Swift and Koin
+## Getting the ViewModel or any instance from Swift and Koin
 
-As this playground is using Koin, I want to get my viewmodel from it, not on direct way with the constructor (it's still working, but it's not great).
+As this playground is using Koin, I want to get my ViewModel from it, not on direct way with the constructor (it's still working, but it's not great).
 
 So we can use Koin qualifier and parameters like Koin for Android.
 
@@ -207,7 +207,7 @@ func koinGet<T: AnyObject>(qualifier: String? = nil, parameters: [Any]? = nil) -
     // direct loading of any instance
     private let logger: KermitLogger = koinGet(parameters: ["FirstScreenDataStore"])
 
-    // get the viewmodel as example
+    // get the ViewModel as example
     @StateObject private var viewModel: SharedViewModel<MainScreenViewModel>
     init(param1: String? = nil) {
         _viewModel = StateObject(wrappedValue: { .init(parameters: ["IOS-MyFirstScreenWithoutMacro"]) }())
