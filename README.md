@@ -67,7 +67,7 @@ class SharedViewModel<VM : ViewModel> : ObservableObject {
         viewModelStore.put(key: key, viewModel: viewModel)
     }
 
-    // Creating the viewmodel from compatible koin parameters
+    // Optional: Creating the viewmodel from compatible koin parameters
     init(qualifier: String? = nil, parameters: [Any]? = nil) {
         let viewmodel = VM.get(qualifier: qualifier, parameters: parameters)
         viewModelStore.put(key: key, viewModel: viewmodel)
