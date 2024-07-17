@@ -6,18 +6,22 @@ It's not that simple, I'm working on it for some times and with the advancement 
 
 You will find inside this repo :
 
-- Injection with [Koin annotation](https://insert-koin.io/)
-- [Getting the viewmodel or any instance from Swift and Koin](#getting-the-viewmodel-or-any-instance-from-swift-and-koin)
-- Logging with [Kermit](https://kermit.touchlab.co/)
-- Usage of [DataStore](https://developer.android.com/jetpack/androidx/releases/datastore)
 - [MVVM with different approach](#the-viewmodel)
     - [Skie observable](#mvvm-using-skie-observable)
     - [Custom macro](#mvvm-using-macro)
     - [SwiftUI MVVM](#classic-mvvm)
     - [UIKit](#uikit)
+- Injection with [Koin annotation](https://insert-koin.io/)
+- [Getting the viewmodel or any instance from Swift/Koin](#getting-the-viewmodel-or-any-instance-from-swift-and-koin)
+- Logging with [Kermit](https://kermit.touchlab.co/)
+- Usage of [DataStore](https://developer.android.com/jetpack/androidx/releases/datastore)
 - and more little experiences
 
-The 4 first are the easiest, they are almost fully documented, the 5th is also done on Android but on iOS, it's currently still experimental.
+The KMP MVVM approach on [Android is fully supported](https://developer.android.com/topic/libraries/architecture/viewmodel), using Kotlin multiplatform or not, it's the same implementation.
+
+Otherwise, on iOS, it's kind of experimental, the KMP ViewModel is not made to work on this target, we need to find some workaround for correctly using it.
+
+Other features presented in this repository are optional for using MVVM pattern, but I think it's kind of useful.
 
 ## MVVM concept on IOS
 
