@@ -190,7 +190,7 @@
 			);
 			mainGroup = 7555FF72242A565900829871;
 			packageReferences = (
-				11068CBB2C35487800DA7201 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */,
+				1112BDBE2C47F140005F8CF3 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */,
 			);
 			productRefGroup = 7555FF7C242A565900829871 /* Products */;
 			projectDirPath = "";
@@ -232,7 +232,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "SWIFT_PACKAGE_DIR=\"${BUILD_DIR%Build/*}SourcePackages/artifacts\"\nSWIFTLINT_CMD=$SWIFT_PACKAGE_DIR/swiftlintplugins/SwiftLintBinary/SwiftLintBinary.artifactbundle/swiftlint-*/bin/swiftlint\n\ntest -f $SWIFTLINT_CMD && $SWIFTLINT_CMD --fix --format --quiet && $SWIFTLINT_CMD || exit 0\n\n\n\n\n";
+			shellScript = "SWIFT_PACKAGE_DIR=\"${BUILD_DIR%Build/*}SourcePackages/artifacts\"\nSWIFTLINT_CMD=$SWIFT_PACKAGE_DIR/swiftlintplugins/SwiftLintBinary/SwiftLintBinary.artifactbundle/swiftlint-*/bin/swiftlint\n\nif test -f $SWIFTLINT_CMD 2>&1\nthen\n    $SWIFTLINT_CMD --fix --format --quiet && $SWIFTLINT_CMD\nelse\n    echo \"warning: `swiftlint` command not found - See https://github.com/realm/SwiftLint#installation for installation instructions.\"\nfi\n\n\n\n\n";
 		};
 		7555FFB5242A651A00829871 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -483,7 +483,7 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		11068CBB2C35487800DA7201 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */ = {
+		1112BDBE2C47F140005F8CF3 /* XCRemoteSwiftPackageReference "SwiftLintPlugins" */ = {
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/SimplyDanny/SwiftLintPlugins";
 			requirement = {
