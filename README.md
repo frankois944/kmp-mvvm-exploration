@@ -2,10 +2,11 @@
 
 I'm trying to find a good solution for using the MVVM pattern with the KMP ViewModel on SwiftUI/UIKit.
 
-It's not that simple, I'm working on it for some times and with the advancement of KMP, it sounds be easier but not so much :)
+It's not that simple, I'm working on it for some time and with the advancement of KMP, it sounds to be easier but not so much :)
 
 You will find inside this repo :
 
+- [Requirement](#mvvm-concept-on-ios)
 - [MVVM with different approach](#the-viewmodel)
     - [Skie observable](#mvvm-using-skie-observable)
     - [Custom macro](#mvvm-using-macro)
