@@ -200,7 +200,7 @@ func koinGet<T: AnyObject>(qualifier: String? = nil, parameters: [Any]? = nil) -
                                                  parameters: parameters)
 }
 ```
-- Finally, get the instance from the koin, ie:
+- Finally, get the instance from different ways
 ```swift
     // lazy loading of any instance
     @KoinInject<AccountService> private var accountService
