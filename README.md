@@ -1,6 +1,6 @@
 # Exploration of KMP MVVM and other useful features for iOS developer
 
-I'm trying to solve the concept of using MVVM pattern with KMP on SwiftUI iOS
+I'm trying to find a good solution for using the MVVM pattern with the KMP ViewModel on SwiftUI/UIKit.
 
 It's not that simple, I'm working on it for some times and with the advancement of KMP, it sounds be easier but not so much :)
 
