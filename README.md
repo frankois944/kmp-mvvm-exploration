@@ -38,12 +38,17 @@ it.binaries.framework {
     //...
     export(libs.androidx.lifecycle.viewmodel)
 }
+ commonMain.dependencies {
+    //...
+    api(libs.androidx.lifecycle.viewmodel)
+}
 ```
 
 - Then importing [SKIE](https://skie.touchlab.co/) for fully access the Kotlin Flow from Swift
 
 And activate some useful features :
 
+[shared gradle file](https://github.com/frankois944/kmp-mvvm-exploration/blob/main/Shared/build.gradle.kts)
 ```gradle
 skie {
     features {
