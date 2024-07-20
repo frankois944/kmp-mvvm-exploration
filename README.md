@@ -61,7 +61,7 @@ skie {
 }
 ```
  
-- Finally creating a SwiftUI class for managing the KMP ViewModel lifecycle 
+- Finally creating a [SwiftUI class](https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/SharedViewModel.swift) for managing the KMP ViewModel lifecycle 
 ```swift
 class SharedViewModel<VM : ViewModel> : ObservableObject {
     
