@@ -88,31 +88,31 @@ class SharedViewModel<VM : ViewModel> : ObservableObject {
     }
 }
 ```
-### The ViewModel
+* ### The ViewModel
 
 Based on this shared Kotlin [ViewModel](https://github.com/frankois944/kmp-mvvm-exploration/blob/main/Shared/src/commonMain/kotlin/fr/frankois944/kmpviewmodel/viewmodels/mainscreen/MainScreenViewModel.kt).
 
 Also, you can find the android integration [here](https://github.com/frankois944/kmp-mvvm-exploration/blob/main/androidApp/src/main/java/fr/frankois944/kmpviewmodel/android/MyFirstScreen.kt).
 
-### MVVM using Skie observable
+* ### MVVM using Skie observable
 
 [Example with SKIE](https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/SwiftUI/MyFirstScreenWithSkie.swift).
 
 This approach is using the [SKIE flow SwiftUI capability](https://skie.touchlab.co/features/flows-in-swiftui) 
 
-### MVVM using Macro
+* ### MVVM using Macro
 
 [Example with a macro](https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/SwiftUI/MyFirstScreenWithMacro.swift), more like an iOS dev will commonly use.
 
 This approach is using a [macro I made](https://github.com/frankois944/kmp-mvvm-exploration/tree/main/KTViewModelBuilder) to automatically wrap a KMP ViewModel inside an ObservableObject, almost like a SwiftUI ViewModel.
 
-### Classic MVVM
+* ### Classic MVVM
 
 [Example with a common SwiftUI ViewModel](https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/SwiftUI/MyFirstScreenWithSwiftViewModel.swift)
 
 No usage of KMP MVVM here, just like a MVVM SwiftUI class, but we need to use the Koin injection capacities.
 
-### UIKit
+* ### UIKit
 
 [Example with a UIViewController](https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/UIKIt/MyFirstScreenViewController.swift)
 
