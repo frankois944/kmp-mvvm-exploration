@@ -30,7 +30,7 @@ So, the most interesting things is about the MVVM :
 
 Inspiration from this repository https://github.com/joreilly/FantasyPremierLeague and this issue https://github.com/joreilly/FantasyPremierLeague/issues/231
 
-- First step is exporting the Kotlin mvvm dependency to Swift
+- First step is exporting the Kotlin mvvm dependency from the [shared gradle file](https://github.com/frankois944/kmp-mvvm-exploration/blob/main/Shared/build.gradle.kts)
 
 ```gradle
 it.binaries.framework {
