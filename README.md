@@ -30,8 +30,9 @@ So, the most interesting things is about the MVVM :
 
 Inspiration from this repository https://github.com/joreilly/FantasyPremierLeague and this issue https://github.com/joreilly/FantasyPremierLeague/issues/231
 
-- First step is exporting the Kotlin mvvm dependency from the [shared gradle file](https://github.com/frankois944/kmp-mvvm-exploration/blob/main/Shared/build.gradle.kts)
+- First step is exporting the Kotlin MVVM dependency for accessing the KMP ViewModel from Swift
 
+[shared gradle file](https://github.com/frankois944/kmp-mvvm-exploration/blob/main/Shared/build.gradle.kts)
 ```gradle
 it.binaries.framework {
     //...
@@ -39,7 +40,7 @@ it.binaries.framework {
 }
 ```
 
-- Then importing [SKIE](https://skie.touchlab.co/) to fully access the Kotlin Flow from Swift
+- Then importing [SKIE](https://skie.touchlab.co/) for fully access the Kotlin Flow from Swift
 
 And activate some useful features :
 
@@ -55,7 +56,7 @@ skie {
 }
 ```
  
-- Finally creating a SwiftUI class to manage the KMP ViewModel lifecycle 
+- Finally creating a SwiftUI class for managing the KMP ViewModel lifecycle 
 ```swift
 class SharedViewModel<VM : ViewModel> : ObservableObject {
     
