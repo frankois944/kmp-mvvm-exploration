@@ -1,23 +1,28 @@
-# Exploration of KMP MVVM and other stuff for iOS developer
+# Exploration of KMP MVVM and other useful features for iOS developer
 
-I'm trying to solve the concept of using MVVM pattern with KMP on SwiftUI iOS
+I'm trying to find a good solution for using the MVVM pattern with the KMP ViewModel on SwiftUI/UIKit.
 
-It's not that simple, I'm working on it for some times and with the advancement of KMP, it sounds be easier but not so much :)
+It's not that simple, I'm working on it for some time and with the advancement of KMP, it sounds to be easier but not so much :)
+
+The KMP ViewModel approach on [Android is fully supported](https://developer.android.com/topic/libraries/architecture/viewmodel), using Kotlin multiplatform or not, it's the same implementation.
+
+Otherwise, on iOS, it's kind of experimental, the KMP ViewModel is not made to work on this target, we need to find some workaround for correctly using it and the main issue is the **lifecycle**.
+
+Other features presented in this repository are optional for using MVVM pattern, but I think it's kind of useful.
 
 You will find inside this repo :
 
-- Injection with [Koin annotation](https://insert-koin.io/)
-- [Getting the viewmodel or any instance from Swift and Koin](#getting-the-viewmodel-or-any-instance-from-swift-and-koin)
-- Logging with [Kermit](https://kermit.touchlab.co/)
-- Usage of [DataStore](https://developer.android.com/jetpack/androidx/releases/datastore)
+- [Requirement](#mvvm-concept-on-ios)
 - [MVVM with different approach](#the-viewmodel)
     - [Skie observable](#mvvm-using-skie-observable)
     - [Custom macro](#mvvm-using-macro)
     - [SwiftUI MVVM](#classic-mvvm)
     - [UIKit](#uikit)
+- Injection with [Koin annotation](https://insert-koin.io/)
+- [Getting the ViewModel or any instance from Swift/Koin](#getting-the-viewmodel-or-any-instance-from-swift-and-koin)
+- Logging with [Kermit](https://kermit.touchlab.co/)
+- Usage of [DataStore](https://developer.android.com/jetpack/androidx/releases/datastore)
 - and more little experiences
-
-The 4 first are the easiest, they are almost fully documented, the 5th is also done on Android but on iOS, it's currently still experimental.
 
 ## MVVM concept on IOS
 
@@ -25,19 +30,25 @@ So, the most interesting things is about the MVVM :
 
 Inspiration from this repository https://github.com/joreilly/FantasyPremierLeague and this issue https://github.com/joreilly/FantasyPremierLeague/issues/231
 
-- First step is exporting the Kotlin mvvm dependency to Swift
+- First step is exporting the Kotlin MVVM dependency for accessing the KMP ViewModel from Swift
 
+[shared gradle file](https://github.com/frankois944/kmp-mvvm-exploration/blob/main/Shared/build.gradle.kts)
 ```gradle
 it.binaries.framework {
     //...
     export(libs.androidx.lifecycle.viewmodel)
 }
+ commonMain.dependencies {
+    //...
+    api(libs.androidx.lifecycle.viewmodel)
+}
 ```
 
-- Then importing [SKIE](https://skie.touchlab.co/) to fully access the Kotlin Flow from Swift
+- Then importing [SKIE](https://skie.touchlab.co/) for fully access the Kotlin Flow from Swift
 
 And activate some useful features :
 
+[shared gradle file](https://github.com/frankois944/kmp-mvvm-exploration/blob/main/Shared/build.gradle.kts)
 ```gradle
 skie {
     features {
@@ -50,7 +61,7 @@ skie {
 }
 ```
  
-- Finally creating a SwiftUI class to manage the KMP viewmodel lifecycle 
+- Finally creating a [SwiftUI class](https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/SharedViewModel.swift) for managing the KMP ViewModel lifecycle 
 ```swift
 class SharedViewModel<VM : ViewModel> : ObservableObject {
     
@@ -62,7 +73,7 @@ class SharedViewModel<VM : ViewModel> : ObservableObject {
         viewModelStore.put(key: key, viewModel: viewModel)
     }
 
-    // Creating the viewmodel from compatible koin parameters
+    // Optional: Creating the viewmodel from compatible koin parameters
     init(qualifier: String? = nil, parameters: [Any]? = nil) {
         let viewmodel = VM.get(qualifier: qualifier, parameters: parameters)
         viewModelStore.put(key: key, viewModel: viewmodel)
@@ -77,35 +88,33 @@ class SharedViewModel<VM : ViewModel> : ObservableObject {
     }
 }
 ```
-### The ViewModel
+* ### The ViewModel
 
-Based on this shared Kotlin [viewmodel](https://github.com/frankois944/kmp-mvvm-exploration/blob/main/Shared/src/commonMain/kotlin/fr/frankois944/kmpviewmodel/viewmodels/mainscreen/MainScreenViewModel.kt).
+Based on this shared Kotlin [ViewModel](https://github.com/frankois944/kmp-mvvm-exploration/blob/main/Shared/src/commonMain/kotlin/fr/frankois944/kmpviewmodel/viewmodels/mainscreen/MainScreenViewModel.kt).
 
 Also, you can find the android integration [here](https://github.com/frankois944/kmp-mvvm-exploration/blob/main/androidApp/src/main/java/fr/frankois944/kmpviewmodel/android/MyFirstScreen.kt).
 
-### MVVM using Skie observable
+* ### MVVM using Skie observable
 
-https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/SwiftUI/MyFirstScreenWithSkie.swift
+[Example with SKIE](https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/SwiftUI/MyFirstScreenWithSkie.swift).
 
 This approach is using the [SKIE flow SwiftUI capability](https://skie.touchlab.co/features/flows-in-swiftui) 
 
-### MVVM using Macro
+* ### MVVM using Macro
 
-https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/SwiftUI/MyFirstScreenWithMacro.swift
+[Example with a macro](https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/SwiftUI/MyFirstScreenWithMacro.swift), more like an iOS dev will commonly use.
 
-This approach is using a [macro I made](https://github.com/frankois944/kmp-mvvm-exploration/tree/main/KTViewModelBuilder) to automatically wrap a KMP viewmodel inside an ObservableObject, almost like a SwiftUI viewmodel.
+This approach is using a [macro I made](https://github.com/frankois944/kmp-mvvm-exploration/tree/main/KTViewModelBuilder) to automatically wrap a KMP ViewModel inside an ObservableObject, almost like a SwiftUI ViewModel.
 
-https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/SwiftUI/MyFirstScreenWithMacro.swift#L12-L17
+* ### Classic MVVM
 
-### Classic MVVM
+[Example with a common SwiftUI ViewModel](https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/SwiftUI/MyFirstScreenWithSwiftViewModel.swift)
 
-https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/SwiftUI/MyFirstScreenWithSwiftViewModel.swift
+No usage of KMP MVVM here, just like a MVVM SwiftUI class, but we need to use the Koin injection capacities.
 
-No usage of KMP mvvm, just like a MVVM SwiftUI class
+* ### UIKit
 
-### UIKit
-
-https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/UIKIt/MyFirstScreenViewController.swift
+[Example with a UIViewController](https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/UIKIt/MyFirstScreenViewController.swift)
 
 UIKit is not dead, we can use the `SharedViewModel` class and the [SKIE combine support ](https://skie.touchlab.co/features/combine)
 
@@ -115,15 +124,13 @@ The goal of this experiment is to align the behavior between Android ViewModel a
 
 Look at the logs I added to verify the lifecycle, it should be exactly the same on the different approach.
 
-## Getting the viewmodel or any instance from Swift and Koin
+## Getting the ViewModel or any instance from Swift and Koin
 
-As this playground is using Koin, I want to get my viewmodel from it, not on direct way with the constructor (it's still working, but it's not great).
+As this playground is using Koin, I want to get my ViewModel from it, not on direct way with the constructor (it's still working, but it's not great).
 
 So we can use Koin qualifier and parameters like Koin for Android.
 
-- We need to export an important kotlin method which resolve ObjC class to Kotlin Class from Swift Application
-
-https://github.com/frankois944/kmp-mvvm-exploration/blob/main/Shared/src/iosMain/kotlin/fr/frankois944/kmpviewmodel/AppInit.ios.kt
+- We need to [export two kotlin methods](https://github.com/frankois944/kmp-mvvm-exploration/blob/main/Shared/src/iosMain/kotlin/fr/frankois944/kmpviewmodel/AppInit.ios.kt) which resolve ObjC class/protocol to Kotlin Class from Swift Application
 
 - Store the Kotlin Koin Context somewhere and make it accessible everywhere in the swift App
 ```swift
@@ -199,14 +206,14 @@ func koinGet<T: AnyObject>(qualifier: String? = nil, parameters: [Any]? = nil) -
                                                  parameters: parameters)
 }
 ```
-- Finally, get the instance from the koin, ie:
+- Finally, get the instance from different ways
 ```swift
     // lazy loading of any instance
     @KoinInject<AccountService> private var accountService
     // direct loading of any instance
     private let logger: KermitLogger = koinGet(parameters: ["FirstScreenDataStore"])
 
-    // get the viewmodel as example
+    // get the ViewModel as example
     @StateObject private var viewModel: SharedViewModel<MainScreenViewModel>
     init(param1: String? = nil) {
         _viewModel = StateObject(wrappedValue: { .init(parameters: ["IOS-MyFirstScreenWithoutMacro"]) }())

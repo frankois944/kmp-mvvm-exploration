@@ -10,10 +10,9 @@ import Foundation
 import SwiftUI
 import Combine
 
-/// if you want to observe the kotlin AppContext, you need to wrap it inside an ObservableObject
-/// like a viewmodel
+/// Store global properties and context
 ///
-/// You can store it inside an `.environmentObject` SwiftUI
+/// **AppContext.configure** must be called in first place
 class AppContext: ObservableObject {
 
     // MARK: Properties
