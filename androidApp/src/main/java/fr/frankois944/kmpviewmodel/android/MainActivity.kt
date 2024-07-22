@@ -130,6 +130,3 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
-val Bundle.values: List<Any>
-    get() = emptyList()

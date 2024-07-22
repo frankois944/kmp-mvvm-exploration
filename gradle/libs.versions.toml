@@ -8,7 +8,7 @@ kotlin = "2.0.0"
 ksp = "2.0.0-1.0.23" # https://github.com/google/ksp/releases
 kotlin-coroutines = "1.9.0-RC" # https://github.com/Kotlin/kotlinx.coroutines/releases
 koin = "3.6.0-Beta4" # https://github.com/InsertKoinIO/koin/releases
-koin-annotation = "1.3.1" # https://github.com/InsertKoinIO/koin-annotations/releases
+koin-annotation = "1.4.0-RC1" # https://github.com/InsertKoinIO/koin-annotations/releases
 android-compose-bom = "2024.06.00" # https://developer.android.com/develop/ui/compose/bom/bom-mapping
 android-activity-compose = "1.9.0" # https://developer.android.com/jetpack/androidx/releases/activity
 androidx-lifecycle = "2.8.3" # https://developer.android.com/jetpack/androidx/releases/lifecycle
@@ -23,14 +23,6 @@ kermit = "2.0.4" # https://github.com/touchlab/Kermit/releases
 okio = "3.9.0" # https://square.github.io/okio/changelog/
 
 [libraries]
-# Logger
-kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
-kermit-koin = { module = "co.touchlab:kermit-koin", version.ref = "kermit" }
-kermit-simple = { module = "co.touchlab:kermit-simple", version.ref = "kermit" }
-# DataStore
-androidx-datastore-preferences-core = { module = "androidx.datastore:datastore-preferences-core", version.ref = "datastorePreferencesCore" }
-# Collection
-androidx-collection = { module = "androidx.collection:collection", version.ref = "collection" }
 # Kotlin
 kotlin-test = { module = "org.jetbrains.kotlin:kotlin-test", version.ref = "kotlin" }
 kotlin-datetime = { group = "org.jetbrains.kotlinx", name = "kotlinx-datetime", version.ref = "kotlin-dateTime" }
@@ -46,7 +38,7 @@ androidx-compose-ui-tooling-preview = { module = "androidx.compose.ui:ui-tooling
 androidx-compose-material3 = { module = "androidx.compose.material3:material3" }
 androidx-compose-ui-test = { module = "androidx.compose.ui:ui-test-junit4" }
 androidx-compose-ui-test-manifest = { group = "androidx.compose.ui", name = "ui-test-manifest" }
-# KMP
+# MVVM
 androidx-lifecycle-compose = { module = "androidx.lifecycle:lifecycle-runtime-compose", version.ref = "androidx-lifecycle" }
 androidx-lifecycle-viewmodel = { module = "androidx.lifecycle:lifecycle-viewmodel", version.ref = "androidx-lifecycle" }
 # KOIN
@@ -54,11 +46,18 @@ koin-bom = { module = "io.insert-koin:koin-bom", version.ref = "koin" }
 koin-core = { module = "io.insert-koin:koin-core" }
 koin-android = { module = "io.insert-koin:koin-android" }
 koin-android-compose = { module = "io.insert-koin:koin-androidx-compose" }
-koin-compose = { module = "io.insert-koin:koin-compose" }
 koin-annotation-bom = { module = "io.insert-koin:koin-annotations-bom", version.ref = "koin-annotation" }
 koin-annotation = { module = "io.insert-koin:koin-annotations" }
 koin-annotation-ksp = { module = "io.insert-koin:koin-ksp-compiler" }
 koin-test = { module = "io.insert-koin:koin-test" }
+# DataStore
+androidx-datastore-preferences-core = { module = "androidx.datastore:datastore-preferences-core", version.ref = "datastorePreferencesCore" }
+# Logger
+kermit = { module = "co.touchlab:kermit", version.ref = "kermit" }
+kermit-koin = { module = "co.touchlab:kermit-koin", version.ref = "kermit" }
+kermit-simple = { module = "co.touchlab:kermit-simple", version.ref = "kermit" }
+# Collection
+androidx-collection = { module = "androidx.collection:collection", version.ref = "collection" }
 # OKIO
 okio = { module = "com.squareup.okio:okio", version.ref = "okio" }
 okio-fakefilesystem = { module = "com.squareup.okio:okio-fakefilesystem", version.ref = "okio" }
@@ -69,7 +68,7 @@ androidx-compose = [
     "androidx-compose-ui-tooling-preview"
 ]
 koin-android = ["koin-core", "koin-android", "koin-android-compose", "koin-annotation"]
-koin-kmp = ["koin-core", "koin-compose", "koin-annotation"]
+koin-kmp = ["koin-core", "koin-annotation"]
 
 [plugins]
 androidApplication = { id = "com.android.application", version.ref = "agp" }

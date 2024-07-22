@@ -49,6 +49,8 @@
 		115D10BE2C08A4150096AA89 /* MyFirstScreenWithMacro.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFirstScreenWithMacro.swift; sourceTree = "<group>"; };
 		1163F4FB2BE90DC900F423CE /* AppContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppContext.swift; sourceTree = "<group>"; };
 		11734C142C2C4DD4004D254A /* KoinHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KoinHelper.swift; sourceTree = "<group>"; };
+		117ABB912C4945B700FFA214 /* iosMain */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iosMain; path = ../Shared/src/iosMain; sourceTree = "<group>"; };
+		117ABB922C4945B700FFA214 /* commonMain */ = {isa = PBXFileReference; lastKnownFileType = folder; name = commonMain; path = ../Shared/src/commonMain; sourceTree = "<group>"; };
 		119AF2652C0743AB00EFF623 /* SharedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedViewModel.swift; sourceTree = "<group>"; };
 		11B3774B2C0881EA002DC0EE /* KTViewModelBuilder */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = KTViewModelBuilder; path = ../KTViewModelBuilder; sourceTree = "<group>"; };
 		11C595742BFC93E30033FE0F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -98,9 +100,19 @@
 			path = UIKIt;
 			sourceTree = "<group>";
 		};
+		117ABB932C49462300FFA214 /* shared */ = {
+			isa = PBXGroup;
+			children = (
+				117ABB922C4945B700FFA214 /* commonMain */,
+				117ABB912C4945B700FFA214 /* iosMain */,
+			);
+			name = shared;
+			sourceTree = "<group>";
+		};
 		7555FF72242A565900829871 = {
 			isa = PBXGroup;
 			children = (
+				117ABB932C49462300FFA214 /* shared */,
 				11B3774B2C0881EA002DC0EE /* KTViewModelBuilder */,
 				7555FF7D242A565900829871 /* iosApp */,
 				7555FF7C242A565900829871 /* Products */,
@@ -232,7 +244,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "SWIFT_PACKAGE_DIR=\"${BUILD_DIR%Build/*}SourcePackages/artifacts\"\nSWIFTLINT_CMD=$SWIFT_PACKAGE_DIR/swiftlintplugins/SwiftLintBinary/SwiftLintBinary.artifactbundle/swiftlint-*/bin/swiftlint\n\nif test -f $SWIFTLINT_CMD 2>&1\nthen\n    $SWIFTLINT_CMD --fix --format --quiet && $SWIFTLINT_CMD\nelse\n    echo \"warning: `swiftlint` command not found - See https://github.com/realm/SwiftLint#installation for installation instructions.\"\nfi\n\n\n\n\n";
+			shellScript = "SWIFT_PACKAGE_DIR=\"${BUILD_DIR%Build/*}SourcePackages/artifacts\"\nSWIFTLINT_CMD=$(ls \"$SWIFT_PACKAGE_DIR\"/swiftlintplugins/SwiftLintBinary/SwiftLintBinary.artifactbundle/swiftlint-*/bin/swiftlint | head -n 1)\n\nif test -f \"$SWIFTLINT_CMD\" 2>&1\nthen\n    \"$SWIFTLINT_CMD\"\nelse\n    echo \"warning: `swiftlint` command not found - See https://github.com/realm/SwiftLint#installation for installation instructions.\"\nfi\n";
 		};
 		7555FFB5242A651A00829871 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
