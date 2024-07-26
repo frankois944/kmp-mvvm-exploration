@@ -12,7 +12,7 @@ Other features presented in this repository are optional for using MVVM pattern,
 
 You will find inside this repo :
 
-- [Requirement](#mvvm-concept-on-ios)
+- [Requirement](#requirement)
 - [MVVM with different approach](#the-viewmodel)
     - [Skie observable](#mvvm-using-skie-observable)
     - [Custom macro](#mvvm-using-macro)
