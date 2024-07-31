@@ -12,7 +12,7 @@ Other features presented in this repository are optional for using MVVM pattern,
 
 You will find inside this repo :
 
-- [Requirement](#mvvm-concept-on-ios)
+- [Requirement](#requirement)
 - [MVVM with different approach](#the-viewmodel)
     - [Skie observable](#mvvm-using-skie-observable)
     - [Custom macro](#mvvm-using-macro)
@@ -24,9 +24,9 @@ You will find inside this repo :
 - Usage of [DataStore](https://developer.android.com/jetpack/androidx/releases/datastore)
 - and more little experiences
 
-## MVVM concept on IOS
+## Requirement
 
-So, the most interesting things is about the MVVM :
+So, the most interesting things is about the MVVM and what do we need :
 
 Inspiration from this repository https://github.com/joreilly/FantasyPremierLeague and this issue https://github.com/joreilly/FantasyPremierLeague/issues/231
 
