@@ -13,6 +13,10 @@ internal class AccountService :
     KoinComponent {
     val logger: Logger = get(parameters = { parameterSetOf("AccountService") })
 
+    init {
+        logger.d("Init")
+    }
+
     @Throws(Exception::class)
     override suspend fun getAccountInfo(): AccountData {
         logger.d("Load")
