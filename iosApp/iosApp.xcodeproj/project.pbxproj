@@ -17,6 +17,7 @@
 		115D10BD2C08A3E70096AA89 /* MyFirstScreenWithSwiftViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115D10BC2C08A3E70096AA89 /* MyFirstScreenWithSwiftViewModel.swift */; };
 		115D10BF2C08A4150096AA89 /* MyFirstScreenWithMacro.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115D10BE2C08A4150096AA89 /* MyFirstScreenWithMacro.swift */; };
 		1163F4FC2BE90DC900F423CE /* AppContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1163F4FB2BE90DC900F423CE /* AppContext.swift */; };
+		116798E92C6367CD001A8F27 /* MyFirstScreenWithSkieIOS14.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116798E82C6367C0001A8F27 /* MyFirstScreenWithSkieIOS14.swift */; };
 		11734C152C2C4DD4004D254A /* KoinHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11734C142C2C4DD4004D254A /* KoinHelper.swift */; };
 		119AF2662C0743AB00EFF623 /* SharedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119AF2652C0743AB00EFF623 /* SharedViewModel.swift */; };
 		11C595752BFC93E30033FE0F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C595742BFC93E30033FE0F /* ContentView.swift */; };
@@ -48,6 +49,7 @@
 		115D10BC2C08A3E70096AA89 /* MyFirstScreenWithSwiftViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFirstScreenWithSwiftViewModel.swift; sourceTree = "<group>"; };
 		115D10BE2C08A4150096AA89 /* MyFirstScreenWithMacro.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFirstScreenWithMacro.swift; sourceTree = "<group>"; };
 		1163F4FB2BE90DC900F423CE /* AppContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppContext.swift; sourceTree = "<group>"; };
+		116798E82C6367C0001A8F27 /* MyFirstScreenWithSkieIOS14.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFirstScreenWithSkieIOS14.swift; sourceTree = "<group>"; };
 		11734C142C2C4DD4004D254A /* KoinHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KoinHelper.swift; sourceTree = "<group>"; };
 		117ABB912C4945B700FFA214 /* iosMain */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iosMain; path = ../Shared/src/iosMain; sourceTree = "<group>"; };
 		117ABB922C4945B700FFA214 /* commonMain */ = {isa = PBXFileReference; lastKnownFileType = folder; name = commonMain; path = ../Shared/src/commonMain; sourceTree = "<group>"; };
@@ -86,6 +88,7 @@
 				115D10BC2C08A3E70096AA89 /* MyFirstScreenWithSwiftViewModel.swift */,
 				115D10BE2C08A4150096AA89 /* MyFirstScreenWithMacro.swift */,
 				1147C7A72C09B28D005D7E73 /* MyFirstScreenWithSkie.swift */,
+				116798E82C6367C0001A8F27 /* MyFirstScreenWithSkieIOS14.swift */,
 			);
 			path = SwiftUI;
 			sourceTree = "<group>";
@@ -275,6 +278,7 @@
 				115D10BF2C08A4150096AA89 /* MyFirstScreenWithMacro.swift in Sources */,
 				1118CA7B2C46825F006A3FE9 /* CoroutineJobDisposeBag.swift in Sources */,
 				11C595752BFC93E30033FE0F /* ContentView.swift in Sources */,
+				116798E92C6367CD001A8F27 /* MyFirstScreenWithSkieIOS14.swift in Sources */,
 				1163F4FC2BE90DC900F423CE /* AppContext.swift in Sources */,
 				7555FF83242A565900829871 /* MyFirstView.swift in Sources */,
 				115D10BD2C08A3E70096AA89 /* MyFirstScreenWithSwiftViewModel.swift in Sources */,
