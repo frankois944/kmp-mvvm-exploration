@@ -10,14 +10,6 @@ import SwiftUI
 import KTViewModelBuilder
 @_exported import Shared
 
-extension Error {
-
-    var asKotlinThrowable: KotlinThrowable {
-        KotlinThrowable(message: self.localizedDescription,
-                        cause: KotlinThrowable(message: "\(self)"))
-    }
-}
-
 @main
 struct IOSApp: App {
 
