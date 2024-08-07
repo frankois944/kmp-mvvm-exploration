@@ -183,8 +183,9 @@
 		7555FF73242A565900829871 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
+				BuildIndependentTargetsInParallel = YES;
 				LastSwiftUpdateCheck = 1130;
-				LastUpgradeCheck = 1130;
+				LastUpgradeCheck = 1540;
 				ORGANIZATIONNAME = frankois944;
 				TargetAttributes = {
 					7555FF7A242A565900829871 = {
@@ -244,7 +245,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "SWIFT_PACKAGE_DIR=\"${BUILD_DIR%Build/*}SourcePackages/artifacts\"\nSWIFTLINT_CMD=$(ls \"$SWIFT_PACKAGE_DIR\"/swiftlintplugins/SwiftLintBinary/SwiftLintBinary.artifactbundle/swiftlint-*/bin/swiftlint | head -n 1)\n\nif test -f \"$SWIFTLINT_CMD\" 2>&1\nthen\n    \"$SWIFTLINT_CMD\"\nelse\n    echo \"warning: `swiftlint` command not found - See https://github.com/realm/SwiftLint#installation for installation instructions.\"\nfi\n";
+			shellScript = "SWIFT_PACKAGE_DIR=\"${BUILD_DIR%Build/*}SourcePackages/artifacts\"\nSWIFTLINT_CMD=$(ls \"$SWIFT_PACKAGE_DIR\"/swiftlintplugins/SwiftLintBinary/SwiftLintBinary.artifactbundle/swiftlint-*/bin/swiftlint | head -n 1)\n\nif test -f \"$SWIFTLINT_CMD\" 2>&1\nthen\n    \"$SWIFTLINT_CMD\" --fix --format --quiet && \"$SWIFTLINT_CMD\"\nelse\n    echo \"warning: `swiftlint` command not found - See https://github.com/realm/SwiftLint#installation for installation instructions.\"\nfi\n";
 		};
 		7555FFB5242A651A00829871 /* ShellScript */ = {
 			isa = PBXShellScriptBuildPhase;
