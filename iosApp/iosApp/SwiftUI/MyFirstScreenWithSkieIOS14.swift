@@ -15,7 +15,7 @@ extension SwiftUI.View {
     public func collect<Flow: SkieSwiftFlowProtocol>(flow: Flow,
                                                      into binding: SwiftUI.Binding<Flow.Element>,
                                                      disposedBy: Binding<Set<Task<(), Never>>>) -> some SwiftUI.View {
-        return collect(flow: flow, disposedBy: disposedBy) { newValue in
+        collect(flow: flow, disposedBy: disposedBy) { newValue in
             binding.wrappedValue = newValue
         }
     }
@@ -23,7 +23,7 @@ extension SwiftUI.View {
     func collect<Flow: SkieSwiftFlowProtocol>(flow: Flow,
                                               disposedBy: Binding<Set<Task<(), Never>>>,
                                               perform: @escaping (Flow.Element) async -> Swift.Void) -> some SwiftUI.View {
-        return onAppear {
+        onAppear {
             disposedBy.wrappedValue.insert(Task {
                 do {
                     for try await item in flow {
