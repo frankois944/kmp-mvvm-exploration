@@ -15,7 +15,7 @@ You will find inside this repo :
 - [Requirement](#requirement)
 - [MVVM with different approach](#the-viewmodel)
     - [SwiftUI SKIE observable (iOS15 and later)](#swiftui-skie-observable-ios15-and-later)
-    - [SwiftUI SKIE observable (iOS14 and earlier)](#swiftui-skie-observable-ios14-and-earlier)
+    - [SwiftUI SKIE observable (iOS14 and earlier)](#swiftui-skie-observable-ios14-and-earlier))
     - [Custom macro](#mvvm-using-macro)
     - [Pure SwiftUI MVVM](#pure-swiftui-mvvm)
     - [UIKit](#uikit)
@@ -103,7 +103,7 @@ This approach is using the [SKIE flows for SwiftUI capability](https://skie.touc
 
 * ### SwiftUI SKIE observable (iOS14 and earlier)
 
-[Example with a customized SKIE](https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/SwiftUI/MyFirstScreenWithSkieIOS14.swift), a copy of SKIE `collect` methods which use the `.onAppear` SwiftUI modifier.
+[Example with a customized SKIE](https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/SwiftUI/MyFirstScreenWithSkieIOS14.swift), a [copy of SKIE collect](https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/SkieCollectForiOS14.swift) methods which use the `.onAppear` SwiftUI modifier.
 
 This approach is using the [SKIE Flow capability](https://skie.touchlab.co/features/flows) and reproduce the [SKIE flows for SwiftUI](https://skie.touchlab.co/features/flows-in-swiftui)
 
