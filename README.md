@@ -14,7 +14,7 @@ You will find inside this repo :
 
 - [Requirement](#requirement)
 - [MVVM with different approach](#the-viewmodel)
-    - [Skie observable](#mvvm-using-skie-observable)
+    - [Skie observable (>= iOS15)](#mvvm-using-skie-observable--ios15)
     - [Custom macro](#mvvm-using-macro)
     - [SwiftUI MVVM](#classic-mvvm)
     - [UIKit](#uikit)
@@ -52,8 +52,8 @@ And activate some useful features :
 ```gradle
 skie {
     features {
-        // https://skie.touchlab.co/features/flows-in-swiftui
-        enableSwiftUIObservingPreview = true
+        // https://skie.touchlab.co/features/flows-in-swiftui (>= iOS15)
+        enableSwiftUIObservingPreview = true // (>= iOS15)
         // https://skie.touchlab.co/features/combine
         enableFutureCombineExtensionPreview = true
         enableFlowCombineConvertorPreview = true
@@ -94,11 +94,17 @@ Based on this shared Kotlin [ViewModel](https://github.com/frankois944/kmp-mvvm-
 
 Also, you can find the android integration [here](https://github.com/frankois944/kmp-mvvm-exploration/blob/main/androidApp/src/main/java/fr/frankois944/kmpviewmodel/android/MyFirstScreen.kt).
 
-* ### MVVM using Skie observable
+* ### MVVM using Skie observable (>= iOS15)
 
 [Example with SKIE](https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/SwiftUI/MyFirstScreenWithSkie.swift).
 
-This approach is using the [SKIE flow SwiftUI capability](https://skie.touchlab.co/features/flows-in-swiftui) 
+This approach is using the [SKIE flow SwiftUI capability](https://skie.touchlab.co/features/flows-in-swiftui), which use the `.task` SwiftUI modifier.
+
+* ### MVVM using Skie observable (< iOS15)
+
+[Example with SKIE](https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/SwiftUI/MyFirstScreenWithSkieIOS14.swift).
+
+This approach is using the [SKIE flow Flow capability](https://skie.touchlab.co/features/flows)
 
 * ### MVVM using Macro
 
