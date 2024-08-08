@@ -9,10 +9,10 @@
 import SwiftUI
 import Combine
 
-// An extension of the SharedViewModel with the Shared KMP ViewModel
+// An extension of the SwiftUI.View with a compatible collect implementation
 // It's a copy of the current `collect` implementation of SKIE flow in SwiftUI
 // I added a `disposedBy` for managing the lifecycle of the Task correctly
-// This way, it sounds like reactive or combined programming
+// This way, it sounds like Rx or `Combine` programming
 extension SwiftUI.View {
 
     public func collect<Flow: SkieSwiftFlowProtocol>(flow: Flow,
