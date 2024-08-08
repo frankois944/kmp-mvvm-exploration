@@ -9,7 +9,7 @@
 import SwiftUI
 import Combine
 
-// An extension of the SwiftUI.View with a compatible collect implementation
+// An extension of the SwiftUI.View with a compatible iOS 13/14 SKIE `collect` implementation
 // It's a copy of the current `collect` implementation of SKIE flow in SwiftUI
 // I added a `disposedBy` for managing the lifecycle of the Task correctly
 // This way, it sounds like Rx or `Combine` programming
