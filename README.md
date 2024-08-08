@@ -14,9 +14,10 @@ You will find inside this repo :
 
 - [Requirement](#requirement)
 - [MVVM with different approach](#the-viewmodel)
-    - [Skie observable (>= iOS15)](#mvvm-using-skie-observable--ios15)
+    - [SwiftUI SKIE observable (iOS15 and later)](#swiftui-skie-observable-ios15-and-later)
+    - [SwiftUI SKIE observable (iOS14 and earlier)](#swiftui-skie-observable-ios14-and-earlier)
     - [Custom macro](#mvvm-using-macro)
-    - [SwiftUI MVVM](#classic-mvvm)
+    - [Pure SwiftUI MVVM](#pure-swiftui-mvvm)
     - [UIKit](#uikit)
 - Injection with [Koin annotation](https://insert-koin.io/)
 - [Getting the ViewModel or any instance from Swift/Koin](#getting-the-viewmodel-or-any-instance-from-swift-and-koin)
@@ -94,17 +95,17 @@ Based on this shared Kotlin [ViewModel](https://github.com/frankois944/kmp-mvvm-
 
 Also, you can find the android integration [here](https://github.com/frankois944/kmp-mvvm-exploration/blob/main/androidApp/src/main/java/fr/frankois944/kmpviewmodel/android/MyFirstScreen.kt).
 
-* ### MVVM using Skie observable (>= iOS15)
+* ### SwiftUI SKIE observable (iOS15 and later)
 
 [Example with SKIE](https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/SwiftUI/MyFirstScreenWithSkie.swift).
 
-This approach is using the [SKIE flow SwiftUI capability](https://skie.touchlab.co/features/flows-in-swiftui), which use the `.task` SwiftUI modifier.
+This approach is using the [SKIE flows for SwiftUI capability](https://skie.touchlab.co/features/flows-in-swiftui), which use the `.task` SwiftUI modifier.
 
-* ### MVVM using Skie observable (< iOS15)
+* ### SwiftUI SKIE observable (iOS14 and earlier)
 
-[Example with SKIE](https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/SwiftUI/MyFirstScreenWithSkieIOS14.swift).
+[Example with a custom SKIE](https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/SwiftUI/MyFirstScreenWithSkieIOS14.swift).
 
-This approach is using the [SKIE flow Flow capability](https://skie.touchlab.co/features/flows)
+This approach is using the [SKIE Flow capability](https://skie.touchlab.co/features/flows) and reproduce the [SKIE flows for SwiftUI](https://skie.touchlab.co/features/flows-in-swiftui)
 
 * ### MVVM using Macro
 
@@ -112,7 +113,7 @@ This approach is using the [SKIE flow Flow capability](https://skie.touchlab.co/
 
 This approach is using a [macro I made](https://github.com/frankois944/kmp-mvvm-exploration/tree/main/KTViewModelBuilder) to automatically wrap a KMP ViewModel inside an ObservableObject, almost like a SwiftUI ViewModel.
 
-* ### Classic MVVM
+* ### Pure SwiftUI MVVM
 
 [Example with a common SwiftUI ViewModel](https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/SwiftUI/MyFirstScreenWithSwiftViewModel.swift)
 
