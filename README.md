@@ -15,7 +15,7 @@ You will find inside this repo :
 - [Requirement](#requirement)
 - [MVVM with different approach](#the-viewmodel)
     - [SwiftUI SKIE observable (iOS15 and later)](#swiftui-skie-observable-ios15-and-later)
-    - [SwiftUI SKIE observable (iOS14 and earlier)](#swiftui-skie-observable-ios14-and-earlier))
+    - [SwiftUI SKIE observable (iOS14 and earlier)](#swiftui-skie-observable-ios14-and-earlier)
     - [Custom macro](#mvvm-using-macro)
     - [Pure SwiftUI MVVM](#pure-swiftui-mvvm)
     - [UIKit](#uikit)
