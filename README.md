@@ -103,7 +103,7 @@ This approach is using the [SKIE flows for SwiftUI capability](https://skie.touc
 
 * ### SwiftUI SKIE observable (iOS14 and earlier)
 
-[Example with a custom SKIE](https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/SwiftUI/MyFirstScreenWithSkieIOS14.swift).
+[Example with a custom SKIE](https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/SwiftUI/MyFirstScreenWithSkieIOS14.swift), a copy of SKIE `collect` method with extra parameters.
 
 This approach is using the [SKIE Flow capability](https://skie.touchlab.co/features/flows) and reproduce the [SKIE flows for SwiftUI](https://skie.touchlab.co/features/flows-in-swiftui)
 

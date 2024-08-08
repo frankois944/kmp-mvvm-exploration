@@ -23,6 +23,19 @@ extension SwiftUI.View {
         }
     }
 
+    public func collect<Flow: SkieSwiftFlowProtocol, U>(
+        flow: Flow,
+        into binding: SwiftUI.Binding<U>,
+        disposedBy: Binding<Set<Task<(), Never>>>,
+        transform: @escaping (Flow.Element) async -> U?
+    ) -> some SwiftUI.View {
+        collect(flow: flow, disposedBy: disposedBy) { newValue in
+            if let newTransformedValue = await transform(newValue) {
+                binding.wrappedValue = newTransformedValue
+            }
+        }
+    }
+
     func collect<Flow: SkieSwiftFlowProtocol>(flow: Flow,
                                               disposedBy: Binding<Set<Task<(), Never>>>,
                                               perform: @escaping (Flow.Element) async -> Swift.Void) -> some SwiftUI.View {
@@ -30,6 +43,9 @@ extension SwiftUI.View {
             disposedBy.wrappedValue.insert(Task {
                 do {
                     for try await item in flow {
+                        #if DEBUG
+                        print("COLLECTING \(item)")
+                        #endif
                         await perform(item)
                     }
                 } catch {
@@ -60,8 +76,8 @@ struct MyFirstScreenWithSkieIOS14: View {
                     userId: userId,
                     events: $events)
             .collect(
-                flow: viewModel.instance.mainScreenUIState,
-                into: $mainScreenUIState,
+                flow: viewModel.instance.userId,
+                into: $userId,
                 disposedBy: $disposebag
             )
             .collect(
