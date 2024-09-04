@@ -13,6 +13,10 @@ internal class ProfileService :
     KoinComponent {
     val logger: Logger = get(parameters = { parameterSetOf("ProfileService") })
 
+    init {
+        logger.d("Init")
+    }
+
     @Throws(Exception::class)
     override suspend fun getProfile(): ProfileData {
         logger.d("Load")

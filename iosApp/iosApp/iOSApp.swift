@@ -10,14 +10,6 @@ import SwiftUI
 import KTViewModelBuilder
 @_exported import Shared
 
-extension Error {
-
-    var asKotlinThrowable: KotlinThrowable {
-        KotlinThrowable(message: self.localizedDescription,
-                        cause: KotlinThrowable(message: "\(self)"))
-    }
-}
-
 @main
 struct IOSApp: App {
 
@@ -39,14 +31,15 @@ struct IOSApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationStack(path: $router) {
-                MyFirstScreenWithSwiftViewModel {
+                MyFirstScreenWithSkie {
                     router.append(NavRoute.SecondScreen(userId: "rerteterret"))
                 }
                 .navigationDestination(for: NavRoute.SecondScreen.self) { value in
                     // MyFirstScreenWithMacro
-                    // MyFirstScreenWithoutMacro
+                    // MyFirstScreenWithSkie
                     // MyFirstScreenWithSwiftViewModel
-                    MyFirstScreenWithUIKit {
+                    // MyFirstScreenWithUIKit
+                    MyFirstScreenWithSkieIOS14 {
                         router.append(NavRoute.SecondScreen(userId: value.userId))
                     }
                 }

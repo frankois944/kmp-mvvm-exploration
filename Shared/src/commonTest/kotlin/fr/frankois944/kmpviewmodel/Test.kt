@@ -5,6 +5,7 @@ import fr.frankois944.kmpviewmodel.viewmodels.mainscreen.MainScreenViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.delay
+import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.launchIn
 import kotlinx.coroutines.test.StandardTestDispatcher
 import kotlinx.coroutines.test.resetMain
@@ -51,19 +52,19 @@ class CommonGreetingTest {
     @Test
     fun testExample() =
         runTest {
-            startApp(appConfig = AppConfig(isDebug = false, isProduction = false))
-            val viewModel = MainScreenViewModel()
+            val koinScope = startApp(appConfig = AppConfig(isDebug = false, isProduction = false))
+            val viewModel: MainScreenViewModel = koinScope.koin.get()
             assertTrue(
                 viewModel.mainScreenUIState.value is MainScreenUIState.Loading,
                 "Not good initial status",
             )
             viewModel.mainScreenUIState.launchIn(this.backgroundScope)
             waitUntil {
-                viewModel.mainScreenUIState.value is MainScreenUIState.Success
+                viewModel.mainScreenUIState.first() is MainScreenUIState.Success
             }
             assertEquals(
                 "Franck",
-                (viewModel.mainScreenUIState.value as MainScreenUIState.Success).profile.username,
+                (viewModel.mainScreenUIState.first() as MainScreenUIState.Success).profile.username,
             )
         }
 }

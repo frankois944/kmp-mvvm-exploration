@@ -35,6 +35,7 @@ import co.touchlab.kermit.Logger
 import fr.frankois944.kmpviewmodel.helpers.eventbus.AppEvents
 import fr.frankois944.kmpviewmodel.helpers.eventbus.IEventBus
 import fr.frankois944.kmpviewmodel.router.NavRoute
+import kotlinx.coroutines.flow.collectLatest
 import org.koin.androidx.compose.KoinAndroidContext
 import org.koin.compose.koinInject
 import org.koin.core.annotation.KoinExperimentalAPI
@@ -55,6 +56,12 @@ class MainActivity : ComponentActivity() {
                 LaunchedEffect(Unit) {
                     eventBus.subscribeEvent<AppEvents>().collect {
                         logger.d("EVENT RECEIVED : $it")
+                    }
+                }
+
+                LaunchedEffect(Unit) {
+                    navController.currentBackStackEntryFlow.collectLatest {
+                        canGoBack = navController.previousBackStackEntry != null
                     }
                 }
 
@@ -108,14 +115,12 @@ class MainActivity : ComponentActivity() {
                             startDestination = NavRoute.MainScreen,
                         ) {
                             composable<NavRoute.MainScreen> {
-                                canGoBack = false
                                 MyFirstScreen {
                                     logger.d("Trigger Navigate to ${NavRoute.SecondScreen}")
                                     navController.navigate(NavRoute.SecondScreen(userId = "4424"))
                                 }
                             }
                             composable<NavRoute.SecondScreen> { nav ->
-                                canGoBack = true
                                 MyFirstScreen(
                                     param1 = nav.toRoute<NavRoute.SecondScreen>().userId,
                                 ) {
@@ -130,6 +135,3 @@ class MainActivity : ComponentActivity() {
         }
     }
 }
-
-val Bundle.values: List<Any>
-    get() = emptyList()

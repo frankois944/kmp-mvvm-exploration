@@ -1,6 +1,5 @@
 package fr.frankois944.kmpviewmodel.helpers.eventbus
 
-import co.touchlab.kermit.d
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.runBlocking
 import platform.Foundation.NSNotificationCenter
