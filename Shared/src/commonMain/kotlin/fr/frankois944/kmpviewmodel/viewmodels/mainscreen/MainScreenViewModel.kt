@@ -5,6 +5,7 @@ package fr.frankois944.kmpviewmodel.viewmodels.mainscreen
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import co.touchlab.kermit.Logger
+import fr.frankois944.kmpviewmodel.flows.stateInWhileSubscribed
 import fr.frankois944.kmpviewmodel.helpers.eventbus.AppEvents
 import fr.frankois944.kmpviewmodel.helpers.eventbus.IEventBus
 import fr.frankois944.kmpviewmodel.models.context.AppContext
@@ -15,13 +16,10 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
-import kotlinx.coroutines.flow.SharingStarted
 import kotlinx.coroutines.flow.StateFlow
-import kotlinx.coroutines.flow.WhileSubscribed
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
 import kotlinx.coroutines.flow.merge
-import kotlinx.coroutines.flow.stateIn
 import kotlinx.coroutines.launch
 import org.koin.android.annotation.KoinViewModel
 import org.koin.core.annotation.InjectedParam
@@ -52,7 +50,7 @@ public class MainScreenViewModel(
     public val mainScreenUIState: StateFlow<MainScreenUIState> =
         listOf(_mainScreenUIState, loadContent())
             .merge()
-            .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), MainScreenUIState.Loading)
+            .stateInWhileSubscribed(viewModelScope, MainScreenUIState.Loading)
 
     private fun loadContent(reloading: Boolean = false): Flow<MainScreenUIState> =
         flow {
@@ -86,7 +84,7 @@ public class MainScreenViewModel(
     // <editor-fold desc="UserId">
     public val userId: StateFlow<String?> =
         appContext.usernameFlow
-            .stateIn(viewModelScope, SharingStarted.WhileSubscribed(), null)
+            .stateInWhileSubscribed(viewModelScope, null)
 
     public fun updateUserId() {
         logger.d("updateUserId")

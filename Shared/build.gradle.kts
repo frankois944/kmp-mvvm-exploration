@@ -66,11 +66,11 @@ kotlin {
             implementation(libs.okio.fakefilesystem)
         }
         iosMain.dependencies {
-            implementation(libs.bundles.koin.kmp)
+            // implementation(libs.bundles.koin.kmp)
             api(libs.kermit.simple)
         }
         androidMain.dependencies {
-            implementation(libs.bundles.koin.android)
+            // implementation(libs.bundles.koin.android)
         }
     }
 }
