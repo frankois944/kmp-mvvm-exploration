@@ -113,6 +113,8 @@ This approach uses the [SKIE Flow capability](https://skie.touchlab.co/features/
 
 This approach uses a [macro I made](https://github.com/frankois944/kmp-mvvm-exploration/tree/main/KTViewModelBuilder) to automatically wrap a KMP ViewModel inside an ObservableObject, almost like a SwiftUI ViewModel.
 
+You can see an example of a [generated code here](https://github.com/frankois944/kmp-mvvm-exploration/blob/main/KTViewModelBuilder/Tests/KTViewModelBuilderTests/KTViewModelBuilderTests.swift).
+
 * ### Pure SwiftUI MVVM
 
 [Example with a common SwiftUI ViewModel](https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/SwiftUI/MyFirstScreenWithSwiftViewModel.swift)
