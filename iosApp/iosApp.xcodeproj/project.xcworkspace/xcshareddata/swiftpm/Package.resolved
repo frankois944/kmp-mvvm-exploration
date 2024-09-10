@@ -1,13 +1,13 @@
 {
-  "originHash" : "0c89c2dd78fa3df022bf0f39aa99c8d781fda7c17ae5383eee1712fdc38b8925",
+  "originHash" : "536f02e84c6a4d547c4e380df37991de41e27467938cd5bae72a929b98a5c4d4",
   "pins" : [
     {
       "identity" : "swift-syntax",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/apple/swift-syntax.git",
       "state" : {
-        "revision" : "303e5c5c36d6a558407d364878df131c3546fad8",
-        "version" : "510.0.2"
+        "branch" : "main",
+        "revision" : "445486b67f6e9ec145aad4599504fc9d935f9e2a"
       }
     },
     {
@@ -15,8 +15,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/SimplyDanny/SwiftLintPlugins",
       "state" : {
-        "revision" : "b8431a26655378581890d56b95a0b59aba9f62da",
-        "version" : "0.55.1"
+        "revision" : "7c80ce6f142164b0201871e580b021d1b2c69804",
+        "version" : "0.57.0"
       }
     }
   ],
