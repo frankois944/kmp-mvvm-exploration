@@ -21,6 +21,7 @@ datastorePreferencesCore = "1.1.1" # https://developer.android.com/jetpack/andro
 collection = "1.4.3" # https://developer.android.com/jetpack/androidx/releases/collection
 kermit = "2.0.4" # https://github.com/touchlab/Kermit/releases
 okio = "3.9.0" # https://square.github.io/okio/changelog/
+turbine = "1.1.0"
 
 [libraries]
 # Kotlin
@@ -61,6 +62,7 @@ androidx-collection = { module = "androidx.collection:collection", version.ref =
 # OKIO
 okio = { module = "com.squareup.okio:okio", version.ref = "okio" }
 okio-fakefilesystem = { module = "com.squareup.okio:okio-fakefilesystem", version.ref = "okio" }
+turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
 
 [bundles]
 androidx-compose = [

@@ -69,6 +69,7 @@ kotlin {
             implementation(libs.kotlin.test)
             implementation(libs.koin.test)
             implementation(libs.kotlin.coroutines.test)
+            implementation(libs.turbine)
             implementation(libs.okio.fakefilesystem)
         }
         iosMain.dependencies {
