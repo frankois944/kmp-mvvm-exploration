@@ -5,11 +5,10 @@ import SwiftSyntaxMacros
 
 public struct SharedViewModelMacro: MemberMacro {
     
-    public static func expansion(
-        of node: AttributeSyntax,
-        providingMembersOf declaration: some DeclGroupSyntax,
-        in context: some MacroExpansionContext
-    ) throws -> [SwiftSyntax.DeclSyntax] {
+    public static func expansion(of node: AttributeSyntax,
+                                 providingMembersOf declaration: some DeclGroupSyntax,
+                                 conformingTo protocols: [TypeSyntax],
+                                 in context: some MacroExpansionContext) throws -> [DeclSyntax] {
         guard let functionDecl = declaration.as(ClassDeclSyntax.self) else {
             fatalError("The Macro SharedViewModel can't only be apply on a class")
         }

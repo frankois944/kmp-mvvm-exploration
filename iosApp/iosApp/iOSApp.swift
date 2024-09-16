@@ -31,7 +31,7 @@ struct IOSApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationStack(path: $router) {
-                MyFirstScreenWithSkie {
+                MyFirstScreenWithSkieIOS14 {
                     router.append(NavRoute.SecondScreen(userId: "rerteterret"))
                 }
                 .navigationDestination(for: NavRoute.SecondScreen.self) { value in

@@ -128,6 +128,9 @@ kover {
 }
 
 skie {
+    build {
+        freeSwiftCompilerArgs.add("-strict-concurrency=complete")
+    }
     features {
         // https://skie.touchlab.co/features/flows-in-swiftui
         enableSwiftUIObservingPreview = true
