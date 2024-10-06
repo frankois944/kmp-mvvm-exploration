@@ -8,7 +8,7 @@
 
 import SwiftUI
 import KTViewModelBuilder
-@_exported import Shared
+@preconcurrency import Shared
 
 @main
 struct IOSApp: App {
@@ -31,7 +31,7 @@ struct IOSApp: App {
     var body: some Scene {
         WindowGroup {
             NavigationStack(path: $router) {
-                MyFirstScreenWithSkieIOS14 {
+                MyFirstScreenWithSwiftViewModel {
                     router.append(NavRoute.SecondScreen(userId: "rerteterret"))
                 }
                 .navigationDestination(for: NavRoute.SecondScreen.self) { value in
@@ -39,7 +39,7 @@ struct IOSApp: App {
                     // MyFirstScreenWithSkie
                     // MyFirstScreenWithSwiftViewModel
                     // MyFirstScreenWithUIKit
-                    MyFirstScreenWithSkieIOS14 {
+                    MyFirstScreenWithSwiftViewModel {
                         router.append(NavRoute.SecondScreen(userId: value.userId))
                     }
                 }

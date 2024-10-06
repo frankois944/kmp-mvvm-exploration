@@ -8,6 +8,7 @@
 
 import SwiftUI
 import Combine
+@preconcurrency import Shared
 
 @MainActor
 class FirstScreenViewModel: ObservableObject {
@@ -15,10 +16,10 @@ class FirstScreenViewModel: ObservableObject {
     private let param1: String?
     private let logger: KermitLogger = koinGet(parameters: ["FirstScreenViewModel"])
     private var disposebag = Set<AnyCancellable>()
-    @KoinInject<Shared.IAccountService> private var accountService
-    @KoinInject<Shared.IProfileService> private var profilService
-    @KoinInject<Shared.IEventBus> private var eventBus
-    @KoinInject<Shared.AppContext> private var appContext
+    private lazy var accountService: IAccountService = koinGet()
+    private lazy var profilService: IProfileService = koinGet()
+    private lazy var eventBus: IEventBus = koinGet()
+    private lazy var appContext: Shared.AppContext = koinGet()
 
     @Published var mainScreenUIState: MainScreenUIState = .Loading()
     @Published var userId: String?
@@ -42,20 +43,28 @@ class FirstScreenViewModel: ObservableObject {
     }
 
     func loadData(reloading: Bool = false) async {
+        if !reloading && self.mainScreenUIState is MainScreenUIState.Success {
+            return
+        }
+        logger.d(messageString: "START LOADING SCREEN")
+        self.mainScreenUIState = .Loading()
         do {
-            if !reloading && self.mainScreenUIState is MainScreenUIState.Success {
-                return
-            }
-            logger.d(messageString: "START LOADING SCREEN")
-            self.mainScreenUIState = .Loading()
-            let accoundData = try await accountService.getAccountInfo()
-            let profileData = try await profilService.getProfile()
-            try await Task.sleep(nanoseconds: 3_000_000_000)
-            // throw NSError(domain: "TESTING", code: 42) for testing
-            logger.d(messageString: "OK LOADING SCREEN")
-            self.mainScreenUIState = .Success(profile: profileData, account: accoundData)
+            // detach the data fetch from the main actor and avoid concurrency issues
+            self.mainScreenUIState = try await Task<MainScreenUIState, Error>.detached {
+                do {
+                    try await Task.sleep(nanoseconds: 3_000_000_000)
+                    // throw NSError(domain: "TESTING", code: 42) for testing
+                    let accoundData = try await self.accountService.getAccountInfo()
+                    let profileData = try await self.profilService.getProfile()
+                    await self.logger.d(messageString: "OK LOADING SCREEN")
+                    return MainScreenUIState.Success(profile: profileData, account: accoundData)
+                } catch {
+                    await self.logger.e(messageString: "FAILING LOADING SCREEN")
+                    return MainScreenUIState.Error(message: "Something bad \(error)")
+                }
+            }.value
         } catch {
-            logger.e(messageString: "FAILING LOADING SCREEN")
+            self.logger.e(messageString: "FAILING LOADING SCREEN")
             self.mainScreenUIState = .Error(message: "Something bad \(error)")
         }
     }

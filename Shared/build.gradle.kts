@@ -48,7 +48,7 @@ kotlin {
         commonMain.configure {
             compilerOptions {
                 // https://kotlinlang.org/docs/native-objc-interop.html#provide-documentation-with-kdoc-comments
-                freeCompilerArgs.add("-Xexport-kdoc")
+                // freeCompilerArgs.add("-Xexport-kdoc")
             }
         }
         commonMain.dependencies {
@@ -128,9 +128,6 @@ kover {
 }
 
 skie {
-    build {
-        freeSwiftCompilerArgs.add("-strict-concurrency=complete")
-    }
     features {
         // https://skie.touchlab.co/features/flows-in-swiftui
         enableSwiftUIObservingPreview = true

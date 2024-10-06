@@ -8,6 +8,7 @@
 
 import Foundation
 import SwiftUI
+@preconcurrency import Shared
 
 private class KoinQualifier: Koin_coreQualifier {
     init(value: String) {
@@ -53,21 +54,6 @@ extension Koin_coreKoinApplication {
         }
         return instance
     }
-}
-
-/// lazy inject of koin injection (like `by inject()` koin method)
-@propertyWrapper struct KoinInject<T: AnyObject> {
-    var qualifier: String?
-    var parameters: [Any]?
-
-    init(qualifier: String? = nil, parameters: [Any]? = nil) {
-        self.qualifier = qualifier
-        self.parameters = parameters
-    }
-
-    lazy var wrappedValue: T = {
-        return koinGet(qualifier: qualifier, parameters: parameters)
-    }()
 }
 
 /// direct inject of koin Inject (like `get()` koin method)

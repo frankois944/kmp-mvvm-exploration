@@ -9,6 +9,7 @@
 import SwiftUI
 import KTViewModelBuilder
 import Combine
+@preconcurrency import Shared
 
 struct MyFirstView: View {
     let mainScreenUIState: MainScreenUIState

@@ -8,12 +8,14 @@
 
 import SwiftUI
 import KTViewModelBuilder
+@preconcurrency import Shared
 
 @sharedViewModel(ofType: MainScreenViewModel.self,
                  publishing:
                     (\.mainScreenUIState, MainScreenUIState.self),
                  (\.userId, String?.self)
 )
+@MainActor
 class MyMainScreenViewModel: ObservableObject {}
 
 struct MyFirstScreenWithMacro: View {
@@ -21,6 +23,7 @@ struct MyFirstScreenWithMacro: View {
     @StateObject private var viewModel = MyMainScreenViewModel(koinGet(parameters: ["IOS-MyFirstScreenWithMacro"]))
     @State private var jobDisposeBag = CoroutineJobDisposeBag()
     @State private var events: MyFirstScreenUiEvents?
+    @State var testValue: MainScreenUIState = .Loading()
     let onNextView: () -> Void
 
     var body: some View {

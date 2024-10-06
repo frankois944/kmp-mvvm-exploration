@@ -8,6 +8,7 @@
 
 import Foundation
 import SwiftUI
+@preconcurrency import Shared
 
 struct MyFirstScreenWithSkie: View {
 

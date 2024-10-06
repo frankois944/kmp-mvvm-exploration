@@ -7,6 +7,7 @@
 //
 
 import Foundation
+@preconcurrency import Shared
 
 /// Manage the viewmodel lifecycle for SwiftUI apps
 /// Also, this class is working on UIKit apps

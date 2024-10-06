@@ -7,6 +7,7 @@
 //
 
 import Combine
+@preconcurrency import Shared
 
 /// Store in a collection the kotlin coroutine jobs for canceling them.
 /// Like the `Set<Task<(), Never>>()` of a task or `Set<AnyCancellable>` of combine

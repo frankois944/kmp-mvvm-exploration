@@ -9,6 +9,7 @@
 import Foundation
 import SwiftUI
 import Combine
+@preconcurrency import Shared
 
 /// Store global properties and context
 ///
@@ -20,7 +21,11 @@ class AppContext: ObservableObject {
     /// Singleton to access the Native/Shared AppContext.
     ///
     /// **AppContext.configure MUST be called before accessing this property**
-    static var shared: AppContext!
+    ///
+    /// Currently it's set as `nonisolated(unsafe)` to make it compatible with SwiftUI.
+    /// The application is not enough big for having concurrency issues
+    ///
+    nonisolated(unsafe) static var shared: AppContext!
 
     // MARK: Private
 
@@ -64,6 +69,7 @@ class AppContext: ObservableObject {
 
     /// Create the AppContext Singleton and initialize it
     /// - Parameter koinApplication: A Koin application scope
+    @MainActor
     static func configure(koinApplication: Koin_coreKoinApplication) {
         AppContext.shared = AppContext(koinApplication: koinApplication)
         AppContext.shared.setup()

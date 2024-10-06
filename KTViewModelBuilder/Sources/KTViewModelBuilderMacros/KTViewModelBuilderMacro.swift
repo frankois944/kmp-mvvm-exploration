@@ -98,13 +98,15 @@ public struct SharedViewModelMacro: MemberMacro {
                     statements: CodeBlockItemListSyntax(itemsBuilder: {
                         for item in bindingList {
                             ExprSyntax(stringLiteral: """
-                        $0.addTask { @MainActor [weak self] in
-                            for await value in self!.instance.\(item.binding.name) where self != nil {
-                                if value != self?.\(item.binding.name) {
-                                    #if DEBUG
-                                    print("UPDATING \(item.binding.name) : " + String(describing: value))
-                                    #endif
-                                    self?.\(item.binding.name) = value
+                        $0.addTask {
+                            for await value in await self.instance.\(item.binding.name) {
+                                await MainActor.run {
+                                    if value != self.\(item.binding.name) {
+                                        #if DEBUG
+                                        print("UPDATING \(item.binding.name) : " + String(describing: value))
+                                        #endif
+                                        self.\(item.binding.name) = value
+                                    }
                                 }
                             }
                         }

@@ -7,6 +7,8 @@
 //
 
 import SwiftUI
+@preconcurrency import Shared
+import Combine
 
 struct MyFirstScreenWithSkieIOS14: View {
 
@@ -15,7 +17,7 @@ struct MyFirstScreenWithSkieIOS14: View {
     @State private var userId: String?
     @State private var jobDisposeBag = CoroutineJobDisposeBag()
     @State private var events: MyFirstScreenUiEvents?
-    @State var disposebag = Set<Task<(), Never>>()
+    @State var disposebag = Set<AnyCancellable>()
     let onNextView: () -> Void
 
     init(param1: String? = nil, onNextView: @escaping () -> Void) {
@@ -37,9 +39,9 @@ struct MyFirstScreenWithSkieIOS14: View {
                 into: $mainScreenUIState,
                 disposedBy: $disposebag
             )
-            .onDisappear(perform: {
+            .onDisappear {
                 disposebag.removeAll()
-            })
+            }
             .onChange(of: events, perform: {
                 switch onEnum(of: $0) {
                 case .retry:
