@@ -39,7 +39,7 @@ struct IOSApp: App {
                     // MyFirstScreenWithSkie
                     // MyFirstScreenWithSwiftViewModel
                     // MyFirstScreenWithUIKit
-                    MyFirstScreenWithSkieIOS14 {
+                    MyFirstScreenWithSkie {
                         router.append(NavRoute.SecondScreen(userId: value.userId))
                     }
                 }

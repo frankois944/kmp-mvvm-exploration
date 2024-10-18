@@ -2,6 +2,9 @@ package fr.frankois944.kmpviewmodel.platform
 
 import fr.frankois944.kmpviewmodel.AppConfig
 
+@Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
+public expect class NativeContext
+
 /**
  * Platform
  *
@@ -24,11 +27,11 @@ public interface IPlatform {
     public val isProduction: Boolean
 
     /**
-     * Platform context for Android target ONLY
+     * Platform context for Android target and RootViewController for iOS target
      *
-     * Can be casted to an Android Context
+     * Can be casted to an Android Context or an iOS UIViewController
      */
-    public val platformContext: Any?
+    public val platformContext: NativeContext?
 }
 
 /**
