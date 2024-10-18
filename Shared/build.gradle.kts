@@ -33,7 +33,7 @@ kotlin {
     ).forEach {
         it.binaries.framework {
             baseName = "Shared"
-            isStatic = true
+            isStatic = false
             export(libs.kermit.simple)
             export(libs.androidx.lifecycle.viewmodel)
             binaryOption("bundleId", "fr.frankois944.kmpviewmodel.shared")
