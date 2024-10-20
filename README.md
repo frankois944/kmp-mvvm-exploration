@@ -6,7 +6,7 @@ It's not that simple, I've been working on it for some time, and with the advanc
 
 The KMP ViewModel approach on [Android is fully supported](https://developer.android.com/topic/libraries/architecture/viewmodel), using Kotlin multiplatform or not, it's the same implementation.
 
-Otherwise, on iOS, it's kind of experimental; the KMP ViewModel is not made to work on this target; we need to find some workarounds for correctly using it; and the main issue is the **lifecycle**.
+Otherwise, on iOS, it's kind of experimental (really ?); the KMP ViewModel is not made to work on this target; we need to find some workarounds for correctly using it; and the main issue is the **lifecycle**.
 
 Other features presented in this repository are optional for using the MVVM pattern, but I think they're kind of useful.
 
