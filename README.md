@@ -45,9 +45,9 @@ commonMain.dependencies {
 }
 ```
 
-- Then importing [SKIE](https://skie.touchlab.co/) for fully access the Kotlin Flow from Swift
+- Then import [SKIE](https://skie.touchlab.co/) to fully access the Kotlin Flow from Swift
 
-And activate some useful features :
+And activate some useful features and expand the SwiftUI capabilities.
 
 [shared Gradle file](https://github.com/frankois944/kmp-mvvm-exploration/blob/main/Shared/build.gradle.kts)
 ```gradle
@@ -62,7 +62,9 @@ skie {
 }
 ```
 
-- Finally, creating a [SwiftUI class](https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/SharedViewModel.swift) for managing the KMP ViewModel lifecycle 
+- Finally, create a [SwiftUI class](https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/SharedViewModel.swift) for managing the KMP ViewModel lifecycle
+
+By wrapping the KMP ViewModel inside an ObservableObject, the shared class is now aligned with the lifecycle of the SwiftUI view.
 ```swift
 class SharedViewModel<VM: ViewModel>: ObservableObject {
 
@@ -72,12 +74,6 @@ class SharedViewModel<VM: ViewModel>: ObservableObject {
     // Injecting the viewmodel
     init(_ viewModel: VM = .init()) {
         viewModelStore.put(key: key, viewModel: viewModel)
-    }
-
-    // Optional : Creating the viewmodel from compatible koin parameters
-    init(qualifier: String? = nil, parameters: [Any]? = nil) {
-        let viewmodel: VM = koinGet(qualifier: qualifier, parameters: parameters)
-        viewModelStore.put(key: key, viewModel: viewmodel)
     }
 
     var instance: VM {
@@ -123,7 +119,7 @@ You can see an example of a [generated code here](https://github.com/frankois944
 
 [Example with a common SwiftUI ViewModel](https://github.com/frankois944/kmp-mvvm-exploration/blob/main/iosApp/iosApp/SwiftUI/MyFirstScreenWithSwiftViewModel.swift)
 
-There is no usage of KMP MVVM here, just like in an MVVM SwiftUI class, but we need to use the Koin injection capacities.
+There is no usage of KMP MVVM here, just like in an MVVM SwiftUI class, but we need to use the Koin injection capacities, or you can directly use the class instead of injection.
 
 * ### UIKit
 
@@ -133,7 +129,7 @@ UIKit is not dead, we can use the `SharedViewModel` class and the [SKIE combine 
 
 ## Thinking
 
-The goal of this experiment is to align the behavior between the Android ViewModel and the SwiftUI ViewModel. It's not that simple, as the ViewModel model must be the same, but the lifecycle of the Viewholder is different.
+The goal of this playground is to align the behavior between the Android ViewModel and the SwiftUI ViewModel. It's not that simple, as the ViewModel model must be the same, but the lifecycle of the Viewholder is different.
 
 Look at the logs I added to verify the lifecycle, it should be exactly the same on each approach.
 
@@ -145,7 +141,7 @@ So we can use Koin qualifiers and parameters, like Koin for Android.
 
 - We need to [export two Kotlin methods](https://github.com/frankois944/kmp-mvvm-exploration/blob/main/Shared/src/iosMain/kotlin/fr/frankois944/kmpviewmodel/AppInit.ios.kt) that resolve the ObjC class/protocol to the Kotlin Class from the Swift Application
 
-- Store the Kotlin Koin Context somewhere and make it accessible everywhere in the Swift App
+- Store the Kotlin Koin Application instance somewhere and make it accessible everywhere in the Swift App
 ```swift
 // For example: store in swift singleton the koin application
 AppContext.shared.koinApplication = // instance of initialized koinapplication
