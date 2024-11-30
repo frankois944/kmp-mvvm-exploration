@@ -8,6 +8,7 @@
 
 import SwiftUI
 import KTViewModelBuilder
+import Shared
 
 @sharedViewModel(ofType: MainScreenViewModel.self,
                  publishing:

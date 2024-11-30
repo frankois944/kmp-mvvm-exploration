@@ -8,6 +8,7 @@
 
 import UIKit
 import Combine
+import Shared
 
 class MyFirstScreenViewController: UIViewController {
 

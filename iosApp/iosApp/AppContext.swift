@@ -9,6 +9,7 @@
 import Foundation
 import SwiftUI
 import Combine
+import Shared
 
 /// Store global properties and context
 ///

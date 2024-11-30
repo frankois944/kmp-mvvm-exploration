@@ -8,7 +8,7 @@
 
 import SwiftUI
 import KTViewModelBuilder
-@_exported import Shared
+import Shared
 
 @main
 struct IOSApp: App {

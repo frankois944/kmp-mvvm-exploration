@@ -7,6 +7,7 @@
 //
 
 import SwiftUI
+import Shared
 
 // An extension of the SwiftUI.View with a compatible iOS 13/14 SKIE `collect` implementation
 // It's a copy of the current `collect` implementation of SKIE flow in SwiftUI

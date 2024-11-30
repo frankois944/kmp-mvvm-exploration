@@ -9,6 +9,7 @@
 import SwiftUI
 import KTViewModelBuilder
 import Combine
+import Shared
 
 struct MyFirstView: View {
     let mainScreenUIState: MainScreenUIState

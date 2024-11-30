@@ -8,6 +8,7 @@
 
 import Foundation
 import SwiftUI
+import Shared
 
 private class KoinQualifier: Koin_coreQualifier {
     init(value: String) {

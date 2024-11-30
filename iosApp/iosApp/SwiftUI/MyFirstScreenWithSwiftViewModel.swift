@@ -8,6 +8,7 @@
 
 import SwiftUI
 import Combine
+import Shared
 
 @MainActor
 class FirstScreenViewModel: ObservableObject {
