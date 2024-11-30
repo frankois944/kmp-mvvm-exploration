@@ -3,28 +3,8 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 70;
 	objects = {
-
-/* Begin PBXBuildFile section */
-		058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557BA273AAA24004C7B11 /* Assets.xcassets */; };
-		058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */; };
-		0794BB732C43D20D0031EB64 /* MyFirstScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 0794BB722C43D20D0031EB64 /* MyFirstScreen.storyboard */; };
-		0794BB752C43D2240031EB64 /* MyFirstScreenViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0794BB742C43D2240031EB64 /* MyFirstScreenViewController.swift */; };
-		0794BB772C43EE270031EB64 /* MyFirstScreenWithUIKit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 0794BB762C43EE270031EB64 /* MyFirstScreenWithUIKit.swift */; };
-		1118CA7B2C46825F006A3FE9 /* CoroutineJobDisposeBag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1118CA7A2C46825F006A3FE9 /* CoroutineJobDisposeBag.swift */; };
-		1147C7A82C09B28D005D7E73 /* MyFirstScreenWithSkie.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1147C7A72C09B28D005D7E73 /* MyFirstScreenWithSkie.swift */; };
-		115D10BD2C08A3E70096AA89 /* MyFirstScreenWithSwiftViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115D10BC2C08A3E70096AA89 /* MyFirstScreenWithSwiftViewModel.swift */; };
-		115D10BF2C08A4150096AA89 /* MyFirstScreenWithMacro.swift in Sources */ = {isa = PBXBuildFile; fileRef = 115D10BE2C08A4150096AA89 /* MyFirstScreenWithMacro.swift */; };
-		1163F4FC2BE90DC900F423CE /* AppContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 1163F4FB2BE90DC900F423CE /* AppContext.swift */; };
-		116798E92C6367CD001A8F27 /* MyFirstScreenWithSkieIOS14.swift in Sources */ = {isa = PBXBuildFile; fileRef = 116798E82C6367C0001A8F27 /* MyFirstScreenWithSkieIOS14.swift */; };
-		11734C152C2C4DD4004D254A /* KoinHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11734C142C2C4DD4004D254A /* KoinHelper.swift */; };
-		119AF2662C0743AB00EFF623 /* SharedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 119AF2652C0743AB00EFF623 /* SharedViewModel.swift */; };
-		11C595752BFC93E30033FE0F /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11C595742BFC93E30033FE0F /* ContentView.swift */; };
-		11D396D62C64B8CB00A5DB43 /* SkieCollectForiOS14.swift in Sources */ = {isa = PBXBuildFile; fileRef = 11D396D52C64B8CB00A5DB43 /* SkieCollectForiOS14.swift */; };
-		2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2152FB032600AC8F00CF470E /* iOSApp.swift */; };
-		7555FF83242A565900829871 /* MyFirstView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7555FF82242A565900829871 /* MyFirstView.swift */; };
-/* End PBXBuildFile section */
 
 /* Begin PBXCopyFilesBuildPhase section */
 		7555FFB4242A642300829871 /* Embed Frameworks */ = {
@@ -40,29 +20,25 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
-		058557BA273AAA24004C7B11 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
-		058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
-		0794BB722C43D20D0031EB64 /* MyFirstScreen.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = MyFirstScreen.storyboard; sourceTree = "<group>"; };
-		0794BB742C43D2240031EB64 /* MyFirstScreenViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFirstScreenViewController.swift; sourceTree = "<group>"; };
-		0794BB762C43EE270031EB64 /* MyFirstScreenWithUIKit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFirstScreenWithUIKit.swift; sourceTree = "<group>"; };
-		1118CA7A2C46825F006A3FE9 /* CoroutineJobDisposeBag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CoroutineJobDisposeBag.swift; sourceTree = "<group>"; };
-		1147C7A72C09B28D005D7E73 /* MyFirstScreenWithSkie.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFirstScreenWithSkie.swift; sourceTree = "<group>"; };
-		115D10BC2C08A3E70096AA89 /* MyFirstScreenWithSwiftViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFirstScreenWithSwiftViewModel.swift; sourceTree = "<group>"; };
-		115D10BE2C08A4150096AA89 /* MyFirstScreenWithMacro.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFirstScreenWithMacro.swift; sourceTree = "<group>"; };
-		1163F4FB2BE90DC900F423CE /* AppContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppContext.swift; sourceTree = "<group>"; };
-		116798E82C6367C0001A8F27 /* MyFirstScreenWithSkieIOS14.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFirstScreenWithSkieIOS14.swift; sourceTree = "<group>"; };
-		11734C142C2C4DD4004D254A /* KoinHelper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KoinHelper.swift; sourceTree = "<group>"; };
 		117ABB912C4945B700FFA214 /* iosMain */ = {isa = PBXFileReference; lastKnownFileType = folder; name = iosMain; path = ../Shared/src/iosMain; sourceTree = "<group>"; };
 		117ABB922C4945B700FFA214 /* commonMain */ = {isa = PBXFileReference; lastKnownFileType = folder; name = commonMain; path = ../Shared/src/commonMain; sourceTree = "<group>"; };
-		119AF2652C0743AB00EFF623 /* SharedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SharedViewModel.swift; sourceTree = "<group>"; };
 		11B3774B2C0881EA002DC0EE /* KTViewModelBuilder */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = KTViewModelBuilder; path = ../KTViewModelBuilder; sourceTree = "<group>"; };
-		11C595742BFC93E30033FE0F /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
-		11D396D52C64B8CB00A5DB43 /* SkieCollectForiOS14.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SkieCollectForiOS14.swift; sourceTree = "<group>"; };
-		2152FB032600AC8F00CF470E /* iOSApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = iOSApp.swift; sourceTree = "<group>"; };
 		7555FF7B242A565900829871 /* iosApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = iosApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		7555FF82242A565900829871 /* MyFirstView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MyFirstView.swift; sourceTree = "<group>"; };
-		7555FF8C242A565B00829871 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 /* End PBXFileReference section */
+
+/* Begin PBXFileSystemSynchronizedBuildFileExceptionSet section */
+		07C125C62CFB0C300052A377 /* PBXFileSystemSynchronizedBuildFileExceptionSet */ = {
+			isa = PBXFileSystemSynchronizedBuildFileExceptionSet;
+			membershipExceptions = (
+				Info.plist,
+			);
+			target = 7555FF7A242A565900829871 /* iosApp */;
+		};
+/* End PBXFileSystemSynchronizedBuildFileExceptionSet section */
+
+/* Begin PBXFileSystemSynchronizedRootGroup section */
+		07C125B32CFB0C300052A377 /* iosApp */ = {isa = PBXFileSystemSynchronizedRootGroup; exceptions = (07C125C62CFB0C300052A377 /* PBXFileSystemSynchronizedBuildFileExceptionSet */, ); explicitFileTypes = {}; explicitFolders = (); path = iosApp; sourceTree = "<group>"; };
+/* End PBXFileSystemSynchronizedRootGroup section */
 
 /* Begin PBXFrameworksBuildPhase section */
 		7555FF78242A565900829871 /* Frameworks */ = {
@@ -75,36 +51,6 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		058557D7273AAEEB004C7B11 /* Preview Content */ = {
-			isa = PBXGroup;
-			children = (
-				058557D8273AAEEB004C7B11 /* Preview Assets.xcassets */,
-			);
-			path = "Preview Content";
-			sourceTree = "<group>";
-		};
-		0794BB702C43D1D70031EB64 /* SwiftUI */ = {
-			isa = PBXGroup;
-			children = (
-				7555FF82242A565900829871 /* MyFirstView.swift */,
-				115D10BC2C08A3E70096AA89 /* MyFirstScreenWithSwiftViewModel.swift */,
-				115D10BE2C08A4150096AA89 /* MyFirstScreenWithMacro.swift */,
-				1147C7A72C09B28D005D7E73 /* MyFirstScreenWithSkie.swift */,
-				116798E82C6367C0001A8F27 /* MyFirstScreenWithSkieIOS14.swift */,
-			);
-			path = SwiftUI;
-			sourceTree = "<group>";
-		};
-		0794BB712C43D1EB0031EB64 /* UIKIt */ = {
-			isa = PBXGroup;
-			children = (
-				0794BB722C43D20D0031EB64 /* MyFirstScreen.storyboard */,
-				0794BB742C43D2240031EB64 /* MyFirstScreenViewController.swift */,
-				0794BB762C43EE270031EB64 /* MyFirstScreenWithUIKit.swift */,
-			);
-			path = UIKIt;
-			sourceTree = "<group>";
-		};
 		117ABB932C49462300FFA214 /* shared */ = {
 			isa = PBXGroup;
 			children = (
@@ -119,7 +65,7 @@
 			children = (
 				117ABB932C49462300FFA214 /* shared */,
 				11B3774B2C0881EA002DC0EE /* KTViewModelBuilder */,
-				7555FF7D242A565900829871 /* iosApp */,
+				07C125B32CFB0C300052A377 /* iosApp */,
 				7555FF7C242A565900829871 /* Products */,
 				7555FFB0242A642200829871 /* Frameworks */,
 			);
@@ -131,25 +77,6 @@
 				7555FF7B242A565900829871 /* iosApp.app */,
 			);
 			name = Products;
-			sourceTree = "<group>";
-		};
-		7555FF7D242A565900829871 /* iosApp */ = {
-			isa = PBXGroup;
-			children = (
-				0794BB712C43D1EB0031EB64 /* UIKIt */,
-				0794BB702C43D1D70031EB64 /* SwiftUI */,
-				058557D7273AAEEB004C7B11 /* Preview Content */,
-				7555FF8C242A565B00829871 /* Info.plist */,
-				058557BA273AAA24004C7B11 /* Assets.xcassets */,
-				119AF2652C0743AB00EFF623 /* SharedViewModel.swift */,
-				2152FB032600AC8F00CF470E /* iOSApp.swift */,
-				1163F4FB2BE90DC900F423CE /* AppContext.swift */,
-				11C595742BFC93E30033FE0F /* ContentView.swift */,
-				1118CA7A2C46825F006A3FE9 /* CoroutineJobDisposeBag.swift */,
-				11D396D52C64B8CB00A5DB43 /* SkieCollectForiOS14.swift */,
-				11734C142C2C4DD4004D254A /* KoinHelper.swift */,
-			);
-			path = iosApp;
 			sourceTree = "<group>";
 		};
 		7555FFB0242A642200829871 /* Frameworks */ = {
@@ -177,6 +104,9 @@
 			);
 			dependencies = (
 				11734C182C2C4F5B004D254A /* PBXTargetDependency */,
+			);
+			fileSystemSynchronizedGroups = (
+				07C125B32CFB0C300052A377 /* iosApp */,
 			);
 			name = iosApp;
 			productName = iosApp;
@@ -225,9 +155,6 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				058557D9273AAEEB004C7B11 /* Preview Assets.xcassets in Resources */,
-				0794BB732C43D20D0031EB64 /* MyFirstScreen.storyboard in Resources */,
-				058557BB273AAA24004C7B11 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -277,20 +204,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2152FB042600AC8F00CF470E /* iOSApp.swift in Sources */,
-				115D10BF2C08A4150096AA89 /* MyFirstScreenWithMacro.swift in Sources */,
-				1118CA7B2C46825F006A3FE9 /* CoroutineJobDisposeBag.swift in Sources */,
-				11C595752BFC93E30033FE0F /* ContentView.swift in Sources */,
-				116798E92C6367CD001A8F27 /* MyFirstScreenWithSkieIOS14.swift in Sources */,
-				1163F4FC2BE90DC900F423CE /* AppContext.swift in Sources */,
-				7555FF83242A565900829871 /* MyFirstView.swift in Sources */,
-				115D10BD2C08A3E70096AA89 /* MyFirstScreenWithSwiftViewModel.swift in Sources */,
-				0794BB772C43EE270031EB64 /* MyFirstScreenWithUIKit.swift in Sources */,
-				11D396D62C64B8CB00A5DB43 /* SkieCollectForiOS14.swift in Sources */,
-				11734C152C2C4DD4004D254A /* KoinHelper.swift in Sources */,
-				0794BB752C43D2240031EB64 /* MyFirstScreenViewController.swift in Sources */,
-				1147C7A82C09B28D005D7E73 /* MyFirstScreenWithSkie.swift in Sources */,
-				119AF2662C0743AB00EFF623 /* SharedViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
