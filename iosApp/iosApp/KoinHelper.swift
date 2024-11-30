@@ -10,18 +10,18 @@ import Foundation
 import SwiftUI
 import Shared
 
-private class KoinQualifier: Koin_coreQualifier {
+private class KoinQualifier: KoinCoreQualifier {
     init(value: String) {
         self.value = value
     }
     var value: String
 }
 
-extension Koin_coreKoinApplication {
+extension KoinCoreKoinApplication {
 
     // reproducing the koin `get()` method behavior
     // we can set qualifier and parameters
-    func get<T: AnyObject>(qualifier: String? = nil, parameters: [Any]? = nil) -> T {
+    fileprivate func get<T: AnyObject>(qualifier: String? = nil, parameters: [Any]? = nil) -> T {
         let ktClass: KotlinKClass?
         // check if T is a Class or a Protocol and get the linked kotlin class
         if let protocolType = NSProtocolFromString("\(T.self)") {
@@ -35,12 +35,12 @@ extension Koin_coreKoinApplication {
             fatalError("Cant resolve objc class [Type]:\(T.self)")
         }
 
-        var koinQualifier: Koin_coreQualifier?
+        var koinQualifier: KoinCoreQualifier?
         if let qualifier = qualifier {
             koinQualifier = KoinQualifier(value: qualifier)
         }
 
-        var koinParameters: (() -> Koin_coreParametersHolder)?
+        var koinParameters: (() -> KoinCoreParametersHolder)?
         if let parameters {
             koinParameters = {
                 .init(_values: .init(array: parameters), useIndexedValues: nil)

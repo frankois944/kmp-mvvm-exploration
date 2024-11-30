@@ -14,9 +14,9 @@ import Shared
 ///
 /// On `deinit` all stored jobs are cancelled
 class CoroutineJobDisposeBag {
-    private var storage = [Kotlinx_coroutines_coreJob]()
+    private var storage = [CoroutinesCoreJob]()
 
-    func append(job: Kotlinx_coroutines_coreJob) {
+    func append(job: CoroutinesCoreJob) {
         storage.append(job)
     }
 
@@ -33,7 +33,7 @@ class CoroutineJobDisposeBag {
     }
 }
 
-extension Kotlinx_coroutines_coreJob {
+extension CoroutinesCoreJob {
     /// same method as `store` of `combine` framework
     func store(in set: inout CoroutineJobDisposeBag) {
         set.append(job: self)

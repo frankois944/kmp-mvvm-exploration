@@ -38,7 +38,7 @@ class AppContext: ObservableObject {
     }
     /// the koin scope application used by the shared code,
     /// It's needed for resolving injected instances from swift code
-    let koinApplication: Koin_coreKoinApplication
+    let koinApplication: KoinCoreKoinApplication
 
     // MARK: - Methods
 
@@ -46,7 +46,7 @@ class AppContext: ObservableObject {
 
     /// Create the singleton
     /// - Parameter koinApplication: A Koin application scope
-    private init(koinApplication: Koin_coreKoinApplication) {
+    private init(koinApplication: KoinCoreKoinApplication) {
         self.koinApplication = koinApplication
     }
 
@@ -65,7 +65,7 @@ class AppContext: ObservableObject {
 
     /// Create the AppContext Singleton and initialize it
     /// - Parameter koinApplication: A Koin application scope
-    static func configure(koinApplication: Koin_coreKoinApplication) {
+    static func configure(koinApplication: KoinCoreKoinApplication) {
         AppContext.shared = AppContext(koinApplication: koinApplication)
         AppContext.shared.setup()
     }
