@@ -10,10 +10,12 @@ import SwiftUI
 import KTViewModelBuilder
 import Shared
 
-@sharedViewModel(ofType: MainScreenViewModel.self,
-                 publishing:
-                    (\.mainScreenUIState, MainScreenUIState.self),
-                 (\.userId, String?.self)
+@ktViewModel(ofType: MainScreenViewModel.self,
+             publishing:
+                (\.mainScreenUIState, MainScreenUIState.self),
+             (\.userId, String?.self),
+             (\.intNotNullValue, Int.self),
+             (\.intNullValue, Int?.self)
 )
 class MyMainScreenViewModel: ObservableObject {}
 

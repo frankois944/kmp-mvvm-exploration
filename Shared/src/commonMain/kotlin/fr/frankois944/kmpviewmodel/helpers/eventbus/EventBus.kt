@@ -1,3 +1,5 @@
+@file:OptIn(ExperimentalMultiplatform::class)
+
 package fr.frankois944.kmpviewmodel.helpers.eventbus
 
 import co.touchlab.kermit.Logger

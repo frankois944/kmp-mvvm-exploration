@@ -1,13 +1,22 @@
 {
-  "originHash" : "536f02e84c6a4d547c4e380df37991de41e27467938cd5bae72a929b98a5c4d4",
+  "originHash" : "4ff2674645d26e45ad40ea8b9243acdc37fa820535c4706453a40456cbfc0647",
   "pins" : [
+    {
+      "identity" : "ktviewmodelbuilder",
+      "kind" : "remoteSourceControl",
+      "location" : "https://github.com/frankois944/KTViewModelBuilder",
+      "state" : {
+        "revision" : "780c16f334ccab7de7987a109138b23a47cf5177",
+        "version" : "0.1.0"
+      }
+    },
     {
       "identity" : "swift-syntax",
       "kind" : "remoteSourceControl",
-      "location" : "https://github.com/apple/swift-syntax.git",
+      "location" : "https://github.com/swiftlang/swift-syntax.git",
       "state" : {
-        "branch" : "main",
-        "revision" : "b721fa8e1319ea663a395a23931f304991b073ac"
+        "revision" : "0687f71944021d616d34d922343dcef086855920",
+        "version" : "600.0.1"
       }
     },
     {

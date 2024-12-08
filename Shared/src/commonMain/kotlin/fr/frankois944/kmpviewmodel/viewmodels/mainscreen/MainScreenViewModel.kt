@@ -16,6 +16,7 @@ import kotlinx.coroutines.Job
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableSharedFlow
+import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
 import kotlinx.coroutines.flow.emitAll
 import kotlinx.coroutines.flow.flow
@@ -44,6 +45,10 @@ public class MainScreenViewModel(
         logger.d("INIT with params $param1")
     }
 
+    private val _intNullValue = MutableStateFlow<Int?>(null)
+    public val intNullValue: StateFlow<Int?> = _intNullValue
+    private val _intNotNullValue = MutableStateFlow(0)
+    public val intNotNullValue: StateFlow<Int> = _intNotNullValue
     // <editor-fold desc="MainScreenUIState">
 
     private val _mainScreenUIState = MutableSharedFlow<MainScreenUIState>()
