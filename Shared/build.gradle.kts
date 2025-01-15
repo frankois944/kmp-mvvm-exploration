@@ -45,12 +45,6 @@ kotlin {
     }
 
     sourceSets {
-        commonMain.configure {
-            compilerOptions {
-                // https://kotlinlang.org/docs/native-objc-interop.html#provide-documentation-with-kdoc-comments
-                freeCompilerArgs.add("-Xexport-kdoc")
-            }
-        }
         commonMain.dependencies {
             implementation(libs.kotlin.coroutines)
             implementation(libs.kotlin.serialization)
@@ -73,11 +67,9 @@ kotlin {
             implementation(libs.okio.fakefilesystem)
         }
         iosMain.dependencies {
-            // implementation(libs.bundles.koin.kmp)
             api(libs.kermit.simple)
         }
         androidMain.dependencies {
-            // implementation(libs.bundles.koin.android)
         }
     }
 }
