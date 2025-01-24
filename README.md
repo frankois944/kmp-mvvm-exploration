@@ -134,6 +134,8 @@ The goal of this playground is to align the behavior between the Android ViewMod
 Look at the logs I added to verify the lifecycle, it should be exactly the same on each approach.
 
 ## Getting the ViewModel or any instance from Swift and Koin
+>[!TIP]
+> If you want to use Koin with ViewModel into a shared KMP module without compose, you need to add this [method](https://github.com/frankois944/kmp-mvvm-exploration/blob/main/Shared/src/commonMain/kotlin/fr/frankois944/kmpviewmodel/di/KMPViewModelAnnotation.kt) inside 
 
 As this playground is using Koin, I want to get my ViewModel from it, not directly from the constructor (it's still working, but it's not great).
 
