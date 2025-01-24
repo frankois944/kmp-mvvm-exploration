@@ -91,9 +91,9 @@ Based on this shared Kotlin [ViewModel](https://github.com/frankois944/kmp-mvvm-
 
 Also, you can find the Android integration [here](https://github.com/frankois944/kmp-mvvm-exploration/blob/main/androidApp/src/main/java/fr/frankois944/kmpviewmodel/android/MyFirstScreen.kt).
 
-Note: This viewmodel doesn't represent of what a ViewModel **MUST BE**.
+Note: This Viewmodel **doesn't represent of what a ViewModel must be**, use the approach you need.
 
-The most important is a [Kotlin Flow](https://kotlinlang.org/docs/flow.html) (Flow/StateFlow/SharedFlow) is transformed in [Swift async](https://www.avanderlee.com/swift/async-await/). Also, SKIE makes it easier to implement with Swift.
+The most important is a [Kotlin Flow](https://kotlinlang.org/docs/flow.html) (Flow/StateFlow/SharedFlow) is transformed into [Swift async](https://www.avanderlee.com/swift/async-await/). Also, SKIE makes it easier to implement with Swift.
 
 * ### SwiftUI SKIE observable (iOS 15 and later)
 
