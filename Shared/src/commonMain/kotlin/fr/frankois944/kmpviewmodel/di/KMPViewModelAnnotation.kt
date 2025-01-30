@@ -1,6 +1,6 @@
 @file:Suppress("PackageDirectoryMismatch")
 
-package org.koin.androidx.viewmodel.dsl
+package org.koin.core.module.dsl
 
 import androidx.lifecycle.ViewModel
 import org.koin.core.definition.Definition
