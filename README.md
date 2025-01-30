@@ -91,9 +91,9 @@ Based on this shared Kotlin [ViewModel](https://github.com/frankois944/kmp-mvvm-
 
 Also, you can find the Android integration [here](https://github.com/frankois944/kmp-mvvm-exploration/blob/main/androidApp/src/main/java/fr/frankois944/kmpviewmodel/android/MyFirstScreen.kt).
 
-Note: This viewmodel doesn't represent of what a ViewModel **MUST BE**.
+Note: This Viewmodel **doesn't represent of what a ViewModel must be**, use the approach you need.
 
-The most important is a [Kotlin Flow](https://kotlinlang.org/docs/flow.html) (Flow/StateFlow/SharedFlow) is transformed in [Swift async](https://www.avanderlee.com/swift/async-await/). Also, SKIE makes it easier to implement with Swift.
+The most important is a [Kotlin Flow](https://kotlinlang.org/docs/flow.html) (Flow/StateFlow/SharedFlow) is transformed into [Swift async](https://www.avanderlee.com/swift/async-await/). Also, SKIE makes it easier to implement with Swift.
 
 * ### SwiftUI SKIE observable (iOS 15 and later)
 
@@ -134,6 +134,8 @@ The goal of this playground is to align the behavior between the Android ViewMod
 Look at the logs I added to verify the lifecycle, it should be exactly the same on each approach.
 
 ## Getting the ViewModel or any instance from Swift and Koin
+>[!TIP]
+> If you want to use Koin with ViewModel into a shared KMP module without compose, you need to add this [method](https://github.com/frankois944/kmp-mvvm-exploration/blob/main/Shared/src/commonMain/kotlin/fr/frankois944/kmpviewmodel/di/KMPViewModelAnnotation.kt) inside 
 
 As this playground is using Koin, I want to get my ViewModel from it, not directly from the constructor (it's still working, but it's not great).
 
