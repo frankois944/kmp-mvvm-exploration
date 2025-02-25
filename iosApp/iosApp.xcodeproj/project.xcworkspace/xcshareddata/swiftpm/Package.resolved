@@ -1,13 +1,13 @@
 {
-  "originHash" : "4ff2674645d26e45ad40ea8b9243acdc37fa820535c4706453a40456cbfc0647",
+  "originHash" : "828451d685c18b7a0ddead3877729924e996016db169c62f3cf0cb2345117fe7",
   "pins" : [
     {
       "identity" : "ktviewmodelbuilder",
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/frankois944/KTViewModelBuilder",
       "state" : {
-        "revision" : "780c16f334ccab7de7987a109138b23a47cf5177",
-        "version" : "0.1.0"
+        "revision" : "96a97309003dbe23085cf72380cf2684de3b492a",
+        "version" : "0.2.0"
       }
     },
     {
