@@ -1,4 +1,4 @@
-package fr.frankois944.kmpviewmodel.datastore
+package fr.frankois944.kmpviewmodel.preferences
 
 import android.content.Context
 import fr.frankois944.kmpviewmodel.platform.IPlatform

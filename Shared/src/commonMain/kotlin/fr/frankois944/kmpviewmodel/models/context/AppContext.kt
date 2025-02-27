@@ -1,12 +1,11 @@
 package fr.frankois944.kmpviewmodel.models.context
 
 import co.touchlab.kermit.Logger
-import fr.frankois944.kmpviewmodel.models.context.preferences.IPersistingData
+import fr.frankois944.kmpviewmodel.preferences.IPersistingData
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.MutableStateFlow
 import org.koin.core.annotation.Single
 import org.koin.core.component.KoinComponent
-import org.koin.core.component.get
 import org.koin.core.component.inject
 import org.koin.core.parameter.parameterSetOf
 

@@ -1,4 +1,4 @@
-package fr.frankois944.kmpviewmodel.models.context.preferences
+package fr.frankois944.kmpviewmodel.preferences
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
@@ -17,6 +17,9 @@ import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.runBlocking
 
+/**
+ * A factory for persisting data with KMP DataStore
+ */
 internal class DataStoreFactory<T>(
     private val storage: DataStore<Preferences>,
     private val key: Preferences.Key<T>,

@@ -29,6 +29,11 @@ import org.koin.core.component.get
 import org.koin.core.parameter.parameterSetOf
 import kotlin.random.Random
 
+
+/**
+ * This an example of ViewModel used by iOS/SwiftUI and Android/Compose
+ * Working with Koin for dependency injection and KoinViewModel annotation
+ */
 @KoinViewModel
 public class MainScreenViewModel(
     @InjectedParam

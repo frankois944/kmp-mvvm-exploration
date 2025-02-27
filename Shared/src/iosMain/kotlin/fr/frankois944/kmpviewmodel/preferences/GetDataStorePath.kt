@@ -1,4 +1,4 @@
-package fr.frankois944.kmpviewmodel.datastore
+package fr.frankois944.kmpviewmodel.preferences
 
 import fr.frankois944.kmpviewmodel.platform.IPlatform
 import kotlinx.cinterop.ExperimentalForeignApi

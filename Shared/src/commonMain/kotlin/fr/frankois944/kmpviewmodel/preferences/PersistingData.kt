@@ -1,4 +1,4 @@
-package fr.frankois944.kmpviewmodel.models.context.preferences
+package fr.frankois944.kmpviewmodel.preferences
 
 import androidx.datastore.core.DataStore
 import androidx.datastore.preferences.core.Preferences
@@ -10,8 +10,10 @@ import org.koin.core.component.get
 import org.koin.core.component.inject
 import org.koin.core.parameter.parameterSetOf
 import org.koin.core.parameter.parametersOf
-import kotlin.coroutines.EmptyCoroutineContext.get
 
+/**
+ * Manage the persisting data, could be improved
+ */
 @Single
 internal class PersistingData(
     storage: DataStore<Preferences>,

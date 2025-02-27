@@ -9,8 +9,12 @@ import org.koin.core.annotation.InjectedParam
 import org.koin.core.annotation.Module
 import org.koin.core.annotation.Single
 
+/**
+ * Koin Module for Logger
+ */
 @Module
 internal class LoggerModule {
+    // The Kermit Config need to be created once
     @Single
     fun getLoggerConfig(platform: IPlatform): LoggerConfig =
         buildLoggerConfig(
@@ -18,6 +22,7 @@ internal class LoggerModule {
             isProduction = platform.isProduction,
         )
 
+    // Create an instance of the logger with a optional custom tag
     @Factory
     fun getLoggerWithTag(
         @InjectedParam tag: String?,

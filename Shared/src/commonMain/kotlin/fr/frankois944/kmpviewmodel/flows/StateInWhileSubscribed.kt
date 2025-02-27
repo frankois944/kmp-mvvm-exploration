@@ -7,6 +7,9 @@ import kotlinx.coroutines.flow.stateIn
 
 internal expect val timeout: Long
 
+/**
+ * State in while subscribed with timeout specified by the targeted platform
+ */
 internal fun <T> Flow<T>.stateInWhileSubscribed(
     viewModelScope: CoroutineScope,
     initialValue: T,
