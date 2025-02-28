@@ -1,22 +1,20 @@
 import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
+import kotlin.jvm.java
 
 plugins {
     alias(libs.plugins.kotlinMultiplatform)
     alias(libs.plugins.androidLibrary)
     alias(libs.plugins.ksp)
-    alias(libs.plugins.skie)
+    alias(libs.plugins.room)
     alias(libs.plugins.kotlinSerialization)
-    alias(libs.plugins.kover)
-    alias(libs.plugins.kotlinParcelize)
 }
 
 kotlin {
-    // every class, method, property must declare there visibility
-    explicitApi()
 
-    // Android
+    //explicitApi()
+
     androidTarget {
         // https://youtrack.jetbrains.com/issue/KT-66448
         @OptIn(ExperimentalKotlinGradlePluginApi::class)
@@ -25,20 +23,9 @@ kotlin {
         }
     }
 
-    // iOS
-    listOf(
-        // iosX64(),
-        iosArm64(),
-        iosSimulatorArm64(),
-    ).forEach {
-        it.binaries.framework {
-            baseName = "Shared"
-            isStatic = false
-            export(libs.kermit.simple)
-            export(libs.androidx.lifecycle.viewmodel)
-            binaryOption("bundleId", "fr.frankois944.kmpviewmodel.shared")
-        }
-    }
+    // iosX64(),
+    iosArm64()
+    iosSimulatorArm64()
 
     sourceSets.commonMain {
         kotlin.srcDir("build/generated/ksp/metadata")
@@ -46,37 +33,28 @@ kotlin {
 
     sourceSets {
         commonMain.dependencies {
-            implementation(projects.database)
-            implementation(libs.kotlin.coroutines)
-            implementation(libs.kotlin.serialization)
-            implementation(libs.kotlin.datetime)
             implementation(project.dependencies.platform(libs.koin.annotation.bom))
             implementation(project.dependencies.platform(libs.koin.bom))
             implementation(libs.bundles.koin.kmp)
-            implementation(libs.androidx.datastore.preferences.core)
-            implementation(libs.androidx.collection)
-            implementation(libs.okio)
-            implementation(libs.kermit)
-            implementation(libs.kermit.koin)
-            api(libs.androidx.lifecycle.viewmodel)
+            implementation(libs.androidx.room.runtime)
+            implementation(libs.kotlin.serialization)
+            implementation(libs.kotlin.coroutines)
+            implementation(libs.sqlite.bundled)
         }
+
         commonTest.dependencies {
-            implementation(libs.kotlin.test)
-            implementation(libs.koin.test)
-            implementation(libs.kotlin.coroutines.test)
-            implementation(libs.turbine)
-            implementation(libs.okio.fakefilesystem)
         }
-        iosMain.dependencies {
-            api(libs.kermit.simple)
-        }
+
         androidMain.dependencies {
+        }
+
+        iosMain.dependencies {
         }
     }
 }
 
 android {
-    namespace = "fr.frankois944.kmpviewmodel"
+    namespace = "fr.frankois944.kmpviewmodel.database"
     compileSdk =
         libs.versions.compileSdk
             .get()
@@ -96,6 +74,17 @@ android {
 dependencies {
     add("kspCommonMainMetadata", project.dependencies.platform(libs.koin.annotation.bom))
     add("kspCommonMainMetadata", libs.koin.annotation.ksp)
+    add("kspAndroid", project.dependencies.platform(libs.koin.annotation.bom))
+    add("kspAndroid", libs.koin.annotation.ksp)
+    add("kspIosSimulatorArm64", project.dependencies.platform(libs.koin.annotation.bom))
+    add("kspIosSimulatorArm64", libs.koin.annotation.ksp)
+//    add("kspIosX64", libs.koin.annotation.ksp)
+    add("kspIosArm64", project.dependencies.platform(libs.koin.annotation.bom))
+    add("kspIosArm64", libs.koin.annotation.ksp)
+    add("kspAndroid", libs.androidx.room.compiler)
+    add("kspIosSimulatorArm64", libs.androidx.room.compiler)
+//    add("kspIosX64", libs.androidx.room.compiler)
+    add("kspIosArm64", libs.androidx.room.compiler)
 }
 
 tasks.withType(KotlinCompilationTask::class.java).configureEach {
@@ -109,23 +98,6 @@ ksp {
     arg("KOIN_CONFIG_CHECK", "true")
 }
 
-kover {
-    useJacoco()
-    reports {
-        filters {
-            excludes {
-                packages("org.koin.ksp.generated")
-            }
-        }
-    }
-}
-
-skie {
-    features {
-        // https://skie.touchlab.co/features/flows-in-swiftui
-        enableSwiftUIObservingPreview = true
-        // https://skie.touchlab.co/features/combine
-        enableFutureCombineExtensionPreview = true
-        enableFlowCombineConvertorPreview = true
-    }
+room {
+    schemaDirectory("$projectDir/schemas")
 }

@@ -3,25 +3,27 @@ minSdk = "24"
 targetSdk = "35"
 compileSdk = "35"
 googleplay = "4.4.1"
-agp = "8.8.1"
+agp = "8.8.2"
 kotlin = "2.1.10"
 ksp = "2.1.10-1.0.30" # https://github.com/google/ksp/releases
 kotlin-coroutines = "1.10.1" # https://github.com/Kotlin/kotlinx.coroutines/releases
 koin = "4.0.2" # https://github.com/InsertKoinIO/koin/releases
 koin-annotation = "2.0.0" # https://github.com/InsertKoinIO/koin-annotations/releases
 android-compose-bom = "2025.02.00" # https://developer.android.com/develop/ui/compose/bom/bom-mapping
-android-activity-compose = "1.10.0" # https://developer.android.com/jetpack/androidx/releases/activity
+android-activity-compose = "1.10.1" # https://developer.android.com/jetpack/androidx/releases/activity
 androidx-lifecycle = "2.8.7" # https://developer.android.com/jetpack/androidx/releases/lifecycle
-android-navigation-compose = "2.8.7" # https://developer.android.com/jetpack/androidx/releases/navigation
+android-navigation-compose = "2.8.8" # https://developer.android.com/jetpack/androidx/releases/navigation
 skie = "0.10.1" # https://github.com/touchlab/SKIE/releases
 kotlin-serialization = "1.8.0" # https://github.com/Kotlin/kotlinx.serialization/releases
 kotlin-dateTime = "0.6.2" # https://github.com/Kotlin/kotlinx-datetime/releases
 kover = "0.9.1" # https://github.com/Kotlin/kotlinx-kover/releases
-datastorePreferencesCore = "1.1.2" # https://developer.android.com/jetpack/androidx/releases/datastore
+datastorePreferencesCore = "1.1.3" # https://developer.android.com/jetpack/androidx/releases/datastore
 collection = "1.4.5" # https://developer.android.com/jetpack/androidx/releases/collection
 kermit = "2.0.5" # https://github.com/touchlab/Kermit/releases
 okio = "3.10.2" # https://square.github.io/okio/changelog/
-turbine = "1.1.0"
+turbine = "1.2.0"
+androidx-room = "2.7.0-rc01"
+sqlite = "2.5.0-rc01"
 
 [libraries]
 # Kotlin
@@ -62,7 +64,12 @@ androidx-collection = { module = "androidx.collection:collection", version.ref =
 # OKIO
 okio = { module = "com.squareup.okio:okio", version.ref = "okio" }
 okio-fakefilesystem = { module = "com.squareup.okio:okio-fakefilesystem", version.ref = "okio" }
+# test
 turbine = { module = "app.cash.turbine:turbine", version.ref = "turbine" }
+# room
+androidx-room-compiler = { group = "androidx.room", name = "room-compiler", version.ref = "androidx-room" }
+androidx-room-runtime = { group = "androidx.room", name = "room-runtime", version.ref = "androidx-room" }
+sqlite-bundled = { module = "androidx.sqlite:sqlite-bundled", version.ref = "sqlite" }
 
 [bundles]
 androidx-compose = [
@@ -83,3 +90,4 @@ kotlinSerialization = { id = "org.jetbrains.kotlin.plugin.serialization", versio
 kover = { id = "org.jetbrains.kotlinx.kover", version.ref = "kover" }
 composeCompiler = { id = "org.jetbrains.kotlin.plugin.compose", version.ref = "kotlin" }
 kotlinParcelize = { id = "org.jetbrains.kotlin.plugin.parcelize", version.ref = "kotlin" }
+room = { id = "androidx.room", version.ref = "androidx-room" }
