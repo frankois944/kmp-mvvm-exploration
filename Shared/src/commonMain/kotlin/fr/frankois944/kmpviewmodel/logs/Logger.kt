@@ -5,10 +5,11 @@ import co.touchlab.kermit.loggerConfigInit
 import co.touchlab.kermit.platformLogWriter
 
 /**
- * Setup the logger and the log writers + severity
+ * Setup the logger and the log writers + severity, used by : LoggerModule.kt
  *
  * @param isDebug The app on debug mode which change the behaviour of the logger
  * @param isProduction The app on production mode which change the behaviour of the logger
+ *
  */
 internal fun buildLoggerConfig(
     isDebug: Boolean,
