@@ -6,7 +6,14 @@ import fr.frankois944.kmpviewmodel.database.room.AppDatabase
 import org.koin.core.annotation.Factory
 import org.koin.core.annotation.Single
 
-// WORKING
+/*
+di/FactoryModule
+@Module
+@ComponentScan("fr.frankois944.kmpviewmodel.database.factory")
+public class FactoryModule
+ */
+
+// NOT WORKING
 @Factory
 public expect class DBFactory {
     public fun createRoomDatabase() : AppDatabase
