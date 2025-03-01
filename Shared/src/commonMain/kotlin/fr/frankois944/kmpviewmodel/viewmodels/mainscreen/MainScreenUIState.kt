@@ -8,5 +8,5 @@ public sealed class MainScreenUIState {
 
     public data class Error(val message: String) : MainScreenUIState()
 
-    public data class Success(val profile: ProfileData, val account: AccountData) : MainScreenUIState()
+    public data class Success(val profile: ProfileData) : MainScreenUIState()
 }

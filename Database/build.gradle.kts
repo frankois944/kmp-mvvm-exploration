@@ -13,7 +13,7 @@ plugins {
 
 kotlin {
 
-    //explicitApi()
+    explicitApi()
 
     androidTarget {
         // https://youtrack.jetbrains.com/issue/KT-66448
@@ -35,8 +35,8 @@ kotlin {
         commonMain.dependencies {
             implementation(project.dependencies.platform(libs.koin.annotation.bom))
             implementation(project.dependencies.platform(libs.koin.bom))
-            implementation(libs.bundles.koin.kmp)
-            implementation(libs.androidx.room.runtime)
+            api(libs.bundles.koin.kmp)
+            api(libs.androidx.room.runtime)
             implementation(libs.kotlin.serialization)
             implementation(libs.kotlin.coroutines)
             implementation(libs.sqlite.bundled)
@@ -72,6 +72,7 @@ android {
 }
 
 dependencies {
+    // Koin Annotation
     add("kspCommonMainMetadata", project.dependencies.platform(libs.koin.annotation.bom))
     add("kspCommonMainMetadata", libs.koin.annotation.ksp)
     add("kspAndroid", project.dependencies.platform(libs.koin.annotation.bom))
@@ -81,6 +82,7 @@ dependencies {
 //    add("kspIosX64", libs.koin.annotation.ksp)
     add("kspIosArm64", project.dependencies.platform(libs.koin.annotation.bom))
     add("kspIosArm64", libs.koin.annotation.ksp)
+    // Room
     add("kspAndroid", libs.androidx.room.compiler)
     add("kspIosSimulatorArm64", libs.androidx.room.compiler)
 //    add("kspIosX64", libs.androidx.room.compiler)

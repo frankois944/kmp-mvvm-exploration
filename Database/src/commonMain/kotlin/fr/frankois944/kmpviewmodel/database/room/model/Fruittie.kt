@@ -1,4 +1,4 @@
-package fr.frankois944.kmpviewmodel.database.model
+package fr.frankois944.kmpviewmodel.database.room.model
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey

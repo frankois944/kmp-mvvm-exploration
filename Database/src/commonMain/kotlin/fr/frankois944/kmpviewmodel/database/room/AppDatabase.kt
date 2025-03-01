@@ -1,13 +1,12 @@
 @file:Suppress("EXPECT_ACTUAL_CLASSIFIERS_ARE_IN_BETA_WARNING")
 
-package fr.frankois944.kmpviewmodel.database
+package fr.frankois944.kmpviewmodel.database.room
 
 import androidx.room.ConstructedBy
 import androidx.room.Database
 import androidx.room.RoomDatabase
 import androidx.room.RoomDatabaseConstructor
-import fr.frankois944.kmpviewmodel.database.model.Fruittie
-import org.koin.core.annotation.Factory
+import fr.frankois944.kmpviewmodel.database.room.model.Fruittie
 
 @Database(entities = [Fruittie::class], version = 1)
 @ConstructedBy(AppDatabaseConstructor::class)

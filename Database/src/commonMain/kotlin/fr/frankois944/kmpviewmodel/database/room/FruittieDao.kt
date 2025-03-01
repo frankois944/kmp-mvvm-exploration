@@ -1,11 +1,11 @@
-package fr.frankois944.kmpviewmodel.database
+package fr.frankois944.kmpviewmodel.database.room
 
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.MapColumn
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import fr.frankois944.kmpviewmodel.database.model.Fruittie
+import fr.frankois944.kmpviewmodel.database.room.model.Fruittie
 import kotlinx.coroutines.flow.Flow
 
 @Dao
@@ -32,4 +32,7 @@ public interface FruittieDao {
             Long,
             Fruittie,
             >
+
+    @Query("DELETE FROM Fruittie")
+    public suspend fun deleteAll()
 }
