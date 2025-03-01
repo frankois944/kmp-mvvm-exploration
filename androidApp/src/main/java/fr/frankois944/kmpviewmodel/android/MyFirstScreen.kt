@@ -23,13 +23,11 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import co.touchlab.kermit.Logger
-import fr.frankois944.kmpviewmodel.models.dto.AccountData
 import fr.frankois944.kmpviewmodel.models.dto.FruitData
 import fr.frankois944.kmpviewmodel.models.dto.ProfileData
 import fr.frankois944.kmpviewmodel.viewmodels.mainscreen.MainScreenUIState
 import fr.frankois944.kmpviewmodel.viewmodels.mainscreen.MainScreenViewModel
 import fr.frankois944.kmpviewmodel.viewmodels.mainscreen.MyFirstScreenUiEvents
-import kotlinx.coroutines.flow.StateFlow
 import org.koin.androidx.compose.koinViewModel
 import org.koin.compose.koinInject
 import org.koin.core.parameter.parametersOf
@@ -56,6 +54,8 @@ fun MyFirstScreen(
                 is MyFirstScreenUiEvents.NextView -> onNextView()
                 is MyFirstScreenUiEvents.Retry -> viewModel.reload()
                 is MyFirstScreenUiEvents.UpdateUserId -> viewModel.updateUserId()
+                is MyFirstScreenUiEvents.AddNewFruit -> viewModel.addRandomValueToDatabase()
+                is MyFirstScreenUiEvents.RemoveAllFruit -> viewModel.removeAllValueFromDatabase()
             }
         },
     )
@@ -105,6 +105,12 @@ fun MyFirstView(
                     Button(onClick = { events(MyFirstScreenUiEvents.UpdateUserId("42")) }) {
                         Text(text = "RANDOM")
                     }
+                    Button(onClick = { events(MyFirstScreenUiEvents.AddNewFruit()) }) {
+                        Text(text = "Add a new fruit")
+                    }
+                    Button(onClick = { events(MyFirstScreenUiEvents.RemoveAllFruit()) }) {
+                        Text(text = "Remove all fruits")
+                    }
                     Text(
                         text = "Vos transactions",
                     )
@@ -138,7 +144,7 @@ private fun MyFirstPreviewViewLoading() {
             MyFirstView(
                 mainScreenUIState = MainScreenUIState.Loading,
                 userId = "sqd",
-                fruits = emptyList()
+                fruits = emptyList(),
             )
         }
     }
@@ -154,7 +160,7 @@ private fun MyFirstPreviewViewError() {
             MyFirstView(
                 mainScreenUIState = MainScreenUIState.Error("An error"),
                 userId = "sdfsdf",
-                fruits = emptyList()
+                fruits = emptyList(),
             )
         }
     }
@@ -173,7 +179,7 @@ private fun MyFirstPreviewViewSuccess() {
                         profile = ProfileData("Joker"),
                     ),
                 userId = "sdffds",
-                fruits = emptyList()
+                fruits = emptyList(),
             )
         }
     }

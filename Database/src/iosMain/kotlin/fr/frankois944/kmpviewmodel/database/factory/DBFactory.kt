@@ -10,36 +10,37 @@ import kotlinx.coroutines.IO
 import org.koin.core.annotation.Factory
 import org.koin.core.annotation.Single
 import platform.Foundation.NSDocumentDirectory
-import platform.Foundation.NSUserDomainMask
-import platform.Foundation.NSURL
 import platform.Foundation.NSFileManager
+import platform.Foundation.NSURL
+import platform.Foundation.NSUserDomainMask
 
 @Factory
 public actual class DBFactory {
     public actual fun createRoomDatabase(): AppDatabase {
-        val dbFile = "${fileDirectory()}/${dbFileName}"
-        return androidx.room.Room.databaseBuilder<AppDatabase>(
-            name = dbFile,
-        )
-            .setDriver(androidx.sqlite.driver.NativeSQLiteDriver())
+        val dbFile = "${fileDirectory()}/$dbFileName"
+        return androidx.room.Room
+            .databaseBuilder<AppDatabase>(
+                name = dbFile,
+            ).setDriver(androidx.sqlite.driver.NativeSQLiteDriver())
             .setQueryCoroutineContext(kotlinx.coroutines.Dispatchers.IO)
             .build()
     }
 
     private fun fileDirectory(): String {
-        val documentDirectory: NSURL? = NSFileManager.defaultManager.URLForDirectory(
-            directory = NSDocumentDirectory,
-            inDomain = NSUserDomainMask,
-            appropriateForURL = null,
-            create = false,
-            error = null,
-        )
+        val documentDirectory: NSURL? =
+            NSFileManager.defaultManager.URLForDirectory(
+                directory = NSDocumentDirectory,
+                inDomain = NSUserDomainMask,
+                appropriateForURL = null,
+                create = false,
+                error = null,
+            )
         return requireNotNull(documentDirectory).path!!
     }
 }
 
 @Single
-public actual class PlatformHelper(){
+public actual class PlatformHelper {
     public actual fun getName(): String = "I'm Native"
 }
 

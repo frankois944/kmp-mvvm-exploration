@@ -12,14 +12,16 @@ import org.koin.core.annotation.Factory
 import org.koin.core.annotation.Single
 
 @Factory
-public actual class DBFactory(private val app: Context) {
+public actual class DBFactory(
+    private val app: Context,
+) {
     public actual fun createRoomDatabase(): AppDatabase {
         val dbFile = app.getDatabasePath(dbFileName)
-        return Room.databaseBuilder<AppDatabase>(
-            context = app,
-            name = dbFile.absolutePath,
-        )
-            .setDriver(BundledSQLiteDriver())
+        return Room
+            .databaseBuilder<AppDatabase>(
+                context = app,
+                name = dbFile.absolutePath,
+            ).setDriver(BundledSQLiteDriver())
             .setQueryCoroutineContext(Dispatchers.IO)
             .build()
     }
@@ -27,8 +29,8 @@ public actual class DBFactory(private val app: Context) {
 
 @Single
 public actual class PlatformHelper(
-    public val context: Context
-){
+    public val context: Context,
+) {
     public actual fun getName(): String = "I'm Android - $context"
 }
 

@@ -15,4 +15,8 @@ public sealed class MyFirstScreenUiEvents : ScreenUiEvent() {
     ) : MyFirstScreenUiEvents()
 
     public class NextView : MyFirstScreenUiEvents()
+
+    public class AddNewFruit : MyFirstScreenUiEvents()
+
+    public class RemoveAllFruit : MyFirstScreenUiEvents()
 }

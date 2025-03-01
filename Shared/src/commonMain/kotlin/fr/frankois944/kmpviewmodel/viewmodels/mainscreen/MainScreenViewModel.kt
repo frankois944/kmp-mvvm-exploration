@@ -29,7 +29,7 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.get
 import org.koin.core.parameter.parameterSetOf
 import kotlin.random.Random
-
+import kotlin.random.nextUInt
 
 /**
  * This an example of ViewModel used by iOS/SwiftUI and Android/Compose
@@ -51,8 +51,10 @@ public class MainScreenViewModel(
         logger.d("INIT with params $param1")
     }
 
-    private val _datasource = accountService.getAllFruitsAsFlow()
-    public val datasource: StateFlow<List<FruitData>> = _datasource.stateInWhileSubscribed(viewModelScope, emptyList())
+    public val datasource: StateFlow<List<FruitData>> =
+        accountService
+            .getAllFruitsAsFlow()
+            .stateInWhileSubscribed(viewModelScope, emptyList())
 
     private val _intNullValue = MutableStateFlow<Int?>(null)
     public val intNullValue: StateFlow<Int?> = _intNullValue
@@ -88,6 +90,22 @@ public class MainScreenViewModel(
                 emit(MainScreenUIState.Error("Something bad happened $ex"))
             }
         }
+
+    public fun addRandomValueToDatabase() {
+        viewModelScope.launch {
+            accountService.addFruit(
+                name = "Fruit:${Random.nextUInt()}",
+                fullName = "FullName:${Random.nextUInt()}",
+                calories = Random.nextInt().toString(),
+            )
+        }
+    }
+
+    public fun removeAllValueFromDatabase() {
+        viewModelScope.launch {
+            accountService.removeAllFruit()
+        }
+    }
 
     public fun reload(): Job =
         viewModelScope.launch {
