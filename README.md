@@ -2,6 +2,11 @@
 
 I'm trying to find a good solution for using the MVVM pattern with the KMP ViewModel on SwiftUI/UIKit.
 
+> [!IMPORTANT]  
+> This project is not a guide nor a guideline, just a direction about using KMP with iOS.
+>
+> Take it the way you want; it's more than a proof of concept than a real project.
+
 It's not that simple, I've been working on it for some time, and with the advancement of KMP, it sounds easier, but not so much :)
 
 The KMP ViewModel approach on [Android is fully supported](https://developer.android.com/topic/libraries/architecture/viewmodel), using Kotlin multiplatform or not, it's the same implementation.
