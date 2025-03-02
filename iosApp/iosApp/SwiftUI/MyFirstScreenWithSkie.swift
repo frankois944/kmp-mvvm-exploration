@@ -28,6 +28,7 @@ struct MyFirstScreenWithSkie: View {
     var body: some View {
         MyFirstView(mainScreenUIState: mainScreenUIState,
                     userId: userId,
+                    fruits: fruits,
                     events: $events)
             .onDisappear {
                 // Disposing is useful when the View is not destroyed when pop from the navigation Stack
@@ -45,9 +46,9 @@ struct MyFirstScreenWithSkie: View {
                 case .nextView:
                     onNextView()
                 case .addNewFruit:
-                    viewModel.instance.addRandomValueToDatabase()
+                    viewModel.instance.addRandomFruitToDatabase()
                 case .removeAllFruit:
-                    viewModel.instance.removeAllValueFromDatabase()
+                    viewModel.instance.removeAllFruitFromDatabase()
                 case .none:
                     break
                 }

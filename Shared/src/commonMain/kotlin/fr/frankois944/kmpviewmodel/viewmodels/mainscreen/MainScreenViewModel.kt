@@ -91,7 +91,7 @@ public class MainScreenViewModel(
             }
         }
 
-    public fun addRandomValueToDatabase() {
+    public fun addRandomFruitToDatabase() {
         viewModelScope.launch {
             val idValue = Random.nextUInt()
             accountService.addFruit(
@@ -102,7 +102,7 @@ public class MainScreenViewModel(
         }
     }
 
-    public fun removeAllValueFromDatabase() {
+    public fun removeAllFruitFromDatabase() {
         viewModelScope.launch {
             accountService.removeAllFruit()
         }

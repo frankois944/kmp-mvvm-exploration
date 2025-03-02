@@ -28,7 +28,7 @@ class MyFirstScreenViewController: UIViewController {
     private let logger: KermitLogger = koinGet(parameters: ["MyFirstScreenViewController"])
     private var disposebag = Set<AnyCancellable>()
     private var jobDisposeBag = CoroutineJobDisposeBag()
-    private var dataList: [String]?
+    private var dataList: [FruitData]?
     var param1: String?
     var onNextView: (() -> Void)?
 
@@ -57,9 +57,14 @@ class MyFirstScreenViewController: UIViewController {
                 case .success(let value):
                     self?.successView.isHidden = false
                     self?.userNaneLabel.text = value.profile.username
-                    // self?.dataList = value.account.transaction
-                    self?.tableView.reloadData()
                 }
+            }
+            .store(in: &disposebag)
+        viewModel.instance.datasource.toPublisher()
+            .receive(on: DispatchQueue.main)
+            .sink { [weak self] in
+                self?.dataList = $0
+                self?.tableView.reloadData()
             }
             .store(in: &disposebag)
         viewModel.instance.userId.toPublisher()
@@ -107,7 +112,7 @@ extension MyFirstScreenViewController: UITableViewDataSource {
 
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = UITableViewCell(style: .default, reuseIdentifier: "Cell")
-        cell.textLabel?.text = dataList?[indexPath.row] ?? "N/A"
+        cell.textLabel?.text = dataList?[indexPath.row].fullName ?? "N/A"
         return cell
     }
 

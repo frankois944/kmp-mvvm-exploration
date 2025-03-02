@@ -54,8 +54,8 @@ fun MyFirstScreen(
                 is MyFirstScreenUiEvents.NextView -> onNextView()
                 is MyFirstScreenUiEvents.Retry -> viewModel.reload()
                 is MyFirstScreenUiEvents.UpdateUserId -> viewModel.updateUserId()
-                is MyFirstScreenUiEvents.AddNewFruit -> viewModel.addRandomValueToDatabase()
-                is MyFirstScreenUiEvents.RemoveAllFruit -> viewModel.removeAllValueFromDatabase()
+                is MyFirstScreenUiEvents.AddNewFruit -> viewModel.addRandomFruitToDatabase()
+                is MyFirstScreenUiEvents.RemoveAllFruit -> viewModel.removeAllFruitFromDatabase()
             }
         },
     )

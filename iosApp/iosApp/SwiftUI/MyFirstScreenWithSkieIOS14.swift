@@ -28,6 +28,7 @@ struct MyFirstScreenWithSkieIOS14: View {
     var body: some View {
         MyFirstView(mainScreenUIState: mainScreenUIState,
                     userId: userId,
+                    fruits: fruits,
                     events: $events)
             .collect(
                 flow: viewModel.instance.userId,
@@ -58,9 +59,9 @@ struct MyFirstScreenWithSkieIOS14: View {
                 case .nextView:
                     onNextView()
                 case .addNewFruit:
-                    viewModel.instance.addRandomValueToDatabase()
+                    viewModel.instance.addRandomFruitToDatabase()
                 case .removeAllFruit:
-                    viewModel.instance.removeAllValueFromDatabase()
+                    viewModel.instance.removeAllFruitFromDatabase()
                 case .none:
                     break
                 }

@@ -50,14 +50,14 @@ class FirstScreenViewModel: ObservableObject {
         eventBus.publish(name: .shareContent, value: nil)
     }
 
-    func addRandomValueToDatabase() async {
+    func addRandomFruitToDatabase() async {
         let idValue = "\(Int.random(in: 1..<Int.max))"
         try? await accountService.addFruit(name: "Fruit:\(idValue)",
                                            fullName: "FullName:\(idValue)",
                                            calories: "\(idValue)")
     }
 
-    func removeAllValueFromDatabase() async {
+    func removeAllFruitFromDatabase() async {
         try? await accountService.removeAllFruit()
     }
 
@@ -87,7 +87,7 @@ class FirstScreenViewModel: ObservableObject {
 
 struct MyFirstScreenWithSwiftViewModel: View {
     @StateObject private var viewModel = FirstScreenViewModel(param1: nil)
-    @State private var reloadingTask = Set<Task<(), Never>>()
+    @State private var asyncTask = Set<Task<(), Never>>()
     @State private var events: MyFirstScreenUiEvents?
     let onNextView: () -> Void
 
@@ -95,12 +95,13 @@ struct MyFirstScreenWithSwiftViewModel: View {
         VStack {
             MyFirstView(mainScreenUIState: viewModel.mainScreenUIState,
                         userId: viewModel.userId,
+                        fruits: viewModel.fruits,
                         events: $events)
         }
         .onChange(of: events, perform: {
             switch onEnum(of: $0) {
             case .retry:
-                reloadingTask.insert(Task {
+                asyncTask.insert(Task {
                     await viewModel.loadData(reloading: true)
                 })
             case .updateUserId:
@@ -108,9 +109,13 @@ struct MyFirstScreenWithSwiftViewModel: View {
             case .nextView:
                 onNextView()
             case .addNewFruit:
-                break
+                asyncTask.insert(Task {
+                    await viewModel.addRandomFruitToDatabase()
+                })
             case .removeAllFruit:
-                break
+                asyncTask.insert(Task {
+                    await viewModel.removeAllFruitFromDatabase()
+                })
             case .none:
                 break
             }
@@ -118,7 +123,7 @@ struct MyFirstScreenWithSwiftViewModel: View {
         .onDisappear {
             // Canceling is useful when the View is not destroyed when pop from the navigation Stack
             // For example: using NavigationView instead of NavigationStack
-            reloadingTask.forEach { $0.cancel() }
+            asyncTask.forEach { $0.cancel() }
         }
         .task {
             await viewModel.loadData()

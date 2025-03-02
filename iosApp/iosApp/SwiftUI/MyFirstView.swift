@@ -14,8 +14,9 @@ import Shared
 struct MyFirstView: View {
     let mainScreenUIState: MainScreenUIState
     let userId: String?
+    let fruits: [FruitData]
     @Binding var events: MyFirstScreenUiEvents?
-    @State private var selection: String?
+    @State private var selection: FruitData?
 
     var body: some View {
         VStack {
@@ -41,20 +42,19 @@ struct MyFirstView: View {
                     events = .UpdateUserId(value: "42")
                 })
                 Text("Vos transactions")
-                    /* List(success.account.transaction,
+                List(fruits,
                      id: \.self,
                      selection: $selection) {
-                     Text($0)
-                     .fontWeight(.semibold)
-                     }*/
-                    .onChange(of: selection, perform: {
-                        if $0 != nil {
-                            events = .NextView()
-                        }
-                    })
-                    .onDisappear(perform: {
-                        selection = nil
-                    })
+                    Text($0.fullName)
+                        .fontWeight(.semibold)
+                }.onChange(of: selection, perform: {
+                    if $0 != nil {
+                        events = .NextView()
+                    }
+                })
+                .onDisappear(perform: {
+                    selection = nil
+                })
             }
         }
     }
@@ -63,17 +63,20 @@ struct MyFirstView: View {
 #Preview("LOADING") {
     MyFirstView(mainScreenUIState: .Loading(),
                 userId: "",
+                fruits: [],
                 events: .constant(nil))
 }
 
 #Preview("ERROR") {
     MyFirstView(mainScreenUIState: .Error(message: "An error"),
                 userId: "",
+                fruits: [],
                 events: .constant(nil))
 }
 
 #Preview("DONE") {
     MyFirstView(mainScreenUIState: .Success(profile: .init(username: "Joker")),
                 userId: "",
+                fruits: [],
                 events: .constant(nil))
 }

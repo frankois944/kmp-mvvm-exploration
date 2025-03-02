@@ -31,6 +31,7 @@ struct MyFirstScreenWithMacro: View {
         VStack {
             MyFirstView(mainScreenUIState: viewModel.mainScreenUIState,
                         userId: viewModel.userId,
+                        fruits: viewModel.datasource,
                         events: $events)
         }
         .onDisappear {
@@ -49,9 +50,9 @@ struct MyFirstScreenWithMacro: View {
             case .nextView:
                 onNextView()
             case .addNewFruit:
-                viewModel.instance.addRandomValueToDatabase()
+                viewModel.instance.addRandomFruitToDatabase()
             case .removeAllFruit:
-                viewModel.instance.removeAllValueFromDatabase()
+                viewModel.instance.removeAllFruitFromDatabase()
             case .none:
                 break
             }
