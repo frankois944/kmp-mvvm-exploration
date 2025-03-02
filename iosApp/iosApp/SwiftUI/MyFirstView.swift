@@ -41,20 +41,20 @@ struct MyFirstView: View {
                     events = .UpdateUserId(value: "42")
                 })
                 Text("Vos transactions")
-                List(success.account.transaction,
+                    /* List(success.account.transaction,
                      id: \.self,
                      selection: $selection) {
-                    Text($0)
-                        .fontWeight(.semibold)
-                }
-                .onChange(of: selection, perform: {
-                    if $0 != nil {
-                        events = .NextView()
-                    }
-                })
-                .onDisappear(perform: {
-                    selection = nil
-                })
+                     Text($0)
+                     .fontWeight(.semibold)
+                     }*/
+                    .onChange(of: selection, perform: {
+                        if $0 != nil {
+                            events = .NextView()
+                        }
+                    })
+                    .onDisappear(perform: {
+                        selection = nil
+                    })
             }
         }
     }
@@ -73,8 +73,7 @@ struct MyFirstView: View {
 }
 
 #Preview("DONE") {
-    MyFirstView(mainScreenUIState: .Success(profile: .init(username: "Joker"),
-                                            account: .init(transaction: ["Tr1", "Tr2"])),
+    MyFirstView(mainScreenUIState: .Success(profile: .init(username: "Joker")),
                 userId: "",
                 events: .constant(nil))
 }

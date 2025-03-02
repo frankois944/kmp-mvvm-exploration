@@ -93,10 +93,11 @@ public class MainScreenViewModel(
 
     public fun addRandomValueToDatabase() {
         viewModelScope.launch {
+            val idValue = Random.nextUInt()
             accountService.addFruit(
-                name = "Fruit:${Random.nextUInt()}",
-                fullName = "FullName:${Random.nextUInt()}",
-                calories = Random.nextInt().toString(),
+                name = "Fruit:$idValue",
+                fullName = "FullName:$idValue",
+                calories = idValue.toString(),
             )
         }
     }

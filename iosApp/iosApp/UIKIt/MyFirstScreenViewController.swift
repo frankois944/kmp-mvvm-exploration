@@ -57,7 +57,7 @@ class MyFirstScreenViewController: UIViewController {
                 case .success(let value):
                     self?.successView.isHidden = false
                     self?.userNaneLabel.text = value.profile.username
-                    self?.dataList = value.account.transaction
+                    // self?.dataList = value.account.transaction
                     self?.tableView.reloadData()
                 }
             }

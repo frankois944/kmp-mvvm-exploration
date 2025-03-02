@@ -6,8 +6,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/frankois944/KTViewModelBuilder",
       "state" : {
-        "revision" : "96a97309003dbe23085cf72380cf2684de3b492a",
-        "version" : "0.2.0"
+        "revision" : "1a55b73e11d4582b94ff5522fd82186a6d0e44ec",
+        "version" : "0.3.0"
       }
     },
     {

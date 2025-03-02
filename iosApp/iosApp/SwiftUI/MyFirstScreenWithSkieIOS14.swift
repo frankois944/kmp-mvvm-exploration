@@ -15,6 +15,7 @@ struct MyFirstScreenWithSkieIOS14: View {
     @State private var mainScreenUIState: MainScreenUIState = .Loading()
     @State private var userId: String?
     @State private var jobDisposeBag = CoroutineJobDisposeBag()
+    @State private var fruits = [FruitData]()
     @State private var events: MyFirstScreenUiEvents?
     @State var disposebag = Set<Task<(), Never>>()
     let onNextView: () -> Void
@@ -38,6 +39,11 @@ struct MyFirstScreenWithSkieIOS14: View {
                 into: $mainScreenUIState,
                 disposedBy: $disposebag
             )
+            .collect(
+                flow: viewModel.instance.datasource,
+                into: $fruits,
+                disposedBy: $disposebag
+            )
             .onDisappear(perform: {
                 disposebag.removeAll()
             })
@@ -51,6 +57,10 @@ struct MyFirstScreenWithSkieIOS14: View {
                     viewModel.instance.updateUserId()
                 case .nextView:
                     onNextView()
+                case .addNewFruit:
+                    viewModel.instance.addRandomValueToDatabase()
+                case .removeAllFruit:
+                    viewModel.instance.removeAllValueFromDatabase()
                 case .none:
                     break
                 }

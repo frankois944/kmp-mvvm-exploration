@@ -15,7 +15,8 @@ import Shared
                         .init(\.mainScreenUIState, MainScreenUIState.self),
                     .init(\.userId, String?.self),
                     .init(\.intNotNullValue, Int.self),
-                    .init(\.intNullValue, Int?.self)
+                    .init(\.intNullValue, Int?.self),
+                    .init(\.datasource, [FruitData].self)
 )
 class MyMainScreenViewModel: ObservableObject {}
 
@@ -47,6 +48,10 @@ struct MyFirstScreenWithMacro: View {
                 viewModel.instance.updateUserId()
             case .nextView:
                 onNextView()
+            case .addNewFruit:
+                viewModel.instance.addRandomValueToDatabase()
+            case .removeAllFruit:
+                viewModel.instance.removeAllValueFromDatabase()
             case .none:
                 break
             }
