@@ -9,6 +9,7 @@ import fr.frankois944.kmpviewmodel.flows.stateInWhileSubscribed
 import fr.frankois944.kmpviewmodel.helpers.eventbus.AppEvents
 import fr.frankois944.kmpviewmodel.helpers.eventbus.IEventBus
 import fr.frankois944.kmpviewmodel.models.context.AppContext
+import fr.frankois944.kmpviewmodel.models.dto.FruitData
 import fr.frankois944.kmpviewmodel.models.services.account.IAccountService
 import fr.frankois944.kmpviewmodel.models.services.profile.IProfileService
 import kotlinx.coroutines.ExperimentalCoroutinesApi
@@ -28,7 +29,7 @@ import org.koin.core.component.KoinComponent
 import org.koin.core.component.get
 import org.koin.core.parameter.parameterSetOf
 import kotlin.random.Random
-
+import kotlin.random.nextUInt
 
 /**
  * This an example of ViewModel used by iOS/SwiftUI and Android/Compose
@@ -50,10 +51,16 @@ public class MainScreenViewModel(
         logger.d("INIT with params $param1")
     }
 
+    public val datasource: StateFlow<List<FruitData>> =
+        accountService
+            .getAllFruitsAsFlow()
+            .stateInWhileSubscribed(viewModelScope, emptyList())
+
     private val _intNullValue = MutableStateFlow<Int?>(null)
     public val intNullValue: StateFlow<Int?> = _intNullValue
     private val _intNotNullValue = MutableStateFlow(0)
     public val intNotNullValue: StateFlow<Int> = _intNotNullValue
+
     // <editor-fold desc="MainScreenUIState">
 
     private val _mainScreenUIState = MutableSharedFlow<MainScreenUIState>()
@@ -71,19 +78,35 @@ public class MainScreenViewModel(
                 emit(MainScreenUIState.Loading)
                 logger.d("START LOADING SCREEN")
                 val profileData = profileService.getProfile()
-                val accountData = accountService.getAccountInfo()
                 delay(3000)
                 // simulate an error
                 if (reloading) {
                     throw Exception("Oups")
                 }
                 logger.d("OK LOADING SCREEN")
-                emit(MainScreenUIState.Success(profileData, accountData))
+                emit(MainScreenUIState.Success(profileData))
             } catch (ex: Exception) {
                 logger.e("FAILING LOADING SCREEN", ex)
                 emit(MainScreenUIState.Error("Something bad happened $ex"))
             }
         }
+
+    public fun addRandomFruitToDatabase() {
+        viewModelScope.launch {
+            val idValue = Random.nextUInt()
+            accountService.addFruit(
+                name = "Fruit:$idValue",
+                fullName = "FullName:$idValue",
+                calories = idValue.toString(),
+            )
+        }
+    }
+
+    public fun removeAllFruitFromDatabase() {
+        viewModelScope.launch {
+            accountService.removeAllFruit()
+        }
+    }
 
     public fun reload(): Job =
         viewModelScope.launch {

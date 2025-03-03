@@ -19,5 +19,7 @@ dependencyResolutionManagement {
 }
 
 rootProject.name = "kmp-viewmodel"
+include(":Database")
 include(":androidApp")
 include(":Shared")
+

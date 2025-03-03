@@ -16,6 +16,7 @@ struct MyFirstScreenWithSkie: View {
     @State private var mainScreenUIState: MainScreenUIState = .Loading()
     @State private var userId: String?
     @State private var jobDisposeBag = CoroutineJobDisposeBag()
+    @State private var fruits = [FruitData]()
     @State private var events: MyFirstScreenUiEvents?
     let onNextView: () -> Void
 
@@ -27,6 +28,7 @@ struct MyFirstScreenWithSkie: View {
     var body: some View {
         MyFirstView(mainScreenUIState: mainScreenUIState,
                     userId: userId,
+                    fruits: fruits,
                     events: $events)
             .onDisappear {
                 // Disposing is useful when the View is not destroyed when pop from the navigation Stack
@@ -43,6 +45,10 @@ struct MyFirstScreenWithSkie: View {
                     viewModel.instance.updateUserId()
                 case .nextView:
                     onNextView()
+                case .addNewFruit:
+                    viewModel.instance.addRandomFruitToDatabase()
+                case .removeAllFruit:
+                    viewModel.instance.removeAllFruitFromDatabase()
                 case .none:
                     break
                 }
@@ -53,6 +59,10 @@ struct MyFirstScreenWithSkie: View {
             }
             .collect(flow: viewModel.instance.userId, into: $userId) {
                 print("COLLECTING userId : \(String(describing: $0))")
+                return $0
+            }
+            .collect(flow: viewModel.instance.datasource, into: $fruits) {
+                print("COLLECTING fruits : \(String(describing: $0))")
                 return $0
             }
     }

@@ -15,7 +15,8 @@ import Shared
                         .init(\.mainScreenUIState, MainScreenUIState.self),
                     .init(\.userId, String?.self),
                     .init(\.intNotNullValue, Int.self),
-                    .init(\.intNullValue, Int?.self)
+                    .init(\.intNullValue, Int?.self),
+                    .init(\.datasource, [FruitData].self)
 )
 class MyMainScreenViewModel: ObservableObject {}
 
@@ -30,6 +31,7 @@ struct MyFirstScreenWithMacro: View {
         VStack {
             MyFirstView(mainScreenUIState: viewModel.mainScreenUIState,
                         userId: viewModel.userId,
+                        fruits: viewModel.datasource,
                         events: $events)
         }
         .onDisappear {
@@ -47,6 +49,10 @@ struct MyFirstScreenWithMacro: View {
                 viewModel.instance.updateUserId()
             case .nextView:
                 onNextView()
+            case .addNewFruit:
+                viewModel.instance.addRandomFruitToDatabase()
+            case .removeAllFruit:
+                viewModel.instance.removeAllFruitFromDatabase()
             case .none:
                 break
             }

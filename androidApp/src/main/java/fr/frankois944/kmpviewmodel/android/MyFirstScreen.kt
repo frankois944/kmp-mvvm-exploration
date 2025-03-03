@@ -23,7 +23,7 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.lifecycle.compose.collectAsStateWithLifecycle
 import co.touchlab.kermit.Logger
-import fr.frankois944.kmpviewmodel.models.dto.AccountData
+import fr.frankois944.kmpviewmodel.models.dto.FruitData
 import fr.frankois944.kmpviewmodel.models.dto.ProfileData
 import fr.frankois944.kmpviewmodel.viewmodels.mainscreen.MainScreenUIState
 import fr.frankois944.kmpviewmodel.viewmodels.mainscreen.MainScreenViewModel
@@ -42,16 +42,20 @@ fun MyFirstScreen(
 ) {
     val mainScreenUIState by viewModel.mainScreenUIState.collectAsStateWithLifecycle()
     val userId by viewModel.userId.collectAsStateWithLifecycle()
+    val fruits by viewModel.datasource.collectAsStateWithLifecycle()
 
     MyFirstView(
         modifier = modifier.fillMaxSize(),
         mainScreenUIState = mainScreenUIState,
         userId = userId,
+        fruits = fruits,
         events = {
             when (it) {
                 is MyFirstScreenUiEvents.NextView -> onNextView()
                 is MyFirstScreenUiEvents.Retry -> viewModel.reload()
                 is MyFirstScreenUiEvents.UpdateUserId -> viewModel.updateUserId()
+                is MyFirstScreenUiEvents.AddNewFruit -> viewModel.addRandomFruitToDatabase()
+                is MyFirstScreenUiEvents.RemoveAllFruit -> viewModel.removeAllFruitFromDatabase()
             }
         },
     )
@@ -62,6 +66,7 @@ fun MyFirstView(
     modifier: Modifier = Modifier,
     mainScreenUIState: MainScreenUIState,
     userId: String?,
+    fruits: List<FruitData>,
     events: (MyFirstScreenUiEvents) -> Unit = {},
 ) {
     Column(modifier = modifier) {
@@ -100,13 +105,19 @@ fun MyFirstView(
                     Button(onClick = { events(MyFirstScreenUiEvents.UpdateUserId("42")) }) {
                         Text(text = "RANDOM")
                     }
+                    Button(onClick = { events(MyFirstScreenUiEvents.AddNewFruit()) }) {
+                        Text(text = "Add a new fruit")
+                    }
+                    Button(onClick = { events(MyFirstScreenUiEvents.RemoveAllFruit()) }) {
+                        Text(text = "Remove all fruits")
+                    }
                     Text(
                         text = "Vos transactions",
                     )
                     LazyColumn {
-                        items(items = data.account.transaction) { transaction ->
+                        items(items = fruits) { fruit ->
                             Text(
-                                text = transaction,
+                                text = fruit.fullName,
                                 fontWeight = FontWeight.SemiBold,
                                 modifier =
                                     Modifier
@@ -133,6 +144,7 @@ private fun MyFirstPreviewViewLoading() {
             MyFirstView(
                 mainScreenUIState = MainScreenUIState.Loading,
                 userId = "sqd",
+                fruits = emptyList(),
             )
         }
     }
@@ -148,6 +160,7 @@ private fun MyFirstPreviewViewError() {
             MyFirstView(
                 mainScreenUIState = MainScreenUIState.Error("An error"),
                 userId = "sdfsdf",
+                fruits = emptyList(),
             )
         }
     }
@@ -164,9 +177,9 @@ private fun MyFirstPreviewViewSuccess() {
                 mainScreenUIState =
                     MainScreenUIState.Success(
                         profile = ProfileData("Joker"),
-                        account = AccountData(transaction = listOf("Tr1", "Tr2")),
                     ),
                 userId = "sdffds",
+                fruits = emptyList(),
             )
         }
     }
