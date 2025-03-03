@@ -17,7 +17,7 @@ public val databaseModule: org.koin.core.module.Module =
 
 @Module
 @ComponentScan("fr.frankois944.kmpviewmodel.database.room")
-public class DatabaseFactoryModule {
+internal class DatabaseFactoryModule {
     @Single
-    public fun database(factory: DBFactory): AppDatabase = factory.createRoomDatabase()
+    internal fun database(factory: DBFactory): AppDatabase = factory.createRoomDatabase()
 }

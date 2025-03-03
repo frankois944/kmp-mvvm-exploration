@@ -4,6 +4,6 @@ package fr.frankois944.kmpviewmodel.database.factory
 
 import fr.frankois944.kmpviewmodel.database.room.AppDatabase
 
-public expect class DBFactory() {
-    public fun createRoomDatabase(): AppDatabase
+internal expect class DBFactory() {
+    internal fun createRoomDatabase(): AppDatabase
 }
