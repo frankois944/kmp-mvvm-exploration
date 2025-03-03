@@ -28,6 +28,7 @@ You will find inside this repo :
 - [Getting the ViewModel or any instance from Swift/Koin](#getting-the-viewmodel-or-any-instance-from-swift-and-koin)
 - Logging with [Kermit](https://kermit.touchlab.co/)
 - Usage of [DataStore](https://developer.android.com/jetpack/androidx/releases/datastore)
+- [Database With Room](#Database)
 - and more little experiences
 
 ## Requirement
@@ -137,6 +138,17 @@ UIKit is not dead, we can use the `SharedViewModel` class and the [SKIE combine 
 The goal of this playground is to align the behavior between the Android ViewModel and the SwiftUI ViewModel. It's not that simple, as the ViewModel model must be the same, but the lifecycle of the Viewholder is different.
 
 Look at the logs I added to verify the lifecycle, it should be exactly the same on each approach.
+
+## Database
+
+A database is provided as [example](https://github.com/frankois944/kmp-mvvm-exploration/tree/main/Database)
+
+This is also valid for [SQLDelight](https://sqldelight.github.io/sqldelight).
+
+> [!IMPORTANT]  
+> When implementing a Database with KMP, it important to don't let the generated code exported to iOS
+>
+> More your database schema is big more the build time is longer.
 
 ## Getting the ViewModel or any instance from Swift and Koin
 >[!TIP]
