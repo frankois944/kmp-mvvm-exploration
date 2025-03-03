@@ -7,15 +7,12 @@ import fr.frankois944.kmpviewmodel.database.room.AppDatabase
 import fr.frankois944.kmpviewmodel.database.room.dbFileName
 import kotlinx.cinterop.ExperimentalForeignApi
 import kotlinx.coroutines.IO
-import org.koin.core.annotation.Factory
-import org.koin.core.annotation.Single
 import platform.Foundation.NSDocumentDirectory
 import platform.Foundation.NSFileManager
 import platform.Foundation.NSURL
 import platform.Foundation.NSUserDomainMask
 
-@Factory
-public actual class DBFactory {
+public actual class DBFactory actual constructor() {
     public actual fun createRoomDatabase(): AppDatabase {
         val dbFile = "${fileDirectory()}/$dbFileName"
         return androidx.room.Room
@@ -37,14 +34,4 @@ public actual class DBFactory {
             )
         return requireNotNull(documentDirectory).path!!
     }
-}
-
-@Single
-public actual class PlatformHelper {
-    public actual fun getName(): String = "I'm Native"
-}
-
-@Single
-public actual class PlatformHelper2 {
-    public actual fun getName(): String = "I'm Native"
 }

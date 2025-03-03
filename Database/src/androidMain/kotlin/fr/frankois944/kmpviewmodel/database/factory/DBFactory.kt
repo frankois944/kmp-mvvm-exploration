@@ -8,13 +8,12 @@ import androidx.sqlite.driver.bundled.BundledSQLiteDriver
 import fr.frankois944.kmpviewmodel.database.room.AppDatabase
 import fr.frankois944.kmpviewmodel.database.room.dbFileName
 import kotlinx.coroutines.Dispatchers
-import org.koin.core.annotation.Factory
-import org.koin.core.annotation.Single
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
-@Factory
-public actual class DBFactory(
-    private val app: Context,
-) {
+public actual class DBFactory actual constructor() : KoinComponent {
+    private val app: Context by inject()
+
     public actual fun createRoomDatabase(): AppDatabase {
         val dbFile = app.getDatabasePath(dbFileName)
         return Room
@@ -25,16 +24,4 @@ public actual class DBFactory(
             .setQueryCoroutineContext(Dispatchers.IO)
             .build()
     }
-}
-
-@Single
-public actual class PlatformHelper(
-    public val context: Context,
-) {
-    public actual fun getName(): String = "I'm Android - $context"
-}
-
-@Single
-public actual class PlatformHelper2 {
-    public actual fun getName(): String = "I'm Android - NO CONTEXT"
 }

@@ -2,7 +2,7 @@ package fr.frankois944.kmpviewmodel
 
 import co.touchlab.kermit.Logger
 import co.touchlab.kermit.koin.KermitKoinLogger
-import fr.frankois944.kmpviewmodel.database.di.DatabaseModule
+import fr.frankois944.kmpviewmodel.database.di.databaseModule
 import fr.frankois944.kmpviewmodel.di.LoggerModule
 import fr.frankois944.kmpviewmodel.di.SharedModule
 import fr.frankois944.kmpviewmodel.logs.buildLoggerConfig
@@ -46,7 +46,7 @@ public fun startApp(
         modules(
             SharedModule().module,
             LoggerModule().module,
-            DatabaseModule().module,
+            databaseModule,
         )
         // load native koin declaration (Android)
         nativeAppDeclaration?.let { it() }

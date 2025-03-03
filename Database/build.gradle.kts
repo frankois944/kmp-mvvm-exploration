@@ -35,7 +35,7 @@ kotlin {
         commonMain.dependencies {
             implementation(project.dependencies.platform(libs.koin.annotation.bom))
             implementation(project.dependencies.platform(libs.koin.bom))
-            api(libs.bundles.koin.kmp)
+            implementation(libs.bundles.koin.kmp)
             api(libs.androidx.room.runtime)
             implementation(libs.kotlin.serialization)
             implementation(libs.kotlin.coroutines)
@@ -46,6 +46,8 @@ kotlin {
         }
 
         androidMain.dependencies {
+            // implementation(project.dependencies.platform(libs.koin.bom))
+            // implementation("io.insert-koin:koin-android")
         }
 
         iosMain.dependencies {
@@ -97,7 +99,7 @@ tasks.withType(KotlinCompilationTask::class.java).configureEach {
 
 ksp {
     // https://insert-koin.io/docs/reference/koin-annotations/start#compile-safety---check-your-koin-config-at-compile-time-since-130
-    arg("KOIN_CONFIG_CHECK", "true")
+    arg("KOIN_CONFIG_CHECK", "false")
 }
 
 room {
