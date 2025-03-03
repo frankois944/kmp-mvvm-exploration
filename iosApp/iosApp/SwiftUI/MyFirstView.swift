@@ -41,6 +41,12 @@ struct MyFirstView: View {
                 Button("RANDOM", action: {
                     events = .UpdateUserId(value: "42")
                 })
+                Button("ADD RANDOME FRUIT", action: {
+                    events = .AddNewFruit()
+                })
+                Button("REMOVE ALL FRUITS", action: {
+                    events = .RemoveAllFruit()
+                })
                 Text("Vos transactions")
                 List(fruits,
                      id: \.self,

@@ -24,7 +24,7 @@ class MyFirstScreenViewController: UIViewController {
 
     // MARK: - Properties
 
-    private let viewModel: SharedViewModel<MainScreenViewModel> = .init(koinGet())
+    private let viewModel: SharedViewModel<MainScreenViewModel> = .init(koinGet(parameters: ["VMWithUIKit"]))
     private let logger: KermitLogger = koinGet(parameters: ["MyFirstScreenViewController"])
     private var disposebag = Set<AnyCancellable>()
     private var jobDisposeBag = CoroutineJobDisposeBag()
@@ -80,6 +80,16 @@ class MyFirstScreenViewController: UIViewController {
     @IBAction func updateUserId() {
         logger.d(messageString: "updateUserId")
         viewModel.instance.updateUserId()
+    }
+
+    @IBAction func addAll() {
+        logger.d(messageString: "add new fruit")
+        viewModel.instance.addRandomFruitToDatabase()
+    }
+
+    @IBAction func removeAll() {
+        logger.d(messageString: "remove all fruits")
+        viewModel.instance.removeAllFruitFromDatabase()
     }
 
     @IBAction func retry() {
