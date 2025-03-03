@@ -24,11 +24,11 @@ You will find inside this repo :
 - [Custom macro](#mvvm-using-macro)
 - [Pure SwiftUI MVVM](#pure-swiftui-mvvm)
 - [UIKit](#uikit)
+- [Database With Room](#Database)
 - injection with [Koin annotation](https://insert-koin.io/)
 - [Getting the ViewModel or any instance from Swift/Koin](#getting-the-viewmodel-or-any-instance-from-swift-and-koin)
 - Logging with [Kermit](https://kermit.touchlab.co/)
 - Usage of [DataStore](https://developer.android.com/jetpack/androidx/releases/datastore)
-- [Database With Room](#Database)
 - and more little experiences
 
 ## Requirement
