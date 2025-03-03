@@ -146,9 +146,9 @@ A database is provided as [example](https://github.com/frankois944/kmp-mvvm-expl
 This is also valid for [SQLDelight](https://sqldelight.github.io/sqldelight).
 
 > [!IMPORTANT]  
-> When implementing a Database with KMP, it important to don't let the generated code exported to iOS
+> When implementing a Database with KMP, it important to don't let the generated code exported to iOS. Using a parent module is a valid solution to avoid this issue.
 >
-> More your database schema is big more the build time is longer.
+> If you let the schema exported, more your database schema is bigger more the build time is longer and the binary heavier.
 
 ## Getting the ViewModel or any instance from Swift and Koin
 >[!TIP]
