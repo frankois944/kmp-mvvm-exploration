@@ -141,7 +141,7 @@ Look at the logs I added to verify the lifecycle, it should be exactly the same 
 
 ## Database
 
-A database is provided as [example](https://github.com/frankois944/kmp-mvvm-exploration/tree/main/Database)
+A database is provided as [example](https://github.com/frankois944/kmp-mvvm-exploration/tree/main/Database), basicaly a copy/paste of the official Room KMP Sample.
 
 This is also valid for [SQLDelight](https://sqldelight.github.io/sqldelight).
 
