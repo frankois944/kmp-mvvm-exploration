@@ -31,6 +31,13 @@ You will find inside this repo :
 - Usage of [DataStore](https://developer.android.com/jetpack/androidx/releases/datastore)
 - and more little experiences
 
+> [!Tip]  
+> Use [explicitAPI](https://www.baeldung.com/kotlin/explicit-api-mode) gradle rule to control the visibility of your code.
+>
+> By default: the visibility is public, so everything is exported to iOS (more code == more build time & size).
+> 
+> Optimize your build by setting the correct visibility of your code (ex: private/internal).
+
 ## Requirement
 
 So, the most interesting thing is about the MVVM and what do we need :
