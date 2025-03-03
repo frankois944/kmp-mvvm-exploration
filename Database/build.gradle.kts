@@ -1,4 +1,3 @@
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 import kotlin.jvm.java
@@ -17,13 +16,12 @@ kotlin {
 
     androidTarget {
         // https://youtrack.jetbrains.com/issue/KT-66448
-        @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_11)
         }
     }
 
-    // iosX64(),
+    // iosX64() // uncomment if you're working on mac intel
     iosArm64()
     iosSimulatorArm64()
 
@@ -46,8 +44,6 @@ kotlin {
         }
 
         androidMain.dependencies {
-            // implementation(project.dependencies.platform(libs.koin.bom))
-            // implementation("io.insert-koin:koin-android")
         }
 
         iosMain.dependencies {
@@ -81,13 +77,13 @@ dependencies {
     add("kspAndroid", libs.koin.annotation.ksp)
     add("kspIosSimulatorArm64", project.dependencies.platform(libs.koin.annotation.bom))
     add("kspIosSimulatorArm64", libs.koin.annotation.ksp)
-//    add("kspIosX64", libs.koin.annotation.ksp)
+//    add("kspIosX64", libs.koin.annotation.ksp) // uncomment if you're working on mac intel
     add("kspIosArm64", project.dependencies.platform(libs.koin.annotation.bom))
     add("kspIosArm64", libs.koin.annotation.ksp)
     // Room
     add("kspAndroid", libs.androidx.room.compiler)
     add("kspIosSimulatorArm64", libs.androidx.room.compiler)
-//    add("kspIosX64", libs.androidx.room.compiler)
+//    add("kspIosX64", libs.androidx.room.compiler) // uncomment if you're working on mac intel
     add("kspIosArm64", libs.androidx.room.compiler)
 }
 
@@ -99,7 +95,7 @@ tasks.withType(KotlinCompilationTask::class.java).configureEach {
 
 ksp {
     // https://insert-koin.io/docs/reference/koin-annotations/start#compile-safety---check-your-koin-config-at-compile-time-since-130
-    arg("KOIN_CONFIG_CHECK", "false")
+    arg("KOIN_CONFIG_CHECK", "true")
 }
 
 room {

@@ -1,4 +1,3 @@
-import org.jetbrains.kotlin.gradle.ExperimentalKotlinGradlePluginApi
 import org.jetbrains.kotlin.gradle.dsl.JvmTarget
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompilationTask
 
@@ -18,8 +17,6 @@ kotlin {
 
     // Android
     androidTarget {
-        // https://youtrack.jetbrains.com/issue/KT-66448
-        @OptIn(ExperimentalKotlinGradlePluginApi::class)
         compilerOptions {
             jvmTarget.set(JvmTarget.JVM_11)
         }
@@ -27,7 +24,7 @@ kotlin {
 
     // iOS
     listOf(
-        // iosX64(),
+        // iosX64(), // uncomment if you're working on mac intel
         iosArm64(),
         iosSimulatorArm64(),
     ).forEach {
