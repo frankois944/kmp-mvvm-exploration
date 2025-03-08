@@ -25,10 +25,6 @@ kotlin {
     iosArm64()
     iosSimulatorArm64()
 
-    sourceSets.commonMain {
-        kotlin.srcDir("build/generated/ksp/metadata")
-    }
-
     sourceSets {
         commonMain.dependencies {
             implementation(project.dependencies.platform(libs.koin.annotation.bom))
