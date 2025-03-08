@@ -36,7 +36,7 @@ You will find inside this repo :
 >
 > By default: the visibility is public, so everything is exported to iOS (more code == more build time & size).
 > 
-> Optimize your build by setting the correct visibility of your code (ex: private/internal).
+> Optimize your build by setting the correct visibility of your code (ex: private/internal), also it **increases the xcode code completion performance.**
 
 ## Requirement
 
