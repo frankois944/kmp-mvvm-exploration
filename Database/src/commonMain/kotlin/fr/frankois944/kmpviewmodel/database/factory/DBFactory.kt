@@ -3,7 +3,15 @@
 package fr.frankois944.kmpviewmodel.database.factory
 
 import fr.frankois944.kmpviewmodel.database.room.AppDatabase
+import org.koin.core.annotation.ComponentScan
+import org.koin.core.annotation.Factory
+import org.koin.core.annotation.Module
 
-internal expect class DBFactory() {
-    internal fun createRoomDatabase(): AppDatabase
+@Module
+@ComponentScan("fr.frankois944.kmpviewmodel.database.factory")
+internal class NativeModule
+
+@Factory
+internal expect class DBFactory {
+    fun createRoomDatabase(): AppDatabase
 }
