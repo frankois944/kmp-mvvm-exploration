@@ -22,9 +22,17 @@ import org.koin.ksp.generated.module
  */
 public fun startApp(
     appConfig: AppConfig,
+    myServiceComplement: MyServiceComplement,
     nativeAppDeclaration: KoinAppDeclaration? = null,
 ): KoinApplication {
     // Initialize Koin in sync way
+
+    println("myData = " + myServiceComplement.myData)
+    println("myMethod = " + myServiceComplement.myMethod())
+    myServiceComplement.myCallBack {
+        println("myCallBack = $it")
+    }
+
     return startKoin {
         if (!appConfig.isProduction) { // on production, do not print logs
             // use Koin logger with Kermit

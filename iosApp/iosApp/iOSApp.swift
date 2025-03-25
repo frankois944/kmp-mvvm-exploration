@@ -10,6 +10,18 @@ import SwiftUI
 import KTViewModelBuilder
 import Shared
 
+class MyImplClass: MyServiceComplement {
+    func myCallBack(callback: @escaping (String) -> Void) {
+        callback("DATA - myCallBack")
+    }
+
+    func myMethod() -> String {
+        "DATA - myMethod"
+    }
+
+    var myData: String = "DATA - myData"
+}
+
 @main
 struct IOSApp: App {
 
@@ -18,11 +30,13 @@ struct IOSApp: App {
     @State var logger: KermitLogger
     @State var router = NavigationPath()
 
+    let myClass = MyImplClass()
+
     init() {
         #if DEBUG
-        let koin = AppInitKt.startApp(appConfig: .init(isDebug: true, isProduction: false))
+        let koin = AppInitKt.startApp(appConfig: .init(isDebug: true, isProduction: false), myServiceComplement: myClass)
         #else
-        let koin = AppInitKt.startApp(appConfig: .init(isDebug: false, isProduction: false))
+        let koin = AppInitKt.startApp(appConfig: .init(isDebug: false, isProduction: false), myServiceComplement: myClass)
         #endif
         AppContext.configure(koinApplication: koin)
         logger = koinGet(parameters: ["iOSApp"])
