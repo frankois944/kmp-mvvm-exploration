@@ -21,7 +21,7 @@ class AppContext: ObservableObject {
     /// Singleton to access the Native/Shared AppContext.
     ///
     /// **AppContext.configure MUST be called before accessing this property**
-    static var shared: AppContext!
+    nonisolated(unsafe) static var shared: AppContext!
 
     // MARK: Private
 
@@ -65,7 +65,7 @@ class AppContext: ObservableObject {
 
     /// Create the AppContext Singleton and initialize it
     /// - Parameter koinApplication: A Koin application scope
-    static func configure(koinApplication: KoinCoreKoinApplication) {
+    @MainActor static func configure(koinApplication: KoinCoreKoinApplication) {
         AppContext.shared = AppContext(koinApplication: koinApplication)
         AppContext.shared.setup()
     }

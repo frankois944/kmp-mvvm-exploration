@@ -56,21 +56,6 @@ extension KoinCoreKoinApplication {
     }
 }
 
-/// lazy inject of koin injection (like `by inject()` koin method)
-@propertyWrapper struct KoinInject<T: AnyObject> {
-    var qualifier: String?
-    var parameters: [Any]?
-
-    init(qualifier: String? = nil, parameters: [Any]? = nil) {
-        self.qualifier = qualifier
-        self.parameters = parameters
-    }
-
-    lazy var wrappedValue: T = {
-        return koinGet(qualifier: qualifier, parameters: parameters)
-    }()
-}
-
 /// direct inject of koin Inject (like `get()` koin method)
 func koinGet<T: AnyObject>(qualifier: String? = nil, parameters: [Any]? = nil) -> T {
     return AppContext.shared.koinApplication.get(qualifier: qualifier,

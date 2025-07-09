@@ -7,7 +7,7 @@
 //
 
 import SwiftUI
-import Shared
+@preconcurrency import Shared
 
 struct MyFirstScreenWithSkieIOS14: View {
 

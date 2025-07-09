@@ -1,7 +1,10 @@
+@file:OptIn(ExperimentalTime::class)
+
 package fr.frankois944.kmpviewmodel.viewmodels.mainscreen
 
-import kotlinx.datetime.Clock
-import kotlinx.datetime.Instant
+import kotlin.time.Clock
+import kotlin.time.ExperimentalTime
+import kotlin.time.Instant
 
 public open class ScreenUiEvent(
     timestamp: Instant = Clock.System.now(),

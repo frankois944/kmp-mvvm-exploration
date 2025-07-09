@@ -8,7 +8,7 @@
 
 import SwiftUI
 import Combine
-import Shared
+@preconcurrency import Shared
 
 @MainActor
 class FirstScreenViewModel: ObservableObject {
@@ -16,10 +16,10 @@ class FirstScreenViewModel: ObservableObject {
     private let param1: String?
     private let logger: KermitLogger = koinGet(parameters: ["FirstScreenViewModel"])
     private var disposebag = Set<AnyCancellable>()
-    @KoinInject<Shared.IAccountService> private var accountService
-    @KoinInject<Shared.IProfileService> private var profilService
-    @KoinInject<Shared.IEventBus> private var eventBus
-    @KoinInject<Shared.AppContext> private var appContext
+    private lazy var accountService: Shared.IAccountService = koinGet()
+    private lazy var profilService: Shared.IProfileService  = koinGet()
+    private lazy var eventBus: Shared.IEventBus = koinGet()
+    private lazy var appContext: Shared.AppContext = koinGet()
 
     @Published var mainScreenUIState: MainScreenUIState = .Loading()
     @Published var userId: String?

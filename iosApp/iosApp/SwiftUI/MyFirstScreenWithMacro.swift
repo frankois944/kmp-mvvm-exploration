@@ -8,7 +8,7 @@
 
 import SwiftUI
 import KTViewModelBuilder
-import Shared
+@preconcurrency import Shared
 
 @ktViewModelBinding(ofType: MainScreenViewModel.self,
                     publishing:

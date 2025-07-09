@@ -9,11 +9,13 @@ import fr.frankois944.kmpviewmodel.database.room.AppDatabase
 import fr.frankois944.kmpviewmodel.database.room.dbFileName
 import kotlinx.coroutines.Dispatchers
 import org.koin.core.annotation.Factory
+import org.koin.core.component.KoinComponent
+import org.koin.core.component.inject
 
 @Factory
-internal actual class DBFactory(
-    private val app: Context,
-) {
+internal actual class DBFactory : KoinComponent {
+    private val app: Context by inject()
+
     actual fun createRoomDatabase(): AppDatabase {
         val dbFile = app.getDatabasePath(dbFileName)
         return Room

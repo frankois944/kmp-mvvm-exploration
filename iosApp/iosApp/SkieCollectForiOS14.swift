@@ -15,20 +15,23 @@ import Shared
 // This way, it sounds like Rx or `Combine` programming
 extension SwiftUI.View {
 
-    public func collect<Flow: SkieSwiftFlowProtocol>(flow: Flow,
-                                                     into binding: SwiftUI.Binding<Flow.Element>,
-                                                     disposedBy: Binding<Set<Task<(), Never>>>) -> some SwiftUI.View {
+    public func collect<Flow: SkieSwiftFlowProtocol>(
+        flow: Flow,
+        into binding: SwiftUI.Binding<Flow.Element>,
+        disposedBy: Binding<Set<Task<(), Never>>>
+    ) -> some SwiftUI.View where Flow.Element: Sendable {
         collect(flow: flow, disposedBy: disposedBy) { newValue in
             binding.wrappedValue = newValue
         }
     }
 
-    public func collect<Flow: SkieSwiftFlowProtocol, U>(
+    @MainActor
+    public func collect<Flow: SkieSwiftFlowProtocol, U: Sendable>(
         flow: Flow,
         into binding: SwiftUI.Binding<U>,
         disposedBy: Binding<Set<Task<(), Never>>>,
-        transform: @escaping (Flow.Element) async -> U?
-    ) -> some SwiftUI.View {
+        transform: @escaping @MainActor (Flow.Element) async -> U?
+    ) -> some SwiftUI.View where Flow.Element: Sendable {
         collect(flow: flow, disposedBy: disposedBy) { newValue in
             if let newTransformedValue = await transform(newValue) {
                 binding.wrappedValue = newTransformedValue
@@ -36,9 +39,12 @@ extension SwiftUI.View {
         }
     }
 
-    func collect<Flow: SkieSwiftFlowProtocol>(flow: Flow,
-                                              disposedBy: Binding<Set<Task<(), Never>>>,
-                                              perform: @escaping (Flow.Element) async -> Swift.Void) -> some SwiftUI.View {
+    @MainActor
+    func collect<Flow: SkieSwiftFlowProtocol>(
+        flow: Flow,
+        disposedBy: Binding<Set<Task<(), Never>>>,
+        perform: @escaping @MainActor (Flow.Element
+        ) async -> Swift.Void) -> some SwiftUI.View where Flow.Element: Sendable {
         onAppear {
             disposedBy.wrappedValue.insert(Task {
                 do {

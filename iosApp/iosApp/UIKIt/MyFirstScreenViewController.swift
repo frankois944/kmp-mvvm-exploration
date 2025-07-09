@@ -8,7 +8,7 @@
 
 import UIKit
 import Combine
-import Shared
+@preconcurrency import Shared
 
 class MyFirstScreenViewController: UIViewController {
 

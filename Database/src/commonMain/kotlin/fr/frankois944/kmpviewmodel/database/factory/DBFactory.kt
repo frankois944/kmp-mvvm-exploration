@@ -6,6 +6,6 @@ import fr.frankois944.kmpviewmodel.database.room.AppDatabase
 import org.koin.core.annotation.Factory
 
 @Factory
-internal expect class DBFactory {
+internal expect class DBFactory() {
     fun createRoomDatabase(): AppDatabase
 }
