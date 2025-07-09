@@ -7,25 +7,9 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		072357B32DAA5F7400370AD3 /* KoinHelper.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = 072357B22DAA5F7400370AD3 /* KoinHelper.xcframework */; };
-		072357B42DAA5F7400370AD3 /* KoinHelper.xcframework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 072357B22DAA5F7400370AD3 /* KoinHelper.xcframework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		0726DD392D003799001C6F55 /* KTViewModelBuilder in Frameworks */ = {isa = PBXBuildFile; productRef = 0726DD382D003799001C6F55 /* KTViewModelBuilder */; };
 		0726DD652D004708001C6F55 /* KTViewModelBuilder in Frameworks */ = {isa = PBXBuildFile; productRef = 0726DD642D004708001C6F55 /* KTViewModelBuilder */; };
 /* End PBXBuildFile section */
-
-/* Begin PBXCopyFilesBuildPhase section */
-		7555FFB4242A642300829871 /* Embed Frameworks */ = {
-			isa = PBXCopyFilesBuildPhase;
-			buildActionMask = 2147483647;
-			dstPath = "";
-			dstSubfolderSpec = 10;
-			files = (
-				072357B42DAA5F7400370AD3 /* KoinHelper.xcframework in Embed Frameworks */,
-			);
-			name = "Embed Frameworks";
-			runOnlyForDeploymentPostprocessing = 0;
-		};
-/* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
 		072357B22DAA5F7400370AD3 /* KoinHelper.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = KoinHelper.xcframework; path = ../../../AndroidStudioProjects/KoinHelperPOC/KoinHelper/build/XCFrameworks/debug/KoinHelper.xcframework; sourceTree = "<group>"; };
@@ -54,7 +38,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				0726DD652D004708001C6F55 /* KTViewModelBuilder in Frameworks */,
-				072357B32DAA5F7400370AD3 /* KoinHelper.xcframework in Frameworks */,
 				0726DD392D003799001C6F55 /* KTViewModelBuilder in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -109,7 +92,6 @@
 				11068CBC2C35496500DA7201 /* Linting */,
 				7555FF78242A565900829871 /* Frameworks */,
 				7555FF79242A565900829871 /* Resources */,
-				7555FFB4242A642300829871 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
