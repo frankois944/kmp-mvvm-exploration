@@ -37,8 +37,8 @@ kotlin {
         }
     }
 
-    sourceSets.commonMain {
-        kotlin.srcDir("build/generated/ksp/metadata")
+    sourceSets.named("commonMain").configure {
+        kotlin.srcDir("build/generated/ksp/metadata/commonMain/kotlin")
     }
 
     sourceSets {
@@ -93,12 +93,16 @@ android {
 dependencies {
     add("kspCommonMainMetadata", project.dependencies.platform(libs.koin.annotation.bom))
     add("kspCommonMainMetadata", libs.koin.annotation.ksp)
+    add("kspAndroid", project.dependencies.platform(libs.koin.annotation.bom))
+    add("kspAndroid", libs.koin.annotation.ksp)
+    add("kspIosArm64", project.dependencies.platform(libs.koin.annotation.bom))
+    add("kspIosArm64", libs.koin.annotation.ksp)
+    add("kspIosSimulatorArm64", project.dependencies.platform(libs.koin.annotation.bom))
+    add("kspIosSimulatorArm64", libs.koin.annotation.ksp)
 }
 
-tasks.withType(KotlinCompilationTask::class.java).configureEach {
-    if (name != "kspCommonMainKotlinMetadata") {
-        dependsOn("kspCommonMainKotlinMetadata")
-    }
+tasks.matching { it.name.startsWith("ksp") && it.name != "kspCommonMainKotlinMetadata" }.configureEach {
+    dependsOn("kspCommonMainKotlinMetadata")
 }
 
 ksp {

@@ -1,29 +1,29 @@
 [versions]
 minSdk = "24"
-targetSdk = "35"
-compileSdk = "35"
+targetSdk = "36"
+compileSdk = "36"
 googleplay = "4.4.1"
-agp = "8.8.2"
-kotlin = "2.2.0"
-ksp = "2.2.0-2.0.2" # https://github.com/google/ksp/releases
+agp = "8.12.3"
+kotlin = "2.2.10"
+ksp = "2.2.20-2.0.3" # https://github.com/google/ksp/releases
 kotlin-coroutines = "1.10.2" # https://github.com/Kotlin/kotlinx.coroutines/releases
-koin = "4.1.0" # https://github.com/InsertKoinIO/koin/releases
-koin-annotation = "2.1.0" # https://github.com/InsertKoinIO/koin-annotations/releases
-android-compose-bom = "2025.06.00" # https://developer.android.com/develop/ui/compose/bom/bom-mapping
-android-activity-compose = "1.10.1" # https://developer.android.com/jetpack/androidx/releases/activity
-androidx-lifecycle = "2.9.1" # https://developer.android.com/jetpack/androidx/releases/lifecycle
-android-navigation-compose = "2.9.1" # https://developer.android.com/jetpack/androidx/releases/navigation
-skie = "0.10.4" # https://github.com/touchlab/SKIE/releases
+koin = "4.1.1" # https://github.com/InsertKoinIO/koin/releases
+koin-annotation = "2.2.0-RC4" # https://github.com/InsertKoinIO/koin-annotations/releases
+android-compose-bom = "2025.09.00" # https://developer.android.com/develop/ui/compose/bom/bom-mapping
+android-activity-compose = "1.11.0" # https://developer.android.com/jetpack/androidx/releases/activity
+androidx-lifecycle = "2.9.4" # https://developer.android.com/jetpack/androidx/releases/lifecycle
+android-navigation-compose = "2.9.4" # https://developer.android.com/jetpack/androidx/releases/navigation
+skie = "0.10.6" # https://github.com/touchlab/SKIE/releases
 kotlin-serialization = "1.9.0" # https://github.com/Kotlin/kotlinx.serialization/releases
 kotlin-dateTime = "0.7.1" # https://github.com/Kotlin/kotlinx-datetime/releases
-kover = "0.9.1" # https://github.com/Kotlin/kotlinx-kover/releases
+kover = "0.9.2" # https://github.com/Kotlin/kotlinx-kover/releases
 datastorePreferencesCore = "1.1.7" # https://developer.android.com/jetpack/androidx/releases/datastore
 collection = "1.5.0" # https://developer.android.com/jetpack/androidx/releases/collection
-kermit = "2.0.6" # https://github.com/touchlab/Kermit/releases
-okio = "3.15.0" # https://square.github.io/okio/changelog/
+kermit = "2.0.8" # https://github.com/touchlab/Kermit/releases
+okio = "3.16.0" # https://square.github.io/okio/changelog/
 turbine = "1.2.1" # https://github.com/cashapp/turbine/releases
-androidx-room = "2.7.2"
-sqlite = "2.5.2"
+androidx-room = "2.8.0"
+sqlite = "2.6.0"
 
 [libraries]
 # Kotlin

@@ -4,6 +4,7 @@ import co.touchlab.kermit.Logger
 import co.touchlab.kermit.LoggerConfig
 import fr.frankois944.kmpviewmodel.logs.buildLoggerConfig
 import fr.frankois944.kmpviewmodel.platform.IPlatform
+import org.koin.core.annotation.Configuration
 import org.koin.core.annotation.Factory
 import org.koin.core.annotation.InjectedParam
 import org.koin.core.annotation.Module
@@ -13,6 +14,7 @@ import org.koin.core.annotation.Single
  * Koin Module for Logger
  */
 @Module
+@Configuration
 internal class LoggerModule {
     // The Kermit Config need to be created once
     @Single
