@@ -173,7 +173,7 @@ To use Koin ViewModels in a shared module without Compose, add this helper:
 // Equivalent of 'get()' koin's methos
 let accountService: AccountService = koinGet()
 
-// Equivalement of 'by inject()' koin method
+// Equivalent of 'by inject()' koin method
 lazy var accountService: AccountService = koinGet() 
 
 // With parameters
