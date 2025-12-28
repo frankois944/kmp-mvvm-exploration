@@ -170,10 +170,13 @@ To use Koin ViewModels in a shared module without Compose, add this helper:
 
 #### Usage in Swift:
 ```swift
-// Property Wrapper
-@KoinInject private var accountService: AccountService
+// Equivalent of 'get()' koin's methos
+let accountService: AccountService = koinGet()
 
-// Direct Retrieval
+// Equivalement of 'by inject()' koin method
+lazy var accountService: AccountService = koinGet() 
+
+// With parameters
 let logger: KermitLogger = koinGet(parameters: ["MainScreen"])
 
 // ViewModel with parameters
