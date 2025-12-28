@@ -163,6 +163,7 @@ To use Koin ViewModels in a shared module without Compose, add this helper:
 1. **Export Koin Helpers:** [AppInit.ios.kt](Shared/src/iosMain/kotlin/fr/frankois944/kmpviewmodel/AppInit.ios.kt)
 2. **Setup Swift Context:** 
    ```swift
+   // Store somewhere inside a singleton/static your Kotlin's KoinApplication instance for later usage
    AppContext.shared.koinApplication = koinApp // Your initialized Koin application
    ```
 3. **Use Swift Helpers:** [KoinHelper.swift](iosApp/iosApp/KoinHelper.swift)
